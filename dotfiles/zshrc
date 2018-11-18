@@ -1,3 +1,5 @@
+#!/bin/zsh
+# Much of the magic from https://github.com/jessfraz/dotfiles
 
 export WORKON_HOME=$HOME/.virtualenvs
 export CLICOLOR=1

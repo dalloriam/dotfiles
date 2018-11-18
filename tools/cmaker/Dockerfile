@@ -1,5 +1,7 @@
 FROM debian:buster
 
+LABEL maintainer="William Dussault <dalloriam@gmail.com>"
+
 RUN apt-get update \
     && apt-get install -y \
         make \

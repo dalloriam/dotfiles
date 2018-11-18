@@ -1,5 +1,5 @@
 #!/bin/bash
-# Inspired by https://github.com/jessfraz/dotfiles
+# Much of the magic from https://github.com/jessfraz/dotfiles
 
 del_stopped(){
     local name=$1

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Much of the magic from https://github.com/jessfraz/dotfiles
 
 repo() {
 	# Figure out github repo base URL
