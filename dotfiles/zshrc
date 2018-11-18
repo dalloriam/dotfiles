@@ -1,0 +1,40 @@
+
+export WORKON_HOME=$HOME/.virtualenvs
+export CLICOLOR=1
+export ZSH=$HOME/.oh-my-zsh
+
+if [ "$(uname)" = "Darwin" ]; then
+    # Do something under Mac OS X platform        
+    source /usr/local/bin/virtualenvwrapper.sh
+	if [[ -r "~/.osx" ]] && [[ -f "~/.osx" ]]; then
+		# shellcheck source=/dev/null
+		 source ~/.osx
+	fi
+else
+    # Do something under GNU/Linux platform
+    source $HOME/.local/bin/virtualenvwrapper.sh
+	if [[ -r "~/.linux" ]] && [[ -f "~/.linux" ]]; then
+		# shellcheck source=/dev/null
+		 source ~/.linux
+	fi
+fi
+
+ZSH_THEME="robbyrussell"
+
+plugins=(
+    docker
+    mercurial
+)
+source $ZSH/oh-my-zsh.sh
+
+
+for file in ~/.{prompt,aliases,functions,path,dockerfunc,extra,exports}; do
+	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
+		# shellcheck source=/dev/null
+		 source "$file"
+	fi
+done
+unset file
+
+# TODO: Investigate binding to cd
+eval "$(jump shell)"

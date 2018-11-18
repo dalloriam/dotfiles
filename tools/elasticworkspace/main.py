@@ -13,6 +13,7 @@ logging.basicConfig()
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
+
 def load_data(path: str):
 	with open(path, 'r') as infile:
 		return json.load(infile)
@@ -85,7 +86,6 @@ class ElasticsearchWorkspace:
 	def teardown(self) -> None:
 		log.info(f'Tearing down [{self.index_name}]...')
 		self._es.indices.delete(self.index_name)
-		
 
 
 class Main:
@@ -96,7 +96,6 @@ class Main:
 		doc_type='test-document',
 		es_host='localhost',
 		es_port=9200):
-
 
 		while True:
 			with ElasticsearchWorkspace(es_host, es_port, index_name, doc_type, data_dir):

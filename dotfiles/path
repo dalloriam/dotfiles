@@ -1,0 +1,12 @@
+#!/bin/bash
+
+export GOPATH=$HOME
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/src
+
+PATH=~/.local/bin:$PATH  # Fix for pip on ubuntu, prioritizes local modules.
+PATH=$PATH:~/bin  # Add user binaries.
+
+if hash yarn 2>/dev/null; then
+    PATH="$(yarn global bin):$PATH"  # Source yarn global path if yarn is installed.
+fi

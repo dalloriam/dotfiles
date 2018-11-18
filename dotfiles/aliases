@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Check for various OS openers. Quit as soon as we find one that works.
+for opener in browser-exec xdg-open cmd.exe cygstart "start" open; do
+	if command -v $opener >/dev/null 2>&1; then
+		if [[ "$opener" == "cmd.exe" ]]; then
+			# shellcheck disable=SC2139
+			alias open="$opener /c start";
+		else
+			# shellcheck disable=SC2139
+			alias open="$opener";
+		fi
+		break;
+	fi
+done
+
+# GIT STUFF
+alias gst='git status'
+alias ga='git add'
+alias gc='git commit -m'
+
+# NAVIGATION ALIASES
+alias ls='ls --color -GF'
+alias sl='ls -GF'
+alias l='ls -GF'
+alias s='ls -GF'
+alias clera='clear'
+alias celar='clear'
+alias vim='nvim'
+
+# Always enable colored `grep` output
+alias grep='grep --color=auto '

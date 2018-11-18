@@ -1,2 +1,3 @@
-dalloriam
+dalloriam>=0.4.0
 fire
+tqdm

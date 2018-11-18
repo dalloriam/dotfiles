@@ -1,0 +1,148 @@
+#!/bin/bash
+# Inspired by https://github.com/jessfraz/dotfiles
+
+del_stopped(){
+    local name=$1
+    local state
+    state=$(docker inspect --format "{{.State.Running}}" "$name" 2>/dev/null)
+
+    if [[ "$state" == "false" ]]; then
+        docker rm "$name"
+    fi
+}
+
+relies_on(){
+    for container in "$@"; do
+        local state
+        state=$(docker inspect --format "{{.State.Running}}" "$container" 2>/dev/null)
+
+        if [[ "$state" == "false" ]] || [[ "$state" == "" ]]; then
+            echo "$container is not running, starting it for you."
+            $container
+            sleep 2
+        fi
+    done
+}
+
+elasticsearch() {
+    del_stopped elasticsearch
+
+    docker run --rm -d \
+        --name elasticsearch \
+        -p 9200:9200 \
+        -p 9300:9300 \
+        -e "discovery.type=single-node" \
+        docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+}
+
+ubuntu() {
+    docker run --rm -it \
+        --name ubuntu \
+        ubuntu
+}
+
+reddit() {
+    docker run \
+    -v $HOME/.config/rtv:/root/.config/rtv \
+    -v $HOME/.local/share/rtv:/root/.local/share/rtv \
+    --rm -it \
+    dalloriam/rtv
+}
+
+redis() {
+    docker run --rm -d \
+    -p 6379:6379 \
+    --name redis \
+    redis
+}
+
+postgres() {
+    del_stopped postgres
+
+    docker run -d --rm \
+        --name postgres \
+        -p 5432:5432 \
+        -v /data/postgres/pg_data:/var/lib/postgresql/data \
+        -v /data/postgres/pg_socket:/var/run/postgresql \
+        mdillon/postgis:latest
+}
+
+psql() {
+    relies_on postgres
+
+    docker run --rm \
+        --name psql \
+        -it \
+        --volumes-from postgres \
+        -u postgres \
+        postgres:latest \
+        psql
+}
+
+nginx() {
+    del_stopped nginx
+
+    docker run -d \
+        --rm \
+        -v "${HOME}/.nginx:/etc/nginx" \
+        --net host \
+        --name nginx \
+        nginx
+
+    # add domain to hosts & open nginx
+    sudo hostess add dalloriam 127.0.0.1
+}
+
+latex() {
+    docker run \
+    --rm -i \
+    --user="$(id -u):$(id -g)" \
+    --net=none \
+    -v $(dirname $(realpath $1)):/data \
+    blang/latex:ubuntu \
+    pdflatex -synctex=1 -interaction=nonstopmode /data/$(basename $1)
+}
+
+imagemagick() {
+    docker run -v ${PWD}:/images --rm -it v4tech/imagemagick $@
+}
+
+cmaker() {
+    docker  run \
+    --rm -it \
+    -v $PWD:/src \
+    dalloriam/cmaker \
+    $@
+}
+
+ocaml() {
+    docker run \
+    --rm -it \
+    -v $PWD:/src \
+    dalloriam/ocaml \
+    $@
+}
+
+rabbitmq() {
+    rmq_container_id=$(docker run \
+        --name rabbitmq \
+        --rm -d \
+        -p 4369:4369 \
+        -p 5672:5672 \
+        -p 15672:15672 \
+        -p 25672:25672 \
+        rabbitmq)
+    sleep 7
+    docker exec $rmq_container_id rabbitmq-plugins enable rabbitmq_management
+    echo "RabbitMQ running: ${rmq_container_id}"
+}
+
+elastic_hot() {
+    relies_on elasticsearch
+
+    docker run \
+    --rm -it \
+    --network host \
+    dalloriam/elasticworkspace \
+    $@
+}
