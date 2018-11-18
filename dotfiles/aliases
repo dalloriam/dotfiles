@@ -20,7 +20,12 @@ alias ga='git add'
 alias gc='git commit -m'
 
 # NAVIGATION ALIASES
-alias ls='ls --color -GF'
+if [ "$(uname)" = "Darwin" ]; then
+    alias ls='ls -GF'
+else
+    alias ls='ls --color -GF'
+fi
+
 alias sl='ls -GF'
 alias l='ls -GF'
 alias s='ls -GF'

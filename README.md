@@ -1,17 +1,11 @@
-# Tooling
-Miscellaneous tools &amp; images to make my life easier
+# Dotfiles
+Miscellaneous tools &amp; images to make my life easier. 
 
 ## Setting Up
 ```shell
-# Clone the repository.
-$ git clone git@github.com:dalloriam/tooling.git
-$ cd tooling
-
-# Install the dependencies.
-$ pip install -r requirements.txt
-
-# Build & push all the images to dockerhub.
-$ python build all --prefix={YOUR_DOCKER_USERNAME}
+[~] > git clone git@github.com:dalloriam/dotfiles.git .dotfiles
+[~] > cd .dotfiles
+[~/.dotfiles] make all
 ```
 
 ## Requirements
