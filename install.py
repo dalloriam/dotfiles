@@ -95,7 +95,7 @@ class ToolingSetup:
         print()
 
     @staticmethod
-    def tools(prefix: str = 'dalloriam', tool_dir: str = None) -> None:
+    def tools(prefix: str = 'dalloriam', tool_dir: str = None, push: bool = False) -> None:
         print('[ Docker-based Tools Preparation ]')
         if tool_dir is None:
             tool_dir = './tools'
@@ -115,14 +115,15 @@ class ToolingSetup:
                 print(f'    * {image}:latest')
                 ToolingSetup._build_docker_image(build_path, image)
 
-                docker.Client().push(image)
+                if push:
+                    docker.Client().push(image)
 
     @staticmethod
-    def all():
+    def all(push: bool = False):
         ToolingSetup.configure()
         ToolingSetup.dotfiles()
         ToolingSetup.scripts()
-        ToolingSetup.tools()
+        ToolingSetup.tools(push=push)
 
 
 if __name__ == '__main__':
