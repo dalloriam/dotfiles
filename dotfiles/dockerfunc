@@ -138,6 +138,7 @@ rabbitmq() {
 }
 
 elastic_hot() {
+    # TODO: Mount working directory so we can actually use the config files.
     relies_on elasticsearch
 
     docker run \
