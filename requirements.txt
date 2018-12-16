@@ -1,4 +1,4 @@
-dalloriam>=0.4.2
+dalloriam>=0.4.4
 fire
 sh
 tqdm

@@ -4,17 +4,12 @@
 from dalloriam.datahose.client import DatahoseClient
 from time import sleep
 
-import json
-import os
 import subprocess
 import tqdm
 
-# TODO: Remove once DataHoseClient supports default config paths.
-DATAHOSE_CONFIG_DIR = os.path.expanduser('~/.config/dalloriam/datahose.json')
-
 
 def send_message(title, message):
-    # TODO: Support OSX
+    # TODO: Support OSX notifications & move to stdlib.
     subprocess.Popen(['notify-send', title, message])
     return
 
@@ -22,13 +17,7 @@ def send_message(title, message):
 class WorkTimer:
 
     def __init__(self):
-        self._client = self._make_client()
-    
-    def _make_client(self):
-        with open(DATAHOSE_CONFIG_DIR) as infile:
-            data = json.load(infile)
-        
-        return DatahoseClient(data['service_host'], data['password'])
+        self._client = DatahoseClient()
 
     def run(self, title: str, minutes: int) -> None:
         send_message("Work Timer", title)

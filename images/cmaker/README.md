@@ -1,5 +1,5 @@
 # CMaker
-CMaker is a small docker base image to build C and C++ applications without installing the build tools on your
+CMaker is a small docker base image to build C and C++ applications without installing the build images on your
 computer.
 
 ## Usage

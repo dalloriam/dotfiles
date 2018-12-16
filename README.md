@@ -1,5 +1,5 @@
 # Dotfiles
-Miscellaneous tools &amp; images to make my life easier. 
+Miscellaneous images &amp; images to make my life easier. 
 
 ## Setting Up
 ```shell

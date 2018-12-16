@@ -95,10 +95,10 @@ class ToolingSetup:
         print()
 
     @staticmethod
-    def tools(prefix: str = 'dalloriam', tool_dir: str = None, push: bool = False) -> None:
-        print('[ Docker-based Tools Preparation ]')
+    def images(prefix: str = 'dalloriam', tool_dir: str = None, push: bool = False) -> None:
+        print('[ Docker Images Preparation ]')
         if tool_dir is None:
-            tool_dir = './tools'
+            tool_dir = './images'
 
         tool_dir = os.path.abspath(tool_dir)
 
@@ -119,11 +119,28 @@ class ToolingSetup:
                     docker.Client().push(image)
 
     @staticmethod
+    def installers() -> None:
+        print('[ Running Installers ]')
+        installer_abs = os.path.abspath('installers')
+
+        for f in os.listdir(installer_abs):
+            script_full_path = os.path.join(installer_abs, f)
+
+            if '_' in f:
+                if f.split('_')[0] != sys.platform:
+                    print(f'    x Skipping {script_full_path} - wrong platform.')
+                    continue
+                f = f.split('_')[-1]
+
+            print(f'    * Installing {script_full_path}')
+
+    @staticmethod
     def all(push: bool = False):
         ToolingSetup.configure()
         ToolingSetup.dotfiles()
         ToolingSetup.scripts()
-        ToolingSetup.tools(push=push)
+        ToolingSetup.images(push=push)
+        ToolingSetup.installers()
 
 
 if __name__ == '__main__':

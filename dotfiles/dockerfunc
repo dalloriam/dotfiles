@@ -124,6 +124,7 @@ ocaml() {
 }
 
 rabbitmq() {
+    del_stopped rabbitmq
     rmq_container_id=$(docker run \
         --name rabbitmq \
         --rm -d \

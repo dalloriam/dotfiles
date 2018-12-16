@@ -68,6 +68,8 @@ realpath() {
 }
 
 docker_killall() {
-    docker stop $(docker ps -aq)
-    docker rm $(docker ps -aq)
+    x=$(docker ps -aq)
+    docker stop $x >/dev/null
+    docker rm $x >/dev/null
+    yes | docker image prune >/dev/null
 }
