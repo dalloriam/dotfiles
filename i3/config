@@ -1,0 +1,242 @@
+set $mod Mod1
+
+# Window setup
+font pango:"Roboto" 11
+for_window [class="^.*"] border pixel 5
+
+# Initializations
+exec setxkbmap "ca(multi)"
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id dunst &
+
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+exec --no-startup-id nitrogen --restore; sleep 1; compton -b &
+
+# kill focused window
+bindsym $mod+q kill
+
+# start rofi (a program launcher)
+bindsym $mod+space exec --no-startup-id rofi -show drun &
+
+# Lockscreen stuff
+bindsym $mod+Control+l exec ~/bin/lock.sh
+
+# Volume controls
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%-
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal orientation
+bindsym $mod+g split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+Shit+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6: "
+set $ws7 "7: "
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+# ===== THEME STUFF =====
+set $i3_background      #2B2C2B
+set $i3_text            #F9FAF9
+set $i3_separator       #454947
+set $i3_color1          #f9faf9
+set $i3_color2          #595B5B
+set $i3_color3          #353836
+set $i3_color4          #16A085
+set $i3_color5          #FDF6E3
+set $i3_color6          #EEE8D5
+set $i3_color7          #E5201D
+set $i3_color8          #808380
+set $i3_color9          #434745
+set $i3_color10         #454948
+set $i3_color11         #80FFF9
+set $i3_color12         #FDF6E3
+set $i3_color13         #CB4B16
+set $i3_color14         #268BD2
+set $i3_color15         #000000
+set $i3_color16         #ffffff
+set $i3_color17         #0c0c0c
+
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color6     color6
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
+
+client.focused          $term_color8  $term_color8  $term_color11 $term_color6
+client.focused_inactive $term_color8  $term_color8  $term_color11 $term_color6
+client.unfocused        $term_color8  $term_color8  $term_color8  $term_color10
+client.urgent           $term_color13 $term_color12 $term_color4  $term_color14
+client.placeholder      $term_color15 $i3_color17 $i3_color16 $term_color15 $i3_color17
+
+client.background       $term_background
+
+bar {
+    colors {
+        background $i3_background
+        statusline $i3_text
+        focused_workspace $i3_color2 $i3_color2 $i3_text
+    }
+    status_command    python3 ~/.config/i3/bar.py
+    position top
+}
+# Set inner/outer gaps
+gaps inner 15
+gaps outer 0
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on
+
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps gaps: (o) outer, (i) inner
+set $mode_gaps_outer outer gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner inner gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+#exec_always --no-startup-id $HOME/bin/launch_polybar.sh

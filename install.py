@@ -13,6 +13,13 @@ def link(src_file: str, dst_file: str):
     os.symlink(src_file, dst_file, target_is_directory=False)
 
 
+def link_dir(src_dir: str, dst_dir: str):
+    if os.path.isdir(dst_dir) and os.path.islink(dst_dir):
+        os.remove(dst_dir)
+
+    os.symlink(src_dir, dst_dir, target_is_directory=True)
+
+
 def config_dir(dir_name: str):
     cfg_dir = os.path.expanduser('~/.config')
     if not os.path.isdir(cfg_dir):
@@ -55,6 +62,30 @@ class ToolingSetup:
         print(f'        * Image [{image}] built successfully.')
 
     @staticmethod
+    def _setup_fonts():
+        if sys.platform != 'linux':
+            return
+
+        print('[ Fonts Setup ]')
+        abs_font_dir = os.path.abspath('./fonts')
+        fonts = [f.split('.')[0].title() for f in os.listdir(abs_font_dir)]
+        for f in sorted(fonts):
+            print(f'    * Installing {f}')
+        link_dir(abs_font_dir, os.path.expanduser('~/.local/share/fonts'))
+        print()
+
+    @staticmethod
+    def _setup_i3wm():
+        if sys.platform != 'linux':
+            return
+        print('[ i3wm Setup ]')
+        abs_i3_dir = os.path.abspath('./i3')
+        dest_i3_dir = os.path.expanduser('~/.config/i3')
+        print(f'    * {abs_i3_dir} -> {dest_i3_dir}')
+        link_dir(abs_i3_dir, dest_i3_dir)
+        print()
+
+    @staticmethod
     def dotfiles() -> None:
         """
         Setup symlinks for dotfiles, taking current platform into account.
@@ -62,13 +93,15 @@ class ToolingSetup:
 
         print('[ Dotfiles Setup ]')
         dotfiles_abs = os.path.abspath('dotfiles')
-        for f in os.listdir(dotfiles_abs):
+        for f in filter(lambda x: not x.startswith('.'), os.listdir(dotfiles_abs)):
             dotfile_full_path = os.path.join(dotfiles_abs, f)
             dest_path = os.path.expanduser(f'~/.{f}')
             print(f'    * {dotfile_full_path} -> {dest_path}')
             link(dotfile_full_path, dest_path)
-
         print()
+
+        ToolingSetup._setup_fonts()
+        ToolingSetup._setup_i3wm()
 
     @staticmethod
     def scripts() -> None:
