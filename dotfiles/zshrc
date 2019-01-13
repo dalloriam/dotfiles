@@ -1,24 +1,16 @@
 #!/bin/zsh
 # Much of the magic from https://github.com/jessfraz/dotfiles
 
+# -----------------
+# Environment setup
+# -----------------
 export WORKON_HOME=$HOME/.virtualenvs
 export CLICOLOR=1
 export ZSH=$HOME/.oh-my-zsh
 
-if [ "$(uname)" = "Darwin" ]; then
-    # Do something under Mac OS X platform
-    source /usr/local/bin/virtualenvwrapper.sh
-	if [[ -f "$HOME/.osx" ]]; then
-		source ~/.osx
-	fi
-else
-    # Do something under GNU/Linux platform
-    source $HOME/.local/bin/virtualenvwrapper.sh
-	if [[ -f "$HOME/.linux" ]]; then
-		source ~/.linux
-	fi
-fi
-
+# ------------------
+# Zsh Initialization
+# ------------------
 ZSH_THEME="robbyrussell"
 
 plugins=(
@@ -28,6 +20,9 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 
+# ---------------------------
+# Source all defined dotfiles
+# ---------------------------
 for file in ~/.{prompt,aliases,functions,path,dockerfunc,extra,exports}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
 		# shellcheck source=/dev/null
@@ -35,12 +30,29 @@ for file in ~/.{prompt,aliases,functions,path,dockerfunc,extra,exports}; do
 	fi
 done
 unset file
+if [ "$(uname)" = "Darwin" ]; then
+    # Do Mac-specific stuff
+    source /usr/local/bin/virtualenvwrapper.sh
+	if [[ -f "$HOME/.osx" ]]; then
+		source ~/.osx
+	fi
+else
+    # Do linux-specific stuff
+    source $HOME/.local/bin/virtualenvwrapper.sh
+	if [[ -f "$HOME/.linux" ]]; then
+		source ~/.linux
+	fi
+fi
 
-# TODO: Investigate binding to cd
-eval "$(jump shell)"
+# ----------------------------
+# Initialize some misc. stuff.
+# ----------------------------
+eval "$(jump shell)"  # Initialize GoJump
 
-# The next line updates PATH for the Google Cloud SDK.
+# Initialize Google cloud zsh completion
 if [ -f ${HOME}/.gcloud-sdk/path.zsh.inc ]; then . ${HOME}/.gcloud-sdk/path.zsh.inc; fi
-
-# The next line enables shell command completion for gcloud.
 if [ -f ${HOME}/.gcloud-sdk/completion.zsh.inc ]; then . ${HOME}/.gcloud-sdk/completion.zsh.inc; fi
+
+if hash pyenv 2>/dev/null; then
+	eval "$(pyenv init -)"  # Initialize pyenv if it is installed
+fi

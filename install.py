@@ -2,6 +2,7 @@ from dalloriam import docker
 
 import fire
 import json
+import shutil
 import sys
 import os
 
@@ -63,15 +64,24 @@ class ToolingSetup:
 
     @staticmethod
     def _setup_fonts():
-        if sys.platform != 'linux':
+        if sys.platform == 'linux':
+            font_dir = '~/.local/share/fonts'
+        elif sys.platform == 'darwin':
+            font_dir = '~/Library/Fonts'
+        else:
             return
 
         print('[ Fonts Setup ]')
         abs_font_dir = os.path.abspath('./fonts')
-        fonts = [f.split('.')[0].title() for f in os.listdir(abs_font_dir)]
-        for f in sorted(fonts):
-            print(f'    * Installing {f}')
-        link_dir(abs_font_dir, os.path.expanduser('~/.local/share/fonts'))
+        dst_dir = os.path.expanduser(font_dir)
+        
+        for f in os.listdir(abs_font_dir):
+            print(f'    * Installing {f.split(".")[0].title()}')
+            src_path = os.path.join(abs_font_dir, f)
+            dst_path = os.path.join(dst_dir, f)
+            if os.path.isdir(dst_path):
+                shutil.rmtree(dst_path)
+            shutil.copytree(src_path, dst_path)
         print()
 
     @staticmethod
