@@ -23,13 +23,6 @@ source $ZSH/oh-my-zsh.sh
 # ---------------------------
 # Source all defined dotfiles
 # ---------------------------
-for file in ~/.{prompt,aliases,functions,path,dockerfunc,extra,exports}; do
-	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
-		# shellcheck source=/dev/null
-		 source "$file"
-	fi
-done
-unset file
 if [ "$(uname)" = "Darwin" ]; then
     # Do Mac-specific stuff
     source /usr/local/bin/virtualenvwrapper.sh
@@ -43,6 +36,12 @@ else
 		source ~/.linux
 	fi
 fi
+for file in ~/.{prompt,aliases,functions,path,dockerfunc,extra,exports}; do
+	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
+		source "$file"
+	fi
+done
+unset file
 
 # ----------------------------
 # Initialize some misc. stuff.
