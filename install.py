@@ -74,10 +74,13 @@ class ToolingSetup:
         print('[ Fonts Setup ]')
         abs_font_dir = os.path.abspath('./fonts')
         dst_dir = os.path.expanduser(font_dir)
-        
+
         for f in os.listdir(abs_font_dir):
-            print(f'    * Installing {f.split(".")[0].title()}')
             src_path = os.path.join(abs_font_dir, f)
+            if not os.path.isdir(src_path) or f.startswith('.'):
+                continue
+
+            print(f'    * Installing {f.split(".")[0].title()}')
             dst_path = os.path.join(dst_dir, f)
             if os.path.isdir(dst_path):
                 shutil.rmtree(dst_path)
