@@ -1,0 +1,45 @@
+*background:                      #24292A
+*foreground:                      #ccd2be
+*fading:                          15
+*fadeColor:                       black
+*cursorColor:                     #16A085
+*pointerColorBackground:          #2B2C2B
+*pointerColorForeground:          #16A085
+
+!! black dark/light
+*color0:       #24292A
+*color8:       #3c4140
+
+!! red dark/light
+*color1:       #ff8843
+*color9:       #c48851
+
+!! green dark/light
+*color2:       #7a8d5c
+*color10:      #aec199
+
+!! yellow dark/light
+*color3:       #a69658
+*color11:      #c4b268
+
+!! blue dark/light
+*color4:       #7b90a9
+*color12:      #91aac7
+
+!! magenta dark/light
+*color5:       #aa6161
+*color13:      #e78484
+
+!! cyan dark/light
+*color6:       #698885
+*color14:      #83a5a1
+
+!! white dark/light
+*color7:       #a8b298
+*color15:      #ccd2be
+
+rofi.modi:          window,drun,run
+rofi.sidebar-mode:  true
+rofi.theme:         sidestyle.rasi
+rofi.show-icons:    false
+rofi.drun-icon-theme: Papirus-Dark

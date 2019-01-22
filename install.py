@@ -47,6 +47,7 @@ class ToolingSetup:
         with open(os.path.join(cfg_dir, 'datahose.json'), 'a') as outfile:
             json.dump({
                 'service_host': input('Enter datahose service host: '),
+                'email': input('Enter datahose account email: '),
                 'password': input('Enter datahose password: ')
             }, outfile)
 
@@ -88,15 +89,20 @@ class ToolingSetup:
         print()
 
     @staticmethod
-    def _setup_i3wm():
-        if sys.platform != 'linux':
-            return
-        print('[ i3wm Setup ]')
-        abs_i3_dir = os.path.abspath('./i3')
-        dest_i3_dir = os.path.expanduser('~/.config/i3')
-        print(f'    * {abs_i3_dir} -> {dest_i3_dir}')
-        link_dir(abs_i3_dir, dest_i3_dir)
-        print()
+    def _setup_config_files():
+        print('[~/.config/ Setup]')
+        src_dir = os.path.abspath('./config')
+        dst_config_dir = os.path.expanduser('~/.config')
+
+        for f in os.listdir(src_dir):
+            f_src = os.path.join(src_dir, f)
+            f_dst = os.path.join(dst_config_dir, f)
+
+            print(f'    * {f_src} -> {f_dst}')
+            if os.path.isdir(f_src):
+                link_dir(f_src, f_dst)
+            else:
+                link(f_src, f_dst)
 
     @staticmethod
     def dotfiles() -> None:
@@ -114,7 +120,7 @@ class ToolingSetup:
         print()
 
         ToolingSetup._setup_fonts()
-        ToolingSetup._setup_i3wm()
+        ToolingSetup._setup_config_files()
 
     @staticmethod
     def scripts() -> None:
@@ -165,28 +171,10 @@ class ToolingSetup:
                     docker.Client().push(image)
 
     @staticmethod
-    def installers() -> None:
-        print('[ Running Installers ]')
-        installer_abs = os.path.abspath('installers')
-
-        for f in os.listdir(installer_abs):
-            script_full_path = os.path.join(installer_abs, f)
-
-            if '_' in f:
-                if f.split('_')[0] != sys.platform:
-                    print(f'    x Skipping {script_full_path} - wrong platform.')
-                    continue
-                f = f.split('_')[-1]
-
-            print(f'    * Installing {script_full_path}')
-
-    @staticmethod
     def all(push: bool = False):
         ToolingSetup.configure()
         ToolingSetup.dotfiles()
         ToolingSetup.scripts()
-        ToolingSetup.images(push=push)
-        ToolingSetup.installers()
 
 
 if __name__ == '__main__':
