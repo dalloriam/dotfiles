@@ -3,7 +3,7 @@ all: dependencies installer ## Installs the bin and etc directory files and the 
 
 .PHONY: dependencies
 dependencies: ## Installs the dependencies for all the tooling.
-	pip3 install -r requirements.txt
+	pip3 install --user -r requirements.txt
 
 .PHONY: installer
 installer: ## Installs the tooling itself.
