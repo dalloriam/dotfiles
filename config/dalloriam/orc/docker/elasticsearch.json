@@ -1,0 +1,13 @@
+{
+    "name": "elasticsearch",
+    "image": "docker.elastic.co/elasticsearch/elasticsearch:6.2.4",
+    "daemon": true,
+    "temporary": true,
+    "environment": {
+        "discovery.type": "single-node"
+    },
+    "ports": {
+        "9200": 9200,
+        "9300": 9300
+    }
+}

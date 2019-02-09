@@ -89,20 +89,25 @@ class ToolingSetup:
         print()
 
     @staticmethod
-    def _setup_config_files():
+    def config():
         print('[~/.config/ Setup]')
         src_dir = os.path.abspath('./config')
         dst_config_dir = os.path.expanduser('~/.config')
 
-        for f in os.listdir(src_dir):
-            f_src = os.path.join(src_dir, f)
-            f_dst = os.path.join(dst_config_dir, f)
+        for root, dirs, files in os.walk(src_dir):
+            for f in files:
+                tgt_path = os.path.join(root, f)
 
-            print(f'    * {f_src} -> {f_dst}')
-            if os.path.isdir(f_src):
-                link_dir(f_src, f_dst)
-            else:
-                link(f_src, f_dst)
+                replaced_root = root.replace(src_dir, '')
+                if replaced_root.startswith('/'):
+                    replaced_root = replaced_root[1:]
+                dst_dir = os.path.join(dst_config_dir, replaced_root)
+                if not os.path.isdir(dst_dir):
+                    os.mkdir(dst_dir)
+                dst_path = os.path.join(dst_dir, f)
+                print(f'    * {tgt_path} -> {dst_path}')
+                link(tgt_path, dst_path)
+        print()
 
     @staticmethod
     def dotfiles() -> None:
@@ -112,6 +117,7 @@ class ToolingSetup:
 
         print('[ Dotfiles Setup ]')
         dotfiles_abs = os.path.abspath('dotfiles')
+
         for f in filter(lambda x: not x.startswith('.'), os.listdir(dotfiles_abs)):
             dotfile_full_path = os.path.join(dotfiles_abs, f)
             dest_path = os.path.expanduser(f'~/.{f}')
@@ -120,7 +126,6 @@ class ToolingSetup:
         print()
 
         ToolingSetup._setup_fonts()
-        ToolingSetup._setup_config_files()
 
     @staticmethod
     def scripts() -> None:
@@ -174,6 +179,7 @@ class ToolingSetup:
     def all(push: bool = False):
         ToolingSetup.configure()
         ToolingSetup.dotfiles()
+        ToolingSetup.config()
         ToolingSetup.scripts()
 
 
