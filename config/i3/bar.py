@@ -29,16 +29,17 @@ status.register("battery",
         "FULL": "=",
     },)
 
+# TODO: Detect network interfaces
 status.register("network",
     color_up=COLOR_THING_GOOD,
     color_down=COLOR_THING_BAD,
-    interface="enp0s25",
+    interface="enx847beb581236",
     format_up="{v4cidr}",)
 
 status.register("network",
     color_up=COLOR_THING_GOOD,
     color_down=COLOR_THING_BAD,
-    interface="wlp3s0",
+    interface="wlp2s0",
     format_up="{essid} {quality:03.0f}%",)
 
 # Shows disk usage of /

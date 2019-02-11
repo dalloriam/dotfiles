@@ -12,7 +12,7 @@ exec --no-startup-id dunst &
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec gnome-terminal
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b &
 
 # kill focused window
@@ -56,9 +56,6 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+Shit+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -169,14 +166,6 @@ set_from_resource $term_color12    color12
 set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
-
-client.focused          $term_color8  $term_color8  $term_color11 $term_color6
-client.focused_inactive $term_color8  $term_color8  $term_color11 $term_color6
-client.unfocused        $term_color8  $term_color8  $term_color8  $term_color10
-client.urgent           $term_color13 $term_color12 $term_color4  $term_color14
-client.placeholder      $term_color15 $i3_color17 $i3_color16 $term_color15 $i3_color17
-
-client.background       $term_background
 
 bar {
     colors {
