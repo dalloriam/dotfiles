@@ -1,5 +1,7 @@
 from dalloriam import docker
 
+from subprocess import check_output
+
 import fire
 import json
 import shutil
@@ -150,6 +152,28 @@ class ToolingSetup:
             link(script_full_path, dest_path)
 
         print()
+    
+    @staticmethod
+    def installers() -> None:
+        print('[ Software Installation ]')
+        installer_abs_dir = os.path.abspath('installers')
+
+        for f in os.listdir(installer_abs_dir):
+            installer_path = os.path.join(installer_abs_dir, f)
+            if '_' in f:
+                if f.split('_')[0] != sys.platform:
+                    print(f'    x Skipping {installer_path} - wrong platform')
+                    continue
+            
+            print(f' * {installer_path}')
+            output = check_output([installer_path])
+            if output:
+                for out_line in output.split(b'\n'):
+                    if out_line:
+                        print(f'    - {out_line.decode()}')
+            
+            print()
+
 
     @staticmethod
     def images(prefix: str = 'dalloriam', tool_dir: str = None, push: bool = False) -> None:
@@ -181,6 +205,7 @@ class ToolingSetup:
         ToolingSetup.dotfiles()
         ToolingSetup.config()
         ToolingSetup.scripts()
+        ToolingSetup.installers()
 
 
 if __name__ == '__main__':

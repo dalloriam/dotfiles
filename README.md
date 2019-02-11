@@ -9,5 +9,6 @@ Miscellaneous images &amp; images to make my life easier.
 ```
 
 ## Requirements
-* Python 3.7+
 * Docker
+* Go
+* Python 3.7+
