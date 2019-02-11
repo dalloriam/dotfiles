@@ -60,12 +60,6 @@ class ToolingSetup:
         print()
 
     @staticmethod
-    def _build_docker_image(build_path: str, image: str, tag: str = 'latest'):
-        print(f'        * Building image [{image}].')
-        docker.Client().build(content_dir=build_path, image_name=image, tag=tag)
-        print(f'        * Image [{image}] built successfully.')
-
-    @staticmethod
     def _setup_fonts():
         if sys.platform == 'linux':
             font_dir = '~/.local/share/fonts'
@@ -174,30 +168,6 @@ class ToolingSetup:
             
             print()
 
-
-    @staticmethod
-    def images(prefix: str = 'dalloriam', tool_dir: str = None, push: bool = False) -> None:
-        print('[ Docker Images Preparation ]')
-        if tool_dir is None:
-            tool_dir = './images'
-
-        tool_dir = os.path.abspath(tool_dir)
-
-        for folder in os.listdir(tool_dir):
-            if not os.path.isdir(os.path.join(tool_dir, folder)):
-                continue
-
-            has_dockerfile = any(fname == 'Dockerfile' for fname in os.listdir(os.path.join(tool_dir, folder)))
-
-            if has_dockerfile:
-                image = f'{prefix}/{folder}'
-                build_path = os.path.join(tool_dir, folder)
-
-                print(f'    * {image}:latest')
-                ToolingSetup._build_docker_image(build_path, image)
-
-                if push:
-                    docker.Client().push(image)
 
     @staticmethod
     def all(push: bool = False):
