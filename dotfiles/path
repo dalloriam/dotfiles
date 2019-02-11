@@ -11,3 +11,8 @@ PATH=$PATH:~/bin  # Add user binaries.
 if hash yarn 2>/dev/null; then
     PATH="$(yarn global bin):$PATH"  # Source yarn global path if yarn is installed.
 fi
+
+if [ -d "$HOME/.cargo" ]; then
+	export PATH="$HOME/.cargo/bin:$PATH"
+	source $HOME/.cargo/env
+fi
