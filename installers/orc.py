@@ -37,7 +37,7 @@ def _fetch_artifact(artifact_url: str, dst_path: str) -> None:
     os.chmod(dst_path, st.st_mode | stat.S_IEXEC)
 
 def install(owner: str, repo: str) -> None:
-    print(f'Installing {owner}/{repo}...')
+    print(f'Installing/updating {owner}/{repo}...')
     try:
         url = _get_latest_releases_artifact(owner, repo)
         
@@ -54,7 +54,7 @@ def plugins() -> None:
     for plugin in PLUGINS:
         plugin_name = plugin.split('/')[-1]
         print(f'    - {plugin_name}')
-        output = subprocess.check_output(['go', 'install', plugin])
+        output = subprocess.check_output(['go', 'get', '-u', plugin])
         if output:
             print(output)
             return
