@@ -155,5 +155,5 @@ travis(){
 		-v "$(pwd):/usr/src/repo:ro" \
 		--workdir /usr/src/repo \
 		--log-driver none \
-		${DOCKER_REPO_PREFIX}/travis "$@"
+		jess/travis "$@"
 	}
