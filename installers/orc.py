@@ -14,7 +14,10 @@ import urllib.request
 
 GITHUB_RELEASES_PATTERN = "https://api.github.com/repos/{owner}/{repo}/releases/latest"
 DST_DIR = os.path.expanduser('~/bin')
-PLUGINS = ['github.com/dalloriam/orc/plugins/orc_local']
+PLUGINS = [
+    'github.com/dalloriam/orc/plugins/orc_local',
+    'github.com/dalloriam/orc/plugins/datahose'
+]
 
 # TODO: Move this "install latest release from github" to stdlib?
 
