@@ -156,4 +156,11 @@ travis(){
 		--workdir /usr/src/repo \
 		--log-driver none \
 		jess/travis "$@"
-	}
+}
+
+worktimer() {
+    docker run --rm -it \
+        --net dockernet \
+        -e HOST_OS=${OSTYPE} \
+        dalloriam/worktimer
+}
