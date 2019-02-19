@@ -160,7 +160,7 @@ travis(){
 
 worktimer() {
     docker run --rm -it \
-        --net dockernet \
+		--net host \
         -e HOST_OS=${OSTYPE} \
         dalloriam/worktimer
 }
