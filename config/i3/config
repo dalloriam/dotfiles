@@ -15,6 +15,9 @@ floating_modifier $mod
 bindsym $mod+Return exec gnome-terminal
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b &
 
+# start the policykit daemon so auth prompts work
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
 # kill focused window
 bindsym $mod+q kill
 
