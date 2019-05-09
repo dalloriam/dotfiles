@@ -20,6 +20,9 @@ alias gst='git status'
 alias ga='git add'
 alias gc='git commit -m'
 
+# MERCURIAL STUFF
+alias hst='hg status -q'
+
 # NAVIGATION ALIASES
 if [ "$(uname)" = "Darwin" ]; then
     alias ls='ls -GF'
