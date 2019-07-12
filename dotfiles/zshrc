@@ -4,7 +4,6 @@
 # -----------------
 # Environment setup
 # -----------------
-export WORKON_HOME=$HOME/.virtualenvs
 export CLICOLOR=1
 export ZSH=$HOME/.oh-my-zsh
 
@@ -36,22 +35,9 @@ else
 		source ~/.linux
 	fi
 fi
-for file in ~/.{prompt,aliases,functions,path,dockerfunc,extra,exports}; do
+for file in ~/.{prompt,aliases,functions,path,dockerfunc,extra,tools}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
 		source "$file"
 	fi
 done
 unset file
-
-# ----------------------------
-# Initialize some misc. stuff.
-# ----------------------------
-eval "$(jump shell)"  # Initialize GoJump
-
-# Initialize Google cloud zsh completion
-if [ -f ${HOME}/.gcloud-sdk/path.zsh.inc ]; then . ${HOME}/.gcloud-sdk/path.zsh.inc; fi
-if [ -f ${HOME}/.gcloud-sdk/completion.zsh.inc ]; then . ${HOME}/.gcloud-sdk/completion.zsh.inc; fi
-
-if hash pyenv 2>/dev/null; then
-	eval "$(pyenv init -)"  # Initialize pyenv if it is installed
-fi

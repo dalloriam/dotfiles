@@ -1,18 +1,29 @@
 #!/bin/bash
 
-export GOPATH=$HOME
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/src
-
-PATH=$GOPATH/bin:$GOROOT/bin:$PATH  # Add go-related stuff to path
-PATH=~/.local/bin:$PATH  # Fix for pip on ubuntu, prioritizes local modules.
+# User stuff
 PATH=$PATH:~/bin  # Add user binaries.
 
+# === PYTHON === #
+export WORKON_HOME=$HOME/.virtualenvs
+PATH=~/.local/bin:$PATH  # Fix for pip on ubuntu, prioritizes local modules.
+
+if hash pyenv 2>/dev/null; then
+	eval "$(pyenv init -)"  # Initialize pyenv if it is installed
+fi
+
+# === GO === #
+#if hash go 2>/dev/null; then
+# TODO: Fix "exists" check.
+export GOPATH=$HOME
+PATH=$GOPATH/bin:$GOROOT/bin:$PATH  # Add go-related stuff to path
+#fi
+
+# === JS === #
 if hash yarn 2>/dev/null; then
     PATH="$(yarn global bin):$PATH"  # Source yarn global path if yarn is installed.
 fi
 
-# Rust-related setup
+# === Rust === #
 if [ -d "$HOME/.cargo" ]; then
 	export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -20,3 +31,8 @@ if [ -d "$HOME/.cargo" ]; then
 		source $HOME/.cargo/env
 	fi
 fi
+
+# === GCLOUD == #
+# Initialize Google cloud zsh completion
+if [ -f ${HOME}/.gcloud-sdk/path.zsh.inc ]; then . ${HOME}/.gcloud-sdk/path.zsh.inc; fi
+if [ -f ${HOME}/.gcloud-sdk/completion.zsh.inc ]; then . ${HOME}/.gcloud-sdk/completion.zsh.inc; fi

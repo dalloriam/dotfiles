@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # Much of the magic from https://github.com/jessfraz/dotfiles
 
 # Check for various OS openers. Quit as soon as we find one that works.

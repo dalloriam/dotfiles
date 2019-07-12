@@ -1,0 +1,9 @@
+{
+    "git@github.com:dalloriam/code.git": {
+        "linux": "~/.config/Code",
+        "darwin": "~/.config/Code"
+    },
+    "something_mac_only.git": {
+        "darwin": "hello"
+    }
+}
