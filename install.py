@@ -187,6 +187,7 @@ class ToolingSetup:
         ToolingSetup.dotfiles()
         ToolingSetup.config()
         ToolingSetup.scripts()
+        #ToolingSetup.repositories()
         #ToolingSetup.installers()
 
 

@@ -1,0 +1,18 @@
+{
+    "monitors": [
+        {
+            "root_directory": "/home/wdussault/Downloads",
+            "recursive": false,
+            "check_frequency_s": 30,
+            "rules": [
+                {
+                    "name": "Remove old files",
+                    "condition": "age > 7d",
+                    "action": {
+                        "type": "delete"
+                    }
+                }
+            ]
+        }
+    ]
+}

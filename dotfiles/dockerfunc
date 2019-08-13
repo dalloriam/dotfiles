@@ -84,13 +84,14 @@ nginx() {
 
     docker run -d \
         --rm \
-        -v "${HOME}/.nginx:/etc/nginx" \
+        -v "${HOME}/.nginx:/etc/nginx/conf.d" \
         --net host \
         --name nginx \
         nginx
 
     # add domain to hosts & open nginx
-    sudo hostess add dalloriam 127.0.0.1
+    sudo hostess add git.local 127.0.0.1
+    sudo hostess add search.local 127.0.0.1
 }
 
 latex() {
@@ -171,4 +172,31 @@ docker run --rm -it \
 	-p 7777:80 \
 	-d \
 	dalloriam/swaggerui
+}
+
+sourcegraph() {
+    docker run \
+    -d --rm -it \
+    --name sourcegraph \
+    --publish 7080:7080 \
+    --publish 2633:2633 \
+    --volume ~/.sourcegraph/config:/etc/sourcegraph \
+    --volume ~/.sourcegraph/data:/var/opt/sourcegraph \
+    sourcegraph/server:3.6.0
+}
+
+devmachine() {
+    docker run \
+    -d --rm -it \
+    --name devmachine \
+    --volume ~/Projects:/home/jenkins/Projects \
+    --volume ~/src:/home/jenkins/src \
+    --volume ~/.coveo_profile:/home/jenkins/.bashrc \
+    --hostname WKS-000896.corp.coveo.com \
+    ubuntu-16.04-developer-msbuild:src.0df4f32
+}
+
+devsh() {
+    relies_on devmachine
+    docker exec -it --user jenkins -w "/home/jenkins" devmachine /bin/bash
 }

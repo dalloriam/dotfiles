@@ -3,7 +3,7 @@
 # Tool configuration & initialization.
 
 # Go Jump
-eval "$(jump shell)"
+eval "$(jump shell zsh)"
 
 # Exports for configuration.
 export PURPOSED_OWNER=dalloriam  # For purposed-branded tooling.

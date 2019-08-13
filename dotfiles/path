@@ -14,8 +14,8 @@ fi
 # === GO === #
 #if hash go 2>/dev/null; then
 # TODO: Fix "exists" check.
-export GOPATH=$HOME
-PATH=$GOPATH/bin:$GOROOT/bin:$PATH  # Add go-related stuff to path
+export GO111MODULE=on
+PATH=$GOROOT/bin:$PATH  # Add go-related stuff to path
 #fi
 
 # === JS === #
