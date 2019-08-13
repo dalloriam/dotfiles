@@ -1,7 +1,7 @@
 {
     "monitors": [
         {
-            "root_directory": "/home/wdussault/Downloads",
+            "root_directory": "~/Downloads",
             "recursive": false,
             "check_frequency_s": 30,
             "rules": [
