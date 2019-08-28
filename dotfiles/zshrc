@@ -1,10 +1,11 @@
 #!/bin/zsh
 # Much of the magic from https://github.com/jessfraz/dotfiles
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
 
 # -----------------
 # Environment setup
 # -----------------
-export WORKON_HOME=$HOME/.virtualenvs
 export CLICOLOR=1
 export ZSH=$HOME/.oh-my-zsh
 
@@ -36,7 +37,7 @@ else
 		source ~/.linux
 	fi
 fi
-for file in ~/.{prompt,aliases,functions,path,dockerfunc,extra,exports}; do
+for file in ~/.{prompt,aliases,functions,path,dockerfunc,extra,tools}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
 		source "$file"
 	fi

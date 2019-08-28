@@ -30,7 +30,7 @@ def _get_latest_releases_artifact(owner: str, repo: str) -> List[str]:
     for asset in data['assets']:
         if asset['name'] == expected_filename:
             return asset['browser_download_url']
-    
+
     raise ValueError(f"No such artifact: {expected_filename}")
 
 
@@ -43,7 +43,7 @@ def install(owner: str, repo: str) -> None:
     print(f'Installing/updating {owner}/{repo}...')
     try:
         url = _get_latest_releases_artifact(owner, repo)
-        
+
         dst_path = os.path.join(DST_DIR, repo)
         _fetch_artifact(url, dst_path)
 

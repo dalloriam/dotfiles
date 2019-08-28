@@ -1,0 +1,14 @@
+#!/bin/bash
+
+SWP_FILE=/swapfile
+SWP_SIZE=16384
+
+echo "Turning off current swap, if need be"
+sudo swapoff -a
+
+echo "Writing file in ${SWP_FILE} -- Size: ${SWP_SIZE}Mb"
+sudo dd if=/dev/zero of=$SWP_FILE bs=1M count=$SWP_SIZE
+
+echo "Toggling on swap"
+sudo mkswap /swapfile
+sudo swapon /swapfile
