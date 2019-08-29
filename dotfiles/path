@@ -15,6 +15,7 @@ fi
 #if hash go 2>/dev/null; then
 # TODO: Fix "exists" check.
 export GO111MODULE=on
+export GOPATH=~
 PATH=$GOROOT/bin:$PATH  # Add go-related stuff to path
 #fi
 
