@@ -184,7 +184,7 @@ class ToolingSetup:
     @staticmethod
     def all(push: bool = False):
         ToolingSetup.configure()
-        ToolingSetup.dotfiles()
+        #ToolingSetup.dotfiles()
         ToolingSetup.config()
         ToolingSetup.scripts()
         #ToolingSetup.repositories()

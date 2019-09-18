@@ -20,7 +20,7 @@ patches: <patches|join( → )|pre_applied(%{$fg[yellow]%})|post_applied(%{$reset
 }
 
 PROMPT='
-%{$fg[gray]%}%n@%{$fg[gray]%}%m [$(collapse_pwd)]%{$reset_color%}$(hg_prompt_info)
+%{$fg[gray]%}%n@%{$fg[gray]%}$(lsb_release --codename | cut -f2) [$(collapse_pwd)]%{$reset_color%}$(hg_prompt_info)
 $(git_prompt_info)$(prompt_char) '
 
 RPROMPT='$(battery_charge)'

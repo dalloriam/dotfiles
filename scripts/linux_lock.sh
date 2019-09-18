@@ -9,7 +9,7 @@ T='#F9FAF9ee'  # text
 W='#E5201Dbb'  # wrong
 V='#16A085bb'  # verifying
 
-i3lock_color \
+i3lock \
 --insidevercolor=$C   \
 --ringvercolor=$V     \
 \

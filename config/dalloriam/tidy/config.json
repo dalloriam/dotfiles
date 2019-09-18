@@ -1,32 +1,33 @@
 {
-    "monitors": [
-        {
-            "root_directory": "~/Downloads",
-            "recursive": false,
-            "check_frequency_s": 30,
-            "rules": [
-                {
-                    "name": "Remove old files",
-                    "condition": "age > 7d",
-                    "action": {
-                        "type": "delete"
-                    }
-                }
-            ]
-        },
-        {
-          "root_directory": "~/dump",
+  "event_log_path": "~/.config/dalloriam/tidy/events.json",
+  "monitors": [
+      {
+          "root_directory": "~/Downloads",
           "recursive": false,
           "check_frequency_s": 30,
           "rules": [
-            {
-              "name": "Empty dump",
-              "condition": "age > 24h",
-              "action": {
-                "type": "delete"
+              {
+                  "name": "Remove old files",
+                  "condition": "age > 7d",
+                  "action": {
+                      "type": "delete"
+                  }
               }
-            }
           ]
-        }
-    ]
+      },
+      {
+        "root_directory": "~/dump",
+        "recursive": false,
+        "check_frequency_s": 30,
+        "rules": [
+          {
+            "name": "Empty dump",
+            "condition": "age > 24h",
+            "action": {
+              "type": "delete"
+            }
+          }
+        ]
+      }
+  ]
 }

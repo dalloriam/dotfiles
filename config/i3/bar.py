@@ -33,13 +33,13 @@ status.register("battery",
 status.register("network",
     color_up=COLOR_THING_GOOD,
     color_down=COLOR_THING_BAD,
-    interface="enx847beb581236",
+    interface="enxc8f7508add72",
     format_up="{v4cidr}",)
 
 status.register("network",
     color_up=COLOR_THING_GOOD,
     color_down=COLOR_THING_BAD,
-    interface="wlp2s0",
+    interface="wlp59s0",
     format_up="{essid} {quality:03.0f}%",)
 
 # Shows disk usage of /

@@ -12,7 +12,7 @@ exec --no-startup-id dunst &
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec kitty
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b &
 
 # start the policykit daemon so auth prompts work
