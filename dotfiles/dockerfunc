@@ -184,19 +184,3 @@ sourcegraph() {
     --volume ~/.sourcegraph/data:/var/opt/sourcegraph \
     sourcegraph/server:3.6.0
 }
-
-devmachine() {
-    docker run \
-    -d --rm -it \
-    --name devmachine \
-    --volume ~/Projects:/home/jenkins/Projects \
-    --volume ~/src:/home/jenkins/src \
-    --volume ~/.coveo_profile:/home/jenkins/.bashrc \
-    --hostname WKS-000896.corp.coveo.com \
-    ubuntu-16.04-developer-msbuild:src.0df4f32
-}
-
-devsh() {
-    relies_on devmachine
-    docker exec -it --user jenkins -w "/home/jenkins" devmachine /bin/bash
-}
