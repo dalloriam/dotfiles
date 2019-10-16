@@ -1,5 +1,4 @@
 {
-  "event_log_path": "~/.config/dalloriam/tidy/events.json",
   "monitors": [
       {
           "root_directory": "~/Downloads",
