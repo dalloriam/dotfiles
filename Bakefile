@@ -1,0 +1,21 @@
+python/dependencies:
+    pip3 install --user -r requirements.txt 1>/dev/null
+
+
+dotfiles/config: python/dependencies
+    python3 install.py config
+
+dotfiles/fonts: python/dependencies
+    python3 install.py fonts
+
+dotfiles/dotfiles: python/dependencies
+    python3 install.py dotfiles
+
+dotfiles/scripts: python/dependencies
+    python3 install.py scripts
+
+dotfiles/datahose: python/dependencies
+    python3 install.py datahose
+
+
+all: dotfiles/fonts dotfiles/config dotfiles/dotfiles dotfiles/scripts dotfiles/datahose
