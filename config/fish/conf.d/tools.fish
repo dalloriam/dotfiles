@@ -12,3 +12,6 @@ eval (python -m virtualfish)
 
 alias workon "vf activate"
 alias deactivate "vf deactivate"
+alias lsvirtualenv "vf ls"
+alias mkvirtualenv "vf new"
+alias rmvirtualenv "vf rm"
