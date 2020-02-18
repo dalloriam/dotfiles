@@ -1,4 +1,15 @@
-python/dependencies:
+sys/binman:
+    if test -f ~/bin/binman; then
+        echo "Binman already installed"
+    else
+        wget https://github.com/purposed/binman/releases/latest/download/binman-linux-amd64.zip -O ~/bin/binman.zip
+        cd ~/bin
+        unzip binman.zip
+        rm -f binman-linux-amd64.sha256 binman.zip
+        mv binman-linux-amd64 binman
+    fi
+
+python/dependencies: sys/binman
     pip3 install --user -r requirements.txt 1>/dev/null
 
 
@@ -17,5 +28,8 @@ dotfiles/scripts: python/dependencies
 dotfiles/datahose: python/dependencies
     python3 install.py datahose
 
+dotfiles/tools: python/dependencies
+    python3 install.py tools
 
-all: dotfiles/fonts dotfiles/config dotfiles/dotfiles dotfiles/scripts dotfiles/datahose
+
+all: dotfiles/fonts dotfiles/config dotfiles/dotfiles dotfiles/scripts dotfiles/datahose dotfiles/tools

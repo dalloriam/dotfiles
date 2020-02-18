@@ -52,11 +52,12 @@ function sourcegraph
 	docker run --rm -d \
 		--name sourcegraph \
 	    -v ~/.devstack/sourcegraph/config:/etc/sourcegraph \
+	    -v ~/.ssh:/etc/sourcegraph/ssh \
 	    -v ~/.devstack/sourcegraph/data:/var/opt/sourcegraph \
 	    -p "7080:7080" \
 	    --label "traefik.http.routers.sourcegraph.rule=Host(`sourcegraph.stk`)" \
 	    --label traefik.port=7080 \
-    	sourcegraph/server:3.8.1
+    	sourcegraph/server:3.12.7
 end
 
 function elasticsearch
