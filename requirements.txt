@@ -1,4 +1,4 @@
-dalloriam>=0.4.4
+dalloriam>=0.5.2
 fire
 requests
 sh

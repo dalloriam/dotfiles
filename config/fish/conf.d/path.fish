@@ -5,8 +5,10 @@ set PATH $PATH ~/bin  # Add user binarires to path
 set -x WORKON_HOME $HOME/.virtualenvs
 set PATH ~/.local/bin $PATH  # Fix for pip on ubuntu
 
+set -x PYENV_ROOT $HOME/.pyenv
+set PATH $PYENV_ROOT/bin $PATH
 if type -q pyenv
-    eval pyenv init - -
+	pyenv init - | source
 end
 
 # === GO ===
