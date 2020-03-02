@@ -57,7 +57,7 @@ function sourcegraph
 	    -p "7080:7080" \
 	    --label "traefik.http.routers.sourcegraph.rule=Host(`sourcegraph.stk`)" \
 	    --label traefik.port=7080 \
-    	sourcegraph/server:3.12.7
+    	sourcegraph/server:3.13.0
 end
 
 function elasticsearch

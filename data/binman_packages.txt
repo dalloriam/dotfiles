@@ -1,3 +1,5 @@
 project
 tidy
 landlord
+github.com/ogham/exa
+github.com/dalloriam/worktimer
