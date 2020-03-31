@@ -22,7 +22,7 @@ exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agen
 bindsym $mod+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+space exec --no-startup-id rofi -show drun &
+bindsym $mod+space exec --no-startup-id "rofi -combi-modi window,drun -show combi -modi combi &"
 
 # Lockscreen stuff
 bindsym $mod+Control+l exec ~/bin/lock.sh
@@ -56,6 +56,10 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -176,7 +180,7 @@ bar {
         statusline $i3_text
         focused_workspace $i3_color2 $i3_color2 $i3_text
     }
-    status_command    python3 ~/.config/i3/bar.py
+    status_command    ~/.cargo/bin/rbar
     position top
 }
 # Set inner/outer gaps

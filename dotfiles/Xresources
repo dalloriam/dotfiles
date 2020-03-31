@@ -39,7 +39,6 @@
 *color15:      #ccd2be
 
 rofi.modi:          window,drun,run
-rofi.sidebar-mode:  true
-rofi.theme:         sidestyle.rasi
+rofi.sidebar-mode:  false
 rofi.show-icons:    false
 rofi.drun-icon-theme: Papirus-Dark
