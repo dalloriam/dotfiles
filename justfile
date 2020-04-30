@@ -3,11 +3,8 @@ install_binman:
     if test -f ~/bin/binman; then
         echo "Binman already installed"
     else
-        wget https://github.com/purposed/binman/releases/latest/download/binman-linux-amd64.zip -O ~/bin/binman.zip
-        cd ~/bin
-        unzip binman.zip
-        rm -f binman-linux-amd64.sha256 binman.zip
-        mv binman-linux-amd64 binma
+        wget https://github.com/purposed/binman/releases/latest/download/binman-linux-amd64 -O ~/bin/binman
+        chmod +x ~/bin/binman
     fi
 
 

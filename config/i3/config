@@ -8,6 +8,7 @@ for_window [class="^.*"] border pixel 5
 exec setxkbmap "ca(multi)"
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id dunst &
+exec --no-startup-id ~/bin/polybar.sh
 
 floating_modifier $mod
 
@@ -174,15 +175,6 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-bar {
-    colors {
-        background $i3_background
-        statusline $i3_text
-        focused_workspace $i3_color2 $i3_color2 $i3_text
-    }
-    status_command    ~/.cargo/bin/rbar
-    position top
-}
 # Set inner/outer gaps
 gaps inner 15
 gaps outer 0
