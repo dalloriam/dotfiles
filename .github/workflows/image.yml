@@ -14,5 +14,6 @@ jobs:
         with:
           image: dotfiles/devenv-base
           registry: docker.pkg.github.com
+          tag: latest
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
