@@ -12,7 +12,7 @@ jobs:
 
       - uses: mr-smithers-excellent/docker-build-push@v3
         with:
-          image: dalloriam/dotfiles/devenv-base
+          image: dotfiles/devenv-base
           registry: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
