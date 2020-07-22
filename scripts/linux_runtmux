@@ -1,0 +1,14 @@
+#!/bin/bash
+
+session="workspace"
+
+tmux start-server
+
+tmux new-session -d -s $session
+
+tmux splitw -h
+
+tmux selectp -t 0
+tmux splitw -v
+
+tmux attach-session -t $session
