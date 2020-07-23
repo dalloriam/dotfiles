@@ -27,6 +27,34 @@
           }
         }
       ]
+    },
+    {
+      "root_directory": "~/temp",
+      "recursive": false,
+      "check_frequency": "5 minutes",
+      "rules": [
+        {
+          "name": "Empty temp",
+          "condition": "@age > \"1 day\"",
+          "action": {
+            "type": "delete"
+          }
+        }
+      ]
+    },
+    {
+      "root_directory": "~/Temp",
+      "recursive": false,
+      "check_frequency": "5 minutes",
+      "rules": [
+        {
+          "name": "Empty Temp",
+          "condition": "@age > \"1 day\"",
+          "action": {
+            "type": "delete"
+          }
+        }
+      ]
     }
   ]
 }

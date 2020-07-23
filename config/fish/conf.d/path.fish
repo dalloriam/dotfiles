@@ -1,6 +1,8 @@
 # Add user stuff
 set PATH $PATH ~/bin  # Add user binarires to path
 
+set CXX (which clang++)
+
 # === PYTHON ===
 set -x WORKON_HOME $HOME/.virtualenvs
 set PATH ~/.local/bin $PATH  # Fix for pip on ubuntu

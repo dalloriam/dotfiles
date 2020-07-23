@@ -77,3 +77,10 @@ function ubuntu
 		--name ubuntu \
 		ubuntu
 end
+
+function cppdep
+	docker run --rm -it \
+		--name cppdep \
+		-v (realpath $PWD):/workspace \
+		dalloriam/cppdep:latest $argv
+end
