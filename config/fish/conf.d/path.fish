@@ -1,5 +1,6 @@
 # Add user stuff
 set PATH $PATH ~/bin  # Add user binarires to path
+set PATH $PATH /usr/local/go/bin
 
 set CXX (which clang++)
 
@@ -15,6 +16,7 @@ end
 
 # === GO ===
 if type -q go
+	set -x GOROOT /usr/local/go
 	set -x GO111MODULE on
 	set -x GOPATH ~
 	set PATH $GOROOT/bin $GOPATH/bin $PATH
