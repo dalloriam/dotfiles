@@ -1,4 +1,5 @@
 git+https://github.com/enkore/i3pystatus.git
+basiciw
 colour
 dbus-python
 netifaces
