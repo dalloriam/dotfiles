@@ -17,7 +17,7 @@ end
 if type -q go
 	set -x GO111MODULE on
 	set -x GOPATH ~
-	set PATH $GOROOT/bin $GOPATH/bin $PATH
+	set PATH $GOPATH/bin $PATH
 end
 
 # === JS ===
@@ -30,3 +30,9 @@ if test -d ~/.cargo
 	set PATH ~/.cargo/bin $PATH
 	# TODO: Source ~/.cargo/env somehow
 end
+
+if type -q starship
+	starship init fish | source
+end
+
+

@@ -25,5 +25,4 @@ for opener in browser-exec xdg-open cmd.exe cygstart "start" open
 end
 
 # Tools
-alias ls exa
 alias ag rg  # Want to use ripgrep, like ag bindings.
