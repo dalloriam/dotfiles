@@ -1,3 +1,5 @@
 if not type -q starship
-    sh -c "(curl -fsSL https://starship.rs/install.sh)"
+    curl --proto '=https' --tlsv1.2 -sSf https://starship.rs/install.sh >install.sh
+    sh ./install.sh -y
+    rm install.sh
 end
