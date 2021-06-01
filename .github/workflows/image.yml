@@ -1,7 +1,7 @@
 name: "Docker"
 
 on:
-  push: {}
+  push: tempdisable
 
 jobs:
   DevEnv:

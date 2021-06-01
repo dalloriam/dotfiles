@@ -1,5 +1,0 @@
-dalloriam>=0.5.2
-fire
-requests
-sh
-tqdm
