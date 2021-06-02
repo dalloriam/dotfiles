@@ -11,7 +11,7 @@ jobs:
           - os: ubuntu-latest
             artifact: bootstrap-linux-amd64
           - os: macos-latest
-            mmos_artifact: bootstrap-darwin-amd64
+            artifact: bootstrap-darwin-amd64
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out code
