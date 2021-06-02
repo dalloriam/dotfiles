@@ -1,0 +1,39 @@
+name: Build bootstrap
+on:
+  push: {}
+
+jobs:
+  build:
+    name: Release
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact: bootstrap-linux-amd64
+          - os: macos-latest
+            mmos_artifact: bootstrap-darwin-amd64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build Bootstrap
+        run: |
+          cd bootstrap && cargo build --release
+
+      - name: Prepare Asset
+        run: |
+          mv target/release/bootstrap target/release/${{ matrix.artifact }}
+
+      - name: Release
+        uses: docker://softprops/action-gh-release
+        with:
+          files: target/release/${{ matrix.artifact }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
