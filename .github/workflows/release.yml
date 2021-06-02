@@ -29,11 +29,11 @@ jobs:
 
       - name: Prepare Asset
         run: |
-          mv target/release/bootstrap target/release/${{ matrix.artifact }}
+          mv bootstrap/target/release/bootstrap bootstrap/target/release/${{ matrix.artifact }}
 
       - name: Release
         uses: docker://softprops/action-gh-release
         with:
-          files: target/release/${{ matrix.artifact }}
+          files: bootstrap/target/release/${{ matrix.artifact }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
