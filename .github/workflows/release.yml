@@ -1,6 +1,8 @@
 name: Build bootstrap
 on:
-  push: {}
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
