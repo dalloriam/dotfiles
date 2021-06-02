@@ -4,5 +4,5 @@ url="https://github.com/dalloriam/dotfiles/releases/download/$version/bootstrap-
 
 curl -L $url > ./.bootstrap
 chmod +x ./.bootstrap
-./.bootstrap
+./.bootstrap all
 rm ./.bootstrap
