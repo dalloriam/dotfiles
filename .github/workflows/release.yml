@@ -34,8 +34,9 @@ jobs:
           mv bootstrap/target/release/bootstrap bootstrap/target/release/${{ matrix.artifact }}
 
       - name: Release
-        uses: docker://softprops/action-gh-release
+        uses: softprops/action-gh-release@v1
         with:
-          files: bootstrap/target/release/${{ matrix.artifact }}
+          files: |
+            bootstrap/target/release/${{ matrix.artifact }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
