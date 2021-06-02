@@ -6,7 +6,7 @@ use crate::util::StackDir;
 
 use anyhow::{ensure, Result};
 
-const CLONE_SUFFIX: &str = "dotfiles";
+const CLONE_SUFFIX: &str = "~/.dotfiles";
 const DOTFILES_REPO: &str = "https://github.com/dalloriam/dotfiles"; // TODO: Make configurable.
 
 fn update_repo(repo_path: &Path) -> Result<()> {
@@ -32,7 +32,11 @@ fn clone_repo(repo_path: &Path) -> Result<()> {
     println!("cloning dotfiles repository into '{:?}'", repo_path);
 
     let mut cmd = Command::new("git")
-        .args(&["clone", DOTFILES_REPO])
+        .args(&[
+            "clone",
+            DOTFILES_REPO,
+            &repo_path.to_string_lossy().to_string(),
+        ])
         .spawn()?;
     let exit_status = cmd.wait()?;
 
@@ -48,7 +52,7 @@ fn clone_repo(repo_path: &Path) -> Result<()> {
 pub fn repo() -> Result<PathBuf> {
     println!("[repo]");
     let cwd = env::current_dir()?;
-    let dotfiles_dir = cwd.join(CLONE_SUFFIX);
+    let dotfiles_dir = PathBuf::from(shellexpand::tilde(CLONE_SUFFIX).to_string());
 
     if dotfiles_dir.exists() {
         ensure!(
