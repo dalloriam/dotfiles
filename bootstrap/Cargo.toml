@@ -16,6 +16,12 @@ name = "bootstrap"
 [dependencies]
 anyhow = "1"
 clap = "3.0.0-beta.2"
+dirs = "3"
+futures = "0.3"
 fs_extra = "1.2"
+menmos-client = "0.0.7"
+serde = {version = "1", features = ["derive"]}
+serde_json = "1"
 shellexpand = "2.1"
+tokio = {version = "1", features=["full"]}
 walkdir = "2"

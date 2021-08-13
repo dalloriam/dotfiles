@@ -8,7 +8,10 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub enum Action {
     /// Apply all available configuration steps.
     #[clap(name = "all")]
-    All,
+    All {
+        #[clap(short = 'i')]
+        interactive: bool,
+    },
 
     /// Apply a single configuration step.
     #[clap(name = "apply")]
@@ -23,16 +26,17 @@ struct Options {
 }
 
 impl Options {
-    pub fn execute(self) -> Result<()> {
+    pub async fn execute(self) -> Result<()> {
         match self.action {
-            Action::All => strap::all(),
-            Action::Apply { tgt } => strap::single(tgt),
+            Action::All { interactive } => strap::all(interactive).await,
+            Action::Apply { tgt } => strap::single(tgt).await,
         }
     }
 }
 
-fn main() {
-    if let Err(e) = Options::parse().execute() {
+#[tokio::main]
+async fn main() {
+    if let Err(e) = Options::parse().execute().await {
         eprintln!("! Error: {}", e);
     }
 }

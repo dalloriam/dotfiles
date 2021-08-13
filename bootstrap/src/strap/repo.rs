@@ -1,4 +1,3 @@
-use std::env;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -51,7 +50,6 @@ fn clone_repo(repo_path: &Path) -> Result<()> {
 
 pub fn repo() -> Result<PathBuf> {
     println!("[repo]");
-    let cwd = env::current_dir()?;
     let dotfiles_dir = PathBuf::from(shellexpand::tilde(CLONE_SUFFIX).to_string());
 
     if dotfiles_dir.exists() {
