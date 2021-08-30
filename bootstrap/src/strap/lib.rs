@@ -73,13 +73,13 @@ pub async fn all(interactive: bool) -> anyhow::Result<()> {
     let dotfiles_dir = repo::repo()?;
 
     let targets = vec![
+        Target::Menmos,
         Target::Fonts,
         Target::Config,
         Target::Dotfiles,
         Target::Tools,
         Target::Scripts,
         Target::Cloud,
-        Target::Menmos,
     ];
 
     for target in targets.into_iter() {
