@@ -10,12 +10,18 @@ use anyhow::Result;
 const TOOLS_SRC_DIR: &str = "tools";
 const DST_DIR: &str = "~/bin";
 
-fn is_installable(file_name: &OsString) -> bool {
+fn is_installable(file_name: &OsString) -> Option<String> {
     let name_str = file_name.to_string_lossy().to_string();
     if name_str.contains('_') {
-        name_str.starts_with(OS)
+        if name_str.starts_with(OS) {
+            return Some(String::from(
+                name_str.strip_prefix(&format!("{}_", OS)).unwrap(),
+            ));
+        } else {
+            return None;
+        }
     } else {
-        true
+        return Some(name_str);
     }
 }
 
@@ -30,12 +36,15 @@ pub fn tools(dotfiles_dir: &Path) -> Result<()> {
     }
 
     for file in fs::read_dir(src_path)?.filter_map(|f| f.ok()) {
-        if !is_installable(&file.file_name()) {
-            println!("! [SKIP] {}", file.file_name().to_string_lossy());
-            continue;
-        }
+        let tgt_name = match is_installable(&file.file_name()) {
+            Some(fname) => fname,
+            None => {
+                println!("! [SKIP] {}", file.file_name().to_string_lossy());
+                continue;
+            }
+        };
 
-        let dst_path = dst_dir.join(file.file_name().to_string_lossy().to_string());
+        let dst_path = dst_dir.join(tgt_name);
         if dst_path.exists() {
             fs::remove_file(&dst_path)?;
         }

@@ -27,6 +27,7 @@ fn run_fish(path: &Path) -> Result<()> {
 }
 
 fn run(path: &Path) -> Result<()> {
+    println!("- running {:?}", path);
     let mut cmd = Command::new(path).spawn()?;
     let exit_status = cmd.wait()?;
     ensure!(
@@ -46,8 +47,11 @@ pub fn scripts(dotfiles_dir: &Path) -> Result<()> {
         if let Some(ext) = script.path().extension() {
             if ext.to_string_lossy().to_lowercase() == "fish" {
                 run_fish(&script.path())?;
+                continue;
             }
-        } else if is_executable(&script.path())? {
+        }
+
+        if is_executable(&script.path())? {
             run(&script.path())?;
         }
     }
