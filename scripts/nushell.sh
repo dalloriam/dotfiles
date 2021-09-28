@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if ! command -v <the_command> &> /dev/null
+if ! command -v nu &> /dev/null
 then
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         cargo install nu
@@ -10,3 +10,10 @@ then
     fi
 fi
 
+SOURCE="${BASH_SOURCE[0]}"
+src=$(cd $(dirname $SOURCE)/.. && pwd)/data/nu.toml
+tgt=`nu -c "config path"`
+rm $tgt || true
+mkdir -p $(dirname $tgt)
+ln -s $src $tgt
+echo "  - linked $src to $tgt"
