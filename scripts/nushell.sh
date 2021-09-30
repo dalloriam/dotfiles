@@ -13,7 +13,7 @@ fi
 SOURCE="${BASH_SOURCE[0]}"
 src=$(cd $(dirname $SOURCE)/.. && pwd)/data/nu.toml
 tgt=`nu -c "config path"`
-rm $tgt || true
-mkdir -p $(dirname $tgt)
-ln -s $src $tgt
+rm "$tgt"
+mkdir -p "$(dirname $tgt)"
+ln -s "$src" "$tgt"
 echo "  - linked $src to $tgt"

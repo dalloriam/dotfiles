@@ -1,8 +1,4 @@
-def "jd categories" [] {
-    ^jd --json categories | from json
-}
-
-def "jd ls" [c: any] {
+def "jd ls" [...c] {
     let p = (echo $c | format {$it})
     ^jd --json ls $p | from json
 }

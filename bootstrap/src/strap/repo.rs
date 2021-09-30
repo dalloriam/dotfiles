@@ -1,3 +1,4 @@
+use std::env;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -51,6 +52,11 @@ fn clone_repo(repo_path: &Path) -> Result<()> {
 pub fn repo() -> Result<PathBuf> {
     println!("[repo]");
     let dotfiles_dir = PathBuf::from(shellexpand::tilde(CLONE_SUFFIX).to_string());
+
+    if let Some(v) = env::var_os("DOTFILES_PATH") {
+        println!("- got override from env: {:?}", v);
+        return Ok(PathBuf::from(v));
+    }
 
     if dotfiles_dir.exists() {
         ensure!(
