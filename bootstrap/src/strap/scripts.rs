@@ -1,5 +1,4 @@
 use std::fs;
-use std::os::unix::fs::PermissionsExt;
 use std::path::Path;
 use std::process::Command;
 
@@ -7,12 +6,20 @@ use anyhow::{ensure, Result};
 
 const SCRIPTS_SRC_DIR: &str = "scripts";
 
+#[cfg(unix)]
 fn is_executable(path: &Path) -> Result<bool> {
+    use std::os::unix::fs::PermissionsExt;
     let file = fs::File::open(path)?;
     let permissions = file.metadata()?.permissions();
     Ok(permissions.mode() & 0o111 != 0)
 }
 
+#[cfg(windows)]
+fn is_executable(_path: &Path) -> Result<bool> {
+    Ok(true) // yolo
+}
+
+#[cfg(unix)]
 fn run_fish(path: &Path) -> Result<()> {
     println!("- Running fish script '{}'", path.to_string_lossy());
     let mut cmd = Command::new("fish").arg(path).spawn()?;
@@ -21,6 +28,16 @@ fn run_fish(path: &Path) -> Result<()> {
         exit_status.success(),
         "failed to run script (status {})",
         exit_status
+    );
+
+    Ok(())
+}
+
+#[cfg(windows)]
+fn run_fish(path: &Path) -> Result<()> {
+    println!(
+        "- Skipping {} since fish is not supported on windows",
+        path.to_string_lossy()
     );
 
     Ok(())

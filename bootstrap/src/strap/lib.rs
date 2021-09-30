@@ -5,6 +5,7 @@ use anyhow::{anyhow, Result};
 mod cloud;
 mod config;
 mod dotfiles;
+#[cfg(unix)]
 mod fonts;
 mod menmos;
 mod repo;
@@ -13,6 +14,7 @@ mod tools;
 mod util;
 
 pub enum Target {
+    #[cfg(unix)]
     Fonts,
     Config,
     Dotfiles,
@@ -36,6 +38,7 @@ impl FromStr for Target {
 
     fn from_str(s: &str) -> Result<Self> {
         let tgt = match s {
+            #[cfg(unix)]
             "fonts" => Target::Fonts,
             "config" => Target::Config,
             "dotfiles" => Target::Dotfiles,
@@ -54,6 +57,7 @@ impl FromStr for Target {
 
 async fn single_target(target: Target, dotfiles_dir: &Path) -> anyhow::Result<()> {
     match target {
+        #[cfg(unix)]
         Target::Fonts => fonts::fonts(dotfiles_dir),
         Target::Config => config::config(dotfiles_dir),
         Target::Dotfiles => dotfiles::dotfiles(dotfiles_dir),
@@ -74,6 +78,7 @@ pub async fn all(interactive: bool) -> anyhow::Result<()> {
 
     let targets = vec![
         Target::Menmos,
+        #[cfg(unix)]
         Target::Fonts,
         Target::Config,
         Target::Dotfiles,

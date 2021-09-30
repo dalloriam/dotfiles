@@ -1,11 +1,11 @@
 use std::env::consts::OS;
 use std::ffi::OsString;
 use std::fs;
-use std::os::unix;
 use std::path::{Path, PathBuf};
 
-use anyhow::Context;
 use anyhow::Result;
+
+use super::util;
 
 const TOOLS_SRC_DIR: &str = "tools";
 const DST_DIR: &str = "~/bin";
@@ -49,7 +49,7 @@ pub fn tools(dotfiles_dir: &Path) -> Result<()> {
             fs::remove_file(&dst_path)?;
         }
 
-        unix::fs::symlink(file.path(), &dst_path).context("failed to symlink")?;
+        util::symlink(&file.path(), &dst_path)?;
         println!("- {}", dst_path.to_string_lossy());
     }
 
