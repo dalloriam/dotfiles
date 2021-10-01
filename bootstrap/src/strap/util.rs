@@ -1,7 +1,7 @@
 use std::env;
 use std::path::{Path, PathBuf};
 
-use anyhow::{ensure, Result};
+use anyhow::Result;
 
 pub struct StackDir {
     original_dir: PathBuf,
@@ -26,15 +26,16 @@ impl Drop for StackDir {
 #[cfg(unix)]
 pub fn symlink(from: &Path, to: &Path) -> Result<()> {
     use std::os::unix;
-    unix::fs::symlink(entry.path(), &dst_path)?;
+    unix::fs::symlink(from, to)?;
     Ok(())
 }
 
 #[cfg(windows)]
 pub fn symlink(from: &Path, to: &Path) -> Result<()> {
-    ensure!(from.is_file(), "source path cannot be a directory");
-
+    use anyhow::ensure;
     use std::os::windows;
+
+    ensure!(from.is_file(), "source path cannot be a directory");
     windows::fs::symlink_file(from, to)?;
     Ok(())
 }
