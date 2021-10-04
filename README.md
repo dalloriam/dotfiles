@@ -1,5 +1,5 @@
 # Dotfiles
-Miscellaneous images &amp; images to make my life easier. 
+Miscellaneous images &amp; images to make my life easier.
 
 ## Setting Up
 ```shell
@@ -9,6 +9,8 @@ Miscellaneous images &amp; images to make my life easier.
 ```
 
 ## Requirements
-* Docker
-* Go
-* Python 3.7+
+* Fish shell
+* Nu shell
+    * `cargo install nu` on linux
+    * `brew install nushell` on mac
+    * `winget install nushell` on windows

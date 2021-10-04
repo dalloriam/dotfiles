@@ -2,9 +2,11 @@ use std::{path::Path, str::FromStr};
 
 use anyhow::{anyhow, Result};
 
+mod binman;
 mod cloud;
 mod config;
 mod dotfiles;
+#[cfg(unix)]
 mod fonts;
 mod menmos;
 mod repo;
@@ -13,6 +15,7 @@ mod tools;
 mod util;
 
 pub enum Target {
+    #[cfg(unix)]
     Fonts,
     Config,
     Dotfiles,
@@ -20,6 +23,7 @@ pub enum Target {
     Scripts,
     Cloud,
     Menmos,
+    Binman,
 }
 
 impl Target {
@@ -36,6 +40,7 @@ impl FromStr for Target {
 
     fn from_str(s: &str) -> Result<Self> {
         let tgt = match s {
+            #[cfg(unix)]
             "fonts" => Target::Fonts,
             "config" => Target::Config,
             "dotfiles" => Target::Dotfiles,
@@ -43,6 +48,7 @@ impl FromStr for Target {
             "scripts" => Target::Scripts,
             "cloud" => Target::Cloud,
             "menmos" => Target::Menmos,
+            "binman" => Target::Binman,
             _ => {
                 return Err(anyhow!("unknown target: '{}'", s));
             }
@@ -54,6 +60,7 @@ impl FromStr for Target {
 
 async fn single_target(target: Target, dotfiles_dir: &Path) -> anyhow::Result<()> {
     match target {
+        #[cfg(unix)]
         Target::Fonts => fonts::fonts(dotfiles_dir),
         Target::Config => config::config(dotfiles_dir),
         Target::Dotfiles => dotfiles::dotfiles(dotfiles_dir),
@@ -61,6 +68,7 @@ async fn single_target(target: Target, dotfiles_dir: &Path) -> anyhow::Result<()
         Target::Scripts => scripts::scripts(dotfiles_dir),
         Target::Cloud => cloud::cloud(dotfiles_dir),
         Target::Menmos => menmos::menmos(dotfiles_dir).await,
+        Target::Binman => binman::binman_packages(dotfiles_dir).await,
     }
 }
 
@@ -74,10 +82,12 @@ pub async fn all(interactive: bool) -> anyhow::Result<()> {
 
     let targets = vec![
         Target::Menmos,
+        #[cfg(unix)]
         Target::Fonts,
         Target::Config,
         Target::Dotfiles,
         Target::Tools,
+        Target::Binman,
         Target::Scripts,
         Target::Cloud,
     ];

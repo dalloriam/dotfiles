@@ -1,8 +1,9 @@
-github.com/XAMPPRocky/tokei
-github.com/casey/just
-project
 tidy
 landlord
-github.com/ogham/exa
-github.com/dalloriam/worktimer
-github.com/BurntSushi/ripgrep
+ogham/exa
+dalloriam/worktimer
+denoland/deno
+BurntSushi/ripgrep
+ducaale/xh
+XAMPPRocky/tokei
+casey/just

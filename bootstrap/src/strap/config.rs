@@ -1,10 +1,11 @@
 use std::fs;
-use std::os::unix;
-use std::path::{Path, PathBuf};
+use std::path::{Path, PathBuf, MAIN_SEPARATOR};
 
 use anyhow::Result;
 
 use walkdir::WalkDir;
+
+use super::util;
 
 const CONFIG_DIR: &str = "~/.config";
 const CONFIG_DOTFILES_PATH: &str = "config";
@@ -25,7 +26,7 @@ pub fn config(dotfiles_dir: &Path) -> Result<()> {
                 .to_string_lossy()
                 .to_string()
                 .replace(&src_dir.to_string_lossy().to_string(), "")
-                .strip_prefix("/")
+                .strip_prefix(MAIN_SEPARATOR)
                 .unwrap()
                 .to_string(),
         );
@@ -38,7 +39,8 @@ pub fn config(dotfiles_dir: &Path) -> Result<()> {
             fs::remove_file(&dst_path)?;
         }
 
-        unix::fs::symlink(entry.path(), &dst_path)?;
+        util::symlink(entry.path(), &dst_path)?;
+
         println!("- {:?}", dst_path);
     }
 
