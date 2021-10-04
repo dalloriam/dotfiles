@@ -15,11 +15,13 @@ name = "bootstrap"
 
 [dependencies]
 anyhow = "1"
-clap = "3.0.0-beta.2"
+binman = {git = "https://github.com/purposed/binman.git"}
+clap = "3.0.0-beta.4"
 dirs = "3"
 futures = "0.3"
 fs_extra = "1.2"
 menmos-client = "0.0.7"
+rood = "0.4.1"
 serde = {version = "1", features = ["derive"]}
 serde_json = "1"
 shellexpand = "2.1"

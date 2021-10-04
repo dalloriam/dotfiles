@@ -2,6 +2,7 @@ use std::{path::Path, str::FromStr};
 
 use anyhow::{anyhow, Result};
 
+mod binman;
 mod cloud;
 mod config;
 mod dotfiles;
@@ -22,6 +23,7 @@ pub enum Target {
     Scripts,
     Cloud,
     Menmos,
+    Binman,
 }
 
 impl Target {
@@ -46,6 +48,7 @@ impl FromStr for Target {
             "scripts" => Target::Scripts,
             "cloud" => Target::Cloud,
             "menmos" => Target::Menmos,
+            "binman" => Target::Binman,
             _ => {
                 return Err(anyhow!("unknown target: '{}'", s));
             }
@@ -65,6 +68,7 @@ async fn single_target(target: Target, dotfiles_dir: &Path) -> anyhow::Result<()
         Target::Scripts => scripts::scripts(dotfiles_dir),
         Target::Cloud => cloud::cloud(dotfiles_dir),
         Target::Menmos => menmos::menmos(dotfiles_dir).await,
+        Target::Binman => binman::binman_packages(dotfiles_dir).await,
     }
 }
 
@@ -83,6 +87,7 @@ pub async fn all(interactive: bool) -> anyhow::Result<()> {
         Target::Config,
         Target::Dotfiles,
         Target::Tools,
+        Target::Binman,
         Target::Scripts,
         Target::Cloud,
     ];
