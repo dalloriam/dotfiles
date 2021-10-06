@@ -1,11 +1,9 @@
-
-# Go Jump
-if type -q jump
-    status --is-interactive; and source (jump shell fish | psub)
-end
-
 if type -q starship
     starship init fish | source
+end
+
+if type -q zoxide
+    zoxide init --cmd j fish | source
 end
 
 # Purposed config
@@ -19,4 +17,4 @@ alias mkvirtualenv "vf new"
 alias rmvirtualenv "vf rm"
 
 set -gx FZF_DEFAULT_OPTS '--height=50% --min-height=15 --reverse'
-set -gx EDITOR 'vim'
+set -gx EDITOR vim

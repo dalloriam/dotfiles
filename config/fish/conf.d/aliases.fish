@@ -9,7 +9,10 @@ alias l ls
 alias s ls
 alias clera clear
 alias celar clear
-alias ls "exa --git"
+
+if type -q exa
+    alias ls "exa --git"
+end
 
 
 # Editor stuff
