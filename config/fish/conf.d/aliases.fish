@@ -9,13 +9,13 @@ alias l ls
 alias s ls
 alias clera clear
 alias celar clear
-alias ls exa --git
+alias ls "exa --git"
 
 
 # Editor stuff
 alias vim nvim
 
-for opener in browser-exec xdg-open cmd.exe cygstart "start" open
+for opener in browser-exec xdg-open cmd.exe cygstart start open
     if type -q $opener
         alias open $opener
         break
