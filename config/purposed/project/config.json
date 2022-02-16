@@ -1,0 +1,8 @@
+{
+    "project_root": "/home/wdussault/src",
+    "namespaces": [
+        "github.com/dalloriam",
+        "github.com/coveo",
+        "github.com/coveooss"
+    ]
+}

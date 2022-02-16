@@ -5,7 +5,7 @@ RUN cargo build --release
 
 FROM ubuntu:20.04
 
-LABEL maintainer="William Dussault <dalloriam@gmail.com>"
+LABEL maintainer="William Dussault <william@dussault.dev>"
 
 # Setup prereqs
 RUN apt update && apt install -y libssl-dev fish unzip git curl sudo
