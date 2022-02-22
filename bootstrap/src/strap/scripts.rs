@@ -60,7 +60,13 @@ pub fn scripts(dotfiles_dir: &Path) -> Result<()> {
     println!("[scripts]");
     let src_path = dotfiles_dir.join(SCRIPTS_SRC_DIR);
 
-    for script in fs::read_dir(src_path)?.into_iter().filter_map(|f| f.ok()) {
+    let mut entries = fs::read_dir(src_path)?
+        .into_iter()
+        .filter_map(|f| f.ok())
+        .collect::<Vec<_>>();
+    entries.sort_by_key(|f| f.path());
+
+    for script in entries.into_iter() {
         if let Some(ext) = script.path().extension() {
             if ext.to_string_lossy().to_lowercase() == "fish" {
                 run_fish(&script.path())?;
