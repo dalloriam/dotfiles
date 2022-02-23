@@ -29,8 +29,8 @@ pub async fn binman_packages(dotfiles_dir: &Path) -> Result<()> {
             if e.to_string().contains("already installed") {
                 continue;
             }
-
-            return Err(e);
+            // TODO: prompt to continue
+            eprintln!("error intalling {package}: {e}");
         }
     }
 

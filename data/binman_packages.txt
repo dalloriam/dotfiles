@@ -1,3 +1,4 @@
+binman
 tidy
 landlord
 ogham/exa

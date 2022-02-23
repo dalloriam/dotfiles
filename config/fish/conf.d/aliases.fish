@@ -26,5 +26,4 @@ for opener in browser-exec xdg-open cmd.exe cygstart start open
 end
 
 # Tools
-alias ag rg # Want to use ripgrep, like ag bindings.
 alias bazel bazelisk

@@ -9,7 +9,6 @@ mod dotfiles;
 #[cfg(unix)]
 mod fonts;
 mod menmos;
-mod repo;
 mod scripts;
 mod tools;
 mod util;
@@ -73,12 +72,12 @@ async fn single_target(target: Target, dotfiles_dir: &Path) -> anyhow::Result<()
 }
 
 pub async fn single(target: Target) -> anyhow::Result<()> {
-    let dotfiles_dir = repo::repo()?;
+    let dotfiles_dir = std::env::current_dir()?;
     single_target(target, &dotfiles_dir).await
 }
 
 pub async fn all(interactive: bool) -> anyhow::Result<()> {
-    let dotfiles_dir = repo::repo()?;
+    let dotfiles_dir = std::env::current_dir()?;
 
     let targets = vec![
         Target::Menmos,

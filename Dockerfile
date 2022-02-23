@@ -7,6 +7,7 @@ FROM ubuntu:22.04
 
 LABEL maintainer="William Dussault <william@dussault.dev>"
 
+
 # Setup prereqs
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
@@ -18,13 +19,18 @@ RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen
 
 USER dev
-WORKDIR /home/dev
 
 # Set the locale
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+ADD . /home/dev/.dotfiles
+RUN sudo chown -R dev /home/dev/.dotfiles
+
+WORKDIR /home/dev/.dotfiles
 RUN yes | bootstrap all
+
+WORKDIR /home/dev
 
 ENTRYPOINT "/usr/bin/fish"

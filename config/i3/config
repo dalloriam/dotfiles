@@ -237,4 +237,3 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-#exec_always --no-startup-id $HOME/bin/launch_polybar.sh
