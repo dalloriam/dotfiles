@@ -27,3 +27,5 @@ end
 
 # Tools
 alias bazel bazelisk
+
+# opbind
