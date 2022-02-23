@@ -1,9 +1,0 @@
-{
-    "name": "redis",
-    "image": "redis",
-    "daemon": true,
-    "temporary": true,
-    "ports": {
-        "6379": 6379
-    }
-}

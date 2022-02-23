@@ -1,9 +1,10 @@
+binman
 tidy
 landlord
 ogham/exa
-dalloriam/worktimer
 denoland/deno
 BurntSushi/ripgrep
 ducaale/xh
 XAMPPRocky/tokei
 casey/just
+Nukesor/pueue
