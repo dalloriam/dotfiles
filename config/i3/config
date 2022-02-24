@@ -1,14 +1,13 @@
 set $mod Mod1
 
 # Window setup
-font pango:"Roboto" 14
+font pango:MonoLisa Medium 14
 for_window [class="^.*"] border pixel 5
 
 # Initializations
 exec setxkbmap -layout us -variant intl
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id dunst &
-exec --no-startup-id rbar
 
 floating_modifier $mod
 
@@ -176,6 +175,7 @@ set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
 bar {
+    font pango:MonoLisa Medium 14
     colors {
         background $i3_background
         statusline $i3_text
