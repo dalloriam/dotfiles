@@ -23,10 +23,10 @@ pub async fn binman_packages(dotfiles_dir: &Path) -> Result<()> {
 
     let packages = read_packages_file(&packages_fullpath)?;
 
-    let output = rood::cli::OutputManager::new(false);
     for package in packages {
-        if let Err(e) = binlib::install_target(&package, "latest", &output, None).await {
+        if let Err(e) = binlib::install_target(&package, "latest", None).await {
             if e.to_string().contains("already installed") {
+                println!("{} is already installed", package);
                 continue;
             }
             // TODO: prompt to continue

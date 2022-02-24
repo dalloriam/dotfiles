@@ -1,10 +1,10 @@
 use anyhow::Result;
-use clap::Clap;
+use clap::Parser;
 use strap::Target;
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
-#[derive(Clap)]
+#[derive(Parser)]
 pub enum Action {
     /// Apply all available configuration steps.
     #[clap(name = "all")]
@@ -18,7 +18,7 @@ pub enum Action {
     Apply { tgt: Target },
 }
 
-#[derive(Clap)]
+#[derive(Parser)]
 #[clap(version = VERSION, author = "William Dussault")]
 struct Options {
     #[clap(subcommand)]

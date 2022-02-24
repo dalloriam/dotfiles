@@ -11,7 +11,11 @@ fi
 unamestr=$(uname)
 if [[ "$unamestr" == 'Darwin' ]]; then
     # Setup brew
-    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if ! command -v brew &> /dev/null
+    then
+        echo "Installing brew"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
 fi
 
 # TODO: Add script to setup github-cli && op-cli
