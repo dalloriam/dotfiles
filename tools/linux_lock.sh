@@ -10,7 +10,7 @@ W='#E5201Dbb'  # wrong
 V='#16A085bb'  # verifying
 
 i3lock \
---insidevercolor=$C   \
+#--insidevercolor=$C   \
 --ringvercolor=$V     \
 \
 --insidewrongcolor=$C \

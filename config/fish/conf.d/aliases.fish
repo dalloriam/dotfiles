@@ -11,7 +11,7 @@ alias clera clear
 alias celar clear
 
 if type -q exa
-    alias ls "exa --git"
+    alias ls "exa --git -F"
 end
 
 
