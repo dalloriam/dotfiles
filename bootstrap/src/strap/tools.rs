@@ -14,14 +14,14 @@ fn is_installable(file_name: &OsString) -> Option<String> {
     let name_str = file_name.to_string_lossy().to_string();
     if name_str.contains('_') {
         if name_str.starts_with(OS) {
-            return Some(String::from(
+            Some(String::from(
                 name_str.strip_prefix(&format!("{}_", OS)).unwrap(),
-            ));
+            ))
         } else {
-            return None;
+            None
         }
     } else {
-        return Some(name_str);
+        Some(name_str)
     }
 }
 

@@ -27,10 +27,7 @@ pub enum Target {
 
 impl Target {
     pub fn interactive(&self) -> bool {
-        match &self {
-            Target::Cloud | Target::Menmos => true,
-            _ => false,
-        }
+        matches!(self, Target::Cloud | Target::Menmos)
     }
 }
 

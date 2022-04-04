@@ -11,7 +11,7 @@ fn read_packages_file(path: &Path) -> Result<Vec<String>> {
     let mut buf = String::new();
     f.read_to_string(&mut buf)?;
 
-    Ok(buf.lines().map(|s| String::from(s)).collect())
+    Ok(buf.lines().map(String::from).collect())
 }
 
 pub async fn binman_packages(dotfiles_dir: &Path) -> Result<()> {
