@@ -265,9 +265,13 @@ alias gst = git status
 alias gc = git commit -m
 alias ga = git add
 
+def "git current-branch" [] {
+  git rev-parse --abbrev-ref HEAD | str trim
+}
+
 def gcp [msg:string] {
   git commit -m $msg
-  git push origin (git rev-parse --abbrev-ref HEAD | str trim)
+  git push origin (git current-branch)
 }
 
 alias vim = nvim
