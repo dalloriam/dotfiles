@@ -261,6 +261,14 @@ alias l = ls
 alias s = ls
 alias clera = clear
 alias celar = clear
+alias gst = git status
+alias gc = git commit -m
+alias ga = git add
+
+def gcp [msg:string] {
+  git commit -m $msg
+  git push origin (git rev-parse --abbrev-ref head)
+}
 
 alias vim = nvim
 alias bazel = bazelisk
