@@ -234,9 +234,6 @@ let $config = {
   ]
 }
 
-starship init nu | save ~/.cache/starship/init.nu
-source ~/.cache/starship/init.nu
-
 
 # Custom Includes
 # FIXME(nushell>0.60) Extract in multiple files
@@ -254,6 +251,9 @@ let-env GO111MODULE = "on"
 let-env GOPATH = $env.HOME
 let-env PATH = ($env.PATH | prepend $"($env.GOPATH)/bin")
 let-env PATH = ($env.PATH | prepend ~/.cargo/bin)
+let-env PATH = ($env.PATH | prepend /usr/local/bin)
+let-env PATH = ($env.PATH | prepend /usr/local/go/bin)
+let-env PATH = ($env.PATH | prepend /opt/homebrew/bin)
 
 # === Aliases ===
 alias sl = ls
@@ -264,3 +264,9 @@ alias celar = clear
 
 alias vim = nvim
 alias bazel = bazelisk
+alias ibrew = "arch -x86_64 /usr/local/bin/brew"
+
+# Once we bootstrapped everything, we can load starship (which might be in a dir
+# we just added to path).
+starship init nu | save ~/.cache/starship/init.nu
+source ~/.cache/starship/init.nu
