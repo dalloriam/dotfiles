@@ -254,6 +254,9 @@ let-env PATH = ($env.PATH | prepend $"($env.HOME)/.cargo/bin")
 let-env PATH = ($env.PATH | prepend /usr/local/bin)
 let-env PATH = ($env.PATH | prepend /usr/local/go/bin)
 let-env PATH = ($env.PATH | prepend /opt/homebrew/bin)
+let-env PATH = ($env.PATH | prepend $"($env.HOME)/.nix-profile/bin")
+let-env PATH = ($env.PATH | prepend /nix/var/nix/profiles/default/bin)
+let-env COVEO_REPOSITORY_ROOT = $"($env.HOME)/src/github.com/coveo"
 
 # === Aliases ===
 alias sl = ls
@@ -265,6 +268,7 @@ alias gst = git status
 alias gc = git commit -m
 alias ga = git add
 
+# == Git Functions ==
 def "git current-branch" [] {
   git rev-parse --abbrev-ref HEAD | str trim
 }

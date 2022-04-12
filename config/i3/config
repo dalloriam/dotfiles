@@ -1,7 +1,7 @@
 set $mod Mod1
 
 # Window setup
-font pango:MonoLisa Medium 14
+font pango:Berkeley Mono 14
 for_window [class="^.*"] border pixel 5
 
 # Initializations
@@ -175,7 +175,7 @@ set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
 bar {
-    font pango:MonoLisa Medium 14
+    font pango:Berkeley Mono 14
     colors {
         background $i3_background
         statusline $i3_text
