@@ -1,34 +1,5 @@
 # Nushell Config File
 
-# Specifies how environment variables are:
-# - converted from a string to a value on Nushell startup (from_string)
-# - converted from a value back to a string when running external commands (to_string)
-# Note: The conversions happen *after* config.nu is loaded
-let-env ENV_CONVERSIONS = {
-  "PATH": {
-    from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
-  }
-  "Path": {
-    from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
-  }
-}
-
-# Directories to search for scripts when calling source or use
-#
-# By default, <nushell-config-dir>/scripts is added
-let-env NU_LIB_DIRS = [
-    ($nu.config-path | path dirname | path join 'scripts')
-]
-
-# Directories to search for plugin binaries when calling register
-#
-# By default, <nushell-config-dir>/plugins is added
-let-env NU_PLUGIN_DIRS = [
-    ($nu.config-path | path dirname | path join 'plugins')
-]
-
 module completions {
   # Custom completions for external commands (those outside of Nushell)
   # Each completions has two parts: the form of the external command, including its flags and parameters
@@ -36,7 +7,7 @@ module completions {
   #
   # This is a simplified version of completions for git branches and git remotes
   def "nu-complete git branches" [] {
-    ^git branch | lines | each { |line| $line | str find-replace '\* ' '' | str trim }
+    ^git branch | lines | each { |line| $line | str replace '\* ' '' | str trim }
   }
 
   def "nu-complete git remotes" [] {
@@ -172,21 +143,6 @@ let $config = {
   filesize_format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   edit_mode: emacs # emacs, vi
   max_history_size: 10000
-  menu_config: {
-    columns: 4
-    col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
-    col_padding: 2
-    text_style: green
-    selected_text_style: green_reverse
-    marker: "| "
-  }
-  history_config: {
-    page_size: 10
-    selector: "!"
-    text_style: green
-    selected_text_style: green_reverse
-    marker: "? "
-  }
   keybindings: [
     {
       name: completion_menu
@@ -236,53 +192,9 @@ let $config = {
 
 
 # Custom Includes
-# FIXME(nushell>0.60) Extract in multiple files
-
-# === CORE ===
-def bin-exists [name:string] {
-  (which $name | length) == 1
-}
-
-
-
-# === PATH CONFIG ==
-let-env GOROOT = "/usr/local/go"
-let-env GO111MODULE = "on"
-let-env GOPATH = $env.HOME
-let-env PATH = ($env.PATH | prepend $"($env.GOPATH)/bin")
-let-env PATH = ($env.PATH | prepend $"($env.HOME)/.cargo/bin")
-let-env PATH = ($env.PATH | prepend /usr/local/bin)
-let-env PATH = ($env.PATH | prepend /usr/local/go/bin)
-let-env PATH = ($env.PATH | prepend /opt/homebrew/bin)
-let-env PATH = ($env.PATH | prepend $"($env.HOME)/.nix-profile/bin")
-let-env PATH = ($env.PATH | prepend /nix/var/nix/profiles/default/bin)
-let-env COVEO_REPOSITORY_ROOT = $"($env.HOME)/src/github.com/coveo"
-
-# === Aliases ===
-alias sl = ls
-alias l = ls
-alias s = ls
-alias clera = clear
-alias celar = clear
-alias gst = git status
-alias gc = git commit -m
-alias ga = git add
-
-# == Git Functions ==
-def "git current-branch" [] {
-  git rev-parse --abbrev-ref HEAD | str trim
-}
-
-def gcp [msg:string] {
-  git commit -m $msg
-  git push origin (git current-branch)
-}
-
-alias vim = nvim
-alias bazel = bazelisk
-alias ibrew = "arch -x86_64 /usr/local/bin/brew"
+source core.nu
+source alias.nu
 
 # Once we bootstrapped everything, we can load starship (which might be in a dir
 # we just added to path).
-starship init nu | save ~/.cache/starship/init.nu
 source ~/.cache/starship/init.nu

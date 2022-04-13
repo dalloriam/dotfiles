@@ -13,6 +13,7 @@ mod scripts;
 mod tools;
 mod util;
 
+#[derive(Clone, Copy)]
 pub enum Target {
     #[cfg(unix)]
     Fonts,
@@ -70,11 +71,18 @@ async fn single_target(target: Target, dotfiles_dir: &Path) -> anyhow::Result<()
 
 pub async fn single(target: Target) -> anyhow::Result<()> {
     let dotfiles_dir = std::env::current_dir()?;
-    single_target(target, &dotfiles_dir).await
+    let private_dotfiles_dir = std::env::current_dir()?.join("private");
+
+    single_target(target, &dotfiles_dir).await?;
+    if private_dotfiles_dir.exists() {
+        single_target(target, &private_dotfiles_dir).await?;
+    }
+    Ok(())
 }
 
 pub async fn all(interactive: bool) -> anyhow::Result<()> {
     let dotfiles_dir = std::env::current_dir()?;
+    let private_dotfiles_dir = std::env::current_dir()?.join("private");
 
     let targets = vec![
         Target::Menmos,
@@ -95,6 +103,9 @@ pub async fn all(interactive: bool) -> anyhow::Result<()> {
         }
 
         single_target(target, &dotfiles_dir).await?;
+        if private_dotfiles_dir.exists() {
+            single_target(target, &private_dotfiles_dir).await?;
+        }
     }
 
     Ok(())
