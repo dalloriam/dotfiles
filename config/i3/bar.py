@@ -1,9 +1,22 @@
 from i3pystatus import Status
 from i3pystatus.core.color import ColorRangeModule
 
+from pathlib import Path
+
+import json
+import os
+
+
 COLOR_THING_GOOD = "#16A085"
 COLOR_THING_BAD  = "#AA6161"
 
+def load_interfaces():
+    try:
+        with open(Path("~").expanduser() / ".interfaces.json") as inf:
+            data = json.load(inf)
+            return data
+    except:
+        return []
 
 status = Status()
 
@@ -29,12 +42,12 @@ status.register("battery",
         "FULL": "=",
     },)
 
-# TODO: Detect network interfaces
-status.register("network",
-    color_up=COLOR_THING_GOOD,
-    color_down=COLOR_THING_BAD,
-    interface="wlp0s20f3",
-    format_up="{essid} {quality:03.0f}%",)
+for iface in load_interfaces():
+    status.register("network",
+        color_up=COLOR_THING_GOOD,
+        color_down=COLOR_THING_BAD,
+        interface=iface,
+        format_up="{essid} {quality:03.0f}%",)
 
 # Shows disk usage of /
 # Format:

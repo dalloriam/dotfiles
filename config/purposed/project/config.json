@@ -1,7 +1,8 @@
 {
-    "project_root": "/home/wdussault/src",
+    "project_root": "/home/wduss/src",
     "namespaces": [
         "github.com/dalloriam",
+        "github.com/menmos",
         "github.com/coveo",
         "github.com/coveooss"
     ]
