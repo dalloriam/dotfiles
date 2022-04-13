@@ -3,20 +3,17 @@ ADD ./bootstrap /app
 WORKDIR /app
 RUN cargo build --release
 
-FROM ubuntu:22.04
-
+FROM archlinux:latest
 LABEL maintainer="William Dussault <william@dussault.dev>"
 
 
 # Setup prereqs
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y openssl libssl1.1 libssl-dev fish unzip git curl sudo locales build-essential pkg-config
+RUN pacman -Syu --noconfirm && pacman --noconfirm -S openssl git curl sudo nushell tar zip
 
 COPY --from=0 /app/target/release/bootstrap /usr/bin/bootstrap
-RUN useradd -ms /usr/bin/fish dev && passwd -d dev && usermod -aG sudo dev
+RUN useradd -ms /usr/bin/nu dev && passwd -d dev && usermod -aG wheel dev
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
-    locale-gen
+    locale-gen && echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers
 
 USER dev
 
@@ -29,8 +26,11 @@ ADD . /home/dev/.dotfiles
 RUN sudo chown -R dev /home/dev/.dotfiles
 
 WORKDIR /home/dev/.dotfiles
-RUN yes | bootstrap all
+RUN yes | bootstrap apply config scripts
+RUN mkdir -p /home/dev/.cache/starship && \
+    starship init nu > /home/dev/.cache/starship/init.nu
+
 
 WORKDIR /home/dev
 
-ENTRYPOINT "/usr/bin/fish"
+ENTRYPOINT "/usr/bin/nu"

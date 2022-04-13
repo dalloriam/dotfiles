@@ -8,7 +8,6 @@ mod config;
 mod dotfiles;
 #[cfg(unix)]
 mod fonts;
-mod menmos;
 mod scripts;
 mod tools;
 mod util;
@@ -22,13 +21,12 @@ pub enum Target {
     Tools,
     Scripts,
     Cloud,
-    Menmos,
     Binman,
 }
 
 impl Target {
     pub fn interactive(&self) -> bool {
-        matches!(self, Target::Cloud | Target::Menmos)
+        matches!(self, Target::Cloud)
     }
 }
 
@@ -44,7 +42,6 @@ impl FromStr for Target {
             "tools" => Target::Tools,
             "scripts" => Target::Scripts,
             "cloud" => Target::Cloud,
-            "menmos" => Target::Menmos,
             "binman" => Target::Binman,
             _ => {
                 return Err(anyhow!("unknown target: '{}'", s));
@@ -64,7 +61,6 @@ async fn single_target(target: Target, dotfiles_dir: &Path) -> anyhow::Result<()
         Target::Tools => tools::tools(dotfiles_dir),
         Target::Scripts => scripts::scripts(dotfiles_dir),
         Target::Cloud => cloud::cloud(dotfiles_dir),
-        Target::Menmos => menmos::menmos(dotfiles_dir).await,
         Target::Binman => binman::binman_packages(dotfiles_dir).await,
     }
 }
@@ -85,7 +81,6 @@ pub async fn all(interactive: bool) -> anyhow::Result<()> {
     let private_dotfiles_dir = std::env::current_dir()?.join("private");
 
     let targets = vec![
-        Target::Menmos,
         #[cfg(unix)]
         Target::Fonts,
         Target::Config,

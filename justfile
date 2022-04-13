@@ -1,5 +1,8 @@
+build:
+    cd bootstrap && cargo build
+
 run +args="":
-    cd bootstrap/ && cargo build
+    @just build
     ./bootstrap/target/debug/bootstrap {{args}}
 
 docker:

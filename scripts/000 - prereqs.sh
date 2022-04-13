@@ -7,6 +7,13 @@ then
     sudo apt-get install -y build-essential fish wget
 fi
 
+if command -v pacman &> /dev/null
+then
+    # We're on arch
+    echo "Setting up prerequisites"
+    sudo pacman --noconfirm -S base-devel fish wget
+fi
+
 # TODO: Add more mac prereqs
 unamestr=$(uname)
 if [[ "$unamestr" == 'Darwin' ]]; then

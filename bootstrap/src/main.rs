@@ -15,7 +15,7 @@ pub enum Action {
 
     /// Apply a single configuration step.
     #[clap(name = "apply")]
-    Apply { tgt: Target },
+    Apply { tgt: Vec<Target> },
 }
 
 #[derive(Parser)]
@@ -29,7 +29,12 @@ impl Options {
     pub async fn execute(self) -> Result<()> {
         match self.action {
             Action::All { interactive } => strap::all(interactive).await,
-            Action::Apply { tgt } => strap::single(tgt).await,
+            Action::Apply { tgt } => {
+                for t in tgt {
+                    strap::single(t).await?
+                }
+                Ok(())
+            }
         }
     }
 }
