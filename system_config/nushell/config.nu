@@ -127,7 +127,8 @@ let default_theme = {
 }
 
 # The default config record. This is where much of your global configuration is setup.
-let $config = {
+let-env config = {
+  show_banner: false
   filesize_metric: false
   table_mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
   use_ls_colors: true
@@ -137,7 +138,6 @@ let $config = {
   footer_mode: "25" # always, never, number_of_rows, auto
   quick_completions: true  # set this to false to prevent auto-selecting completions when only one remains
   partial_completions: true  # set this to false to prevent partial filling of the prompt
-  animate_prompt: false # redraw the prompt every second
   float_precision: 2
   use_ansi_coloring: true
   filesize_format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
@@ -194,7 +194,5 @@ let $config = {
 # Custom Includes
 source core.nu
 source alias.nu
-
-# Once we bootstrapped everything, we can load starship (which might be in a dir
-# we just added to path).
-source ~/.cache/starship/init.nu
+source docker.nu
+source git.nu

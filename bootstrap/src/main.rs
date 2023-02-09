@@ -16,6 +16,10 @@ pub enum Action {
     /// Apply a single configuration step.
     #[clap(name = "apply")]
     Apply { tgt: Vec<Target> },
+
+    /// List available steps.
+    #[clap(name = "list")]
+    List,
 }
 
 #[derive(Parser)]
@@ -32,6 +36,12 @@ impl Options {
             Action::Apply { tgt } => {
                 for t in tgt {
                     strap::single(t).await?
+                }
+                Ok(())
+            }
+            Action::List => {
+                for target in Target::all() {
+                    println!("{target:?}");
                 }
                 Ok(())
             }

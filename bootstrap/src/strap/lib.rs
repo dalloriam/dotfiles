@@ -12,7 +12,7 @@ mod scripts;
 mod tools;
 mod util;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub enum Target {
     #[cfg(unix)]
     Fonts,
@@ -27,6 +27,19 @@ pub enum Target {
 impl Target {
     pub fn interactive(&self) -> bool {
         matches!(self, Target::Cloud)
+    }
+
+    pub fn all() -> Vec<Self> {
+        vec![
+            #[cfg(unix)]
+            Target::Fonts,
+            Target::Config,
+            Target::Dotfiles,
+            Target::Tools,
+            Target::Binman,
+            Target::Scripts,
+            Target::Cloud,
+        ]
     }
 }
 
@@ -80,18 +93,7 @@ pub async fn all(interactive: bool) -> anyhow::Result<()> {
     let dotfiles_dir = std::env::current_dir()?;
     let private_dotfiles_dir = std::env::current_dir()?.join("private");
 
-    let targets = vec![
-        #[cfg(unix)]
-        Target::Fonts,
-        Target::Config,
-        Target::Dotfiles,
-        Target::Tools,
-        Target::Binman,
-        Target::Scripts,
-        Target::Cloud,
-    ];
-
-    for target in targets.into_iter() {
+    for target in Target::all().into_iter() {
         // Skip interactive targets in non-interactive mode.
         if !interactive && target.interactive() {
             continue;
