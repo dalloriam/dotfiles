@@ -13,7 +13,7 @@ end
 # Setup Go on ubuntu
 if test (uname) = Linux
     if type -q apt-get
-        set goversion "1.17.7"
+        set goversion "1.20.2"
 
         set osarch (uname -m)
         if test $osarch = aarch64

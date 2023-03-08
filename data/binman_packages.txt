@@ -1,7 +1,6 @@
 binman
 tidy
 landlord
-ogham/exa
 denoland/deno
 BurntSushi/ripgrep
 ducaale/xh
