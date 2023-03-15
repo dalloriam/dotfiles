@@ -1,19 +1,21 @@
-FROM rust
+FROM rust:bookworm
 ADD ./bootstrap /app
 WORKDIR /app
 RUN cargo build --release
 
-FROM archlinux:latest
+FROM ubuntu:22.04
 LABEL maintainer="William Dussault <william@dussault.dev>"
 
 
 # Setup prereqs
-RUN pacman -Syu --noconfirm && pacman --noconfirm -S openssl git curl sudo nushell tar zip
+RUN apt-get update && apt-get install -y software-properties-common
+RUN add-apt-repository ppa:fish-shell/release-3 && \
+    apt-get update && \
+    apt-get install -y fish build-essential sudo libssl-dev wget
+
 
 COPY --from=0 /app/target/release/bootstrap /usr/bin/bootstrap
-RUN useradd -ms /usr/bin/nu dev && passwd -d dev && usermod -aG wheel dev
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
-    locale-gen && echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers
+RUN useradd -ms /usr/bin/fish dev && passwd -d dev && usermod -aG sudo dev
 
 USER dev
 
@@ -27,10 +29,8 @@ RUN sudo chown -R dev /home/dev/.dotfiles
 
 WORKDIR /home/dev/.dotfiles
 RUN yes | bootstrap apply config scripts
-RUN mkdir -p /home/dev/.cache/starship && \
-    starship init nu > /home/dev/.cache/starship/init.nu
 
 
 WORKDIR /home/dev
 
-ENTRYPOINT "/usr/bin/nu"
+ENTRYPOINT "fish"

@@ -19,12 +19,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          platforms: linux/amd64
-          push: true
-          file: arch.dockerfile
-          tags: |
-            ghcr.io/dalloriam/dotfiles/arch:latest
+      - name: Build devcontainer image
+        run: |
+          docker build . --tag ghcr.io/dalloriam/dotfiles/arch:latest
+          docker push ghcr.io/dalloriam/dotfiles/arch:latest
