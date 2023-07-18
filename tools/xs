@@ -1,0 +1,74 @@
+#!/usr/bin/env python
+""" eXtensible script runner"""
+from pathlib import Path
+
+import os
+import subprocess
+import sys
+
+
+def is_executable(path: Path) -> bool:
+    """Returns whether a given path is an executable file."""
+    return os.access(path, os.X_OK) and not path.is_dir()
+
+
+def find_root() -> Path:
+    """Find the root path"""
+    env_root = os.environ.get(CONFIG_ENV_VAR)
+    if not env_root:
+        # Fallback on default.
+        env_root = os.path.expanduser("~/scripts")
+    return Path(env_root)
+
+
+CONFIG_ENV_VAR = "XSCRIPT_ROOT"
+
+ROOT = os.environ.get(CONFIG_ENV_VAR)
+
+ROOT = find_root()
+
+
+class ResolveOutput:
+    """Resolution output"""
+
+    def __init__(self):
+        path = ROOT
+        args = []
+
+        for i, arg in enumerate(sys.argv[1:]):
+            path = path / arg
+
+            if path.exists() and not path.is_dir() and is_executable(path):
+                # This is the path
+                args = sys.argv[2 + i :]
+                break
+
+        self.path = path
+        self.args = args
+
+        if not self.path.exists():
+            raise ValueError(f"Unknown path `{self.path}`")
+
+        if self.path.is_dir():
+            raise ValueError(f"Path `{self.path}` is directory")
+
+    def exec(self):
+        """Exec the subprocess"""
+        subprocess.run(
+            executable=self.path,
+            args=[self.path] + self.args,
+            check=True,
+        )
+
+
+def main():
+    """entrypoint"""
+    try:
+        resolve = ResolveOutput()
+        resolve.exec()
+    except ValueError as err:
+        print(f"Error: {err}")
+
+
+if __name__ == "__main__":
+    main()
