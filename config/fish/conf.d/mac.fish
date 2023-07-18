@@ -6,6 +6,8 @@ if test (uname) = Darwin
     set PATH /opt/homebrew/bin $PATH
     set PATH (brew --prefix)/opt/llvm/bin $PATH
 
+    set PATH /Applications/Sublime\ Text.app/Contents/SharedSupport/bin $PATH
+
     # The next line updates PATH for the Google Cloud SDK.
     if [ -f '/Users/wduss/.gcloud/path.fish.inc' ]
         . '/Users/wduss/.gcloud/path.fish.inc'
