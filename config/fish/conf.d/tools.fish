@@ -6,6 +6,10 @@ if type -q zoxide
     zoxide init --cmd j fish | source
 end
 
+if type -q direnv
+    direnv hook fish | source
+end
+
 # Purposed config
 set -x PURPOSED_OWNER dalloriam
 set -x PROJECT_HOME $HOME/src

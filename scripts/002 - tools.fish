@@ -28,3 +28,16 @@ if not type -q gh
         echo "No supported platform found for Github CLI"
     end
 end
+
+# Direnv
+if not type -q direnv
+    if type -q apt-get
+        # We're on ubuntu
+        sudo apt install direnv -y
+    else if test (uname) = Darwin
+        # We're on mac
+        brew install direnv
+    else
+        echo "No supported platform found for direnv"
+    end
+end
