@@ -36,5 +36,5 @@ if [[ "$os" == 'Darwin' ]]; then
     echo "Done!"
 fi
 
-echo "Handing over to fish..."
-fish -c strap/setup.fish
+echo "Handing over to setup..."
+fish -c "strap/setup.fish $1"

@@ -25,7 +25,7 @@ function is_arch
 end
 
 function is_ubuntu
-    if type -q apt
+    if type -q apt-get
         return 0
     else
         return 1
