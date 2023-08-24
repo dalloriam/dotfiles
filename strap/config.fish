@@ -1,11 +1,23 @@
 source "strap/lib.fish"
 
-set CONFIG_DIR = "$HOME/.config"
-
 function setup_config --argument source_dir
     for file_path in (find $source_dir/* -type f)
+
+        set --local src_path (realpath $file_path)
+
         # Remove $source_dir from the file path
         set --local file_name (echo $file_path | sed "s|$source_dir/||")
-        echo $HOME/.config/$file_name
+        set --local tgt_path $HOME/.config/$file_name
+
+        # Create the directory if it doesn't exist
+        mkdir -p (dirname $tgt_path)
+
+        if test -e $tgt_path
+            rm $tgt_path
+        end
+
+        ln -s $src_path $tgt_path
+
+        echo $file_name
     end
 end
