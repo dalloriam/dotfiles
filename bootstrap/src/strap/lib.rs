@@ -8,7 +8,7 @@ mod config;
 mod dotfiles;
 #[cfg(unix)]
 mod fonts;
-mod scripts;
+mod installers;
 mod tools;
 mod util;
 
@@ -72,7 +72,7 @@ async fn single_target(target: Target, dotfiles_dir: &Path) -> anyhow::Result<()
         Target::Config => config::config(dotfiles_dir),
         Target::Dotfiles => dotfiles::dotfiles(dotfiles_dir),
         Target::Tools => tools::tools(dotfiles_dir),
-        Target::Scripts => scripts::scripts(dotfiles_dir),
+        Target::Scripts => installers::scripts(dotfiles_dir),
         Target::Cloud => cloud::cloud(dotfiles_dir),
         Target::Binman => binman::binman_packages(dotfiles_dir).await,
     }

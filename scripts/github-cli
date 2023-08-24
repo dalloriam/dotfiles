@@ -1,16 +1,3 @@
-if not type -q starship
-    echo "starship is not installed"
-    curl --proto '=https' --tlsv1.2 -sSf https://starship.rs/install.sh | sudo sh -s -- -y
-    echo "starship installation complete"
-end
-
-if not type -q zoxide
-    echo "zoxide is not installed"
-    cargo install zoxide
-    echo "zoxide installation complete"
-end
-
-# Github CLI
 if not type -q gh
     if type -q apt-get
         # We're on ubuntu
@@ -26,18 +13,5 @@ if not type -q gh
         brew install gh
     else
         echo "No supported platform found for Github CLI"
-    end
-end
-
-# Direnv
-if not type -q direnv
-    if type -q apt-get
-        # We're on ubuntu
-        sudo apt install direnv -y
-    else if test (uname) = Darwin
-        # We're on mac
-        brew install direnv
-    else
-        echo "No supported platform found for direnv"
     end
 end

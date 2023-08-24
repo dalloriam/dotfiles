@@ -1,0 +1,6 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+if is_arch
+    sudo pacman --noconfirm -S clang
+end

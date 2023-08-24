@@ -1,0 +1,5 @@
+if not type -q zoxide
+    echo "zoxide is not installed"
+    cargo install zoxide
+    echo "zoxide installation complete"
+end

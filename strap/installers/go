@@ -1,0 +1,19 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+if is_ubuntu
+    set goversion "1.20.2"
+
+    set osarch (uname -m)
+    if test $osarch = aarch64
+        set arch arm64
+    else if test $osarch = x86_64
+        set arch amd64
+    end
+
+    wget https://go.dev/dl/go$goversion.linux-$arch.tar.gz
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go$goversion.linux-$arch.tar.gz
+    rm go$goversion.linux-$arch.tar.gz
+else if is_arch
+    sudo pacman --noconfirm -S go
+end
