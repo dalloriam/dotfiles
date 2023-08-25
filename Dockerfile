@@ -1,8 +1,3 @@
-FROM rust:bookworm
-ADD ./bootstrap /app
-WORKDIR /app
-RUN cargo build --release
-
 FROM ubuntu:22.04
 LABEL maintainer="William Dussault <william@dussault.dev>"
 
@@ -11,10 +6,9 @@ LABEL maintainer="William Dussault <william@dussault.dev>"
 RUN apt-get update && apt-get install -y software-properties-common
 RUN add-apt-repository ppa:fish-shell/release-3 && \
     apt-get update && \
-    apt-get install -y fish build-essential sudo libssl-dev wget
+    apt-get install -y fish build-essential sudo libssl-dev wget curl
 
 
-COPY --from=0 /app/target/release/bootstrap /usr/bin/bootstrap
 RUN useradd -ms /usr/bin/fish dev && passwd -d dev && usermod -aG sudo dev
 
 USER dev
@@ -28,7 +22,7 @@ ADD . /home/dev/.dotfiles
 RUN sudo chown -R dev /home/dev/.dotfiles
 
 WORKDIR /home/dev/.dotfiles
-RUN yes | bootstrap apply config scripts
+RUN yes | ./bootstrap.sh
 
 
 WORKDIR /home/dev
