@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 os=`uname`
 
 echo "=== Bootstrap ==="
