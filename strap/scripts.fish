@@ -29,6 +29,8 @@ function strip_path --argument filepath
 end
 
 function setup_scripts --argument source_dir
+    mkdir -p $HOME/bin
+
     for file_path in (find $source_dir/* -type f)
         if not is_my_platform $file_path
             continue
