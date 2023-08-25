@@ -39,12 +39,20 @@ function scripts
     setup_scripts "./scripts"
 end
 
+function neovim
+    echo
+    echo "=== Neovim Setup ==="
+    source "strap/neovim.fish"
+    setup_neovim
+end
+
 function all
     fonts
     config
     dotfiles
-    scripts
     tools
+    scripts
+    neovim
 end
 
 switch $argv[1]
@@ -58,10 +66,12 @@ switch $argv[1]
         scripts
     case tools
         tools
+    case neovim
+        neovim
     case ""
         all
     case "*"
-        echo "Usage: ./strap.sh [fonts|config|tools|dotfiles|scripts|all]"
+        echo "Usage: ./strap.sh [fonts|config|tools|dotfiles|scripts|neovim|all]"
 end
 
 echo "Setup complete!"

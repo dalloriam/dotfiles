@@ -1,0 +1,9 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+if is_ubuntu
+    # TODO: Ensure this installs > 0.9
+    sudo apt-get install neovim -y
+else if is_mac
+    brew install neovim
+end
