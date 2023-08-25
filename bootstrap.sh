@@ -2,8 +2,9 @@ os=`uname`
 
 echo "=== Bootstrap ==="
 
-if command -v apt-get &> /dev/null
-then
+# Check if we're on ubuntu/debian
+
+if [ -f /etc/lsb-release ]; then
     # We're on ubuntu/debian
     echo "Ensuring ubuntu prerequisites are installed..."
 

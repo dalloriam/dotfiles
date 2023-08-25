@@ -6,7 +6,7 @@ LABEL maintainer="William Dussault <william@dussault.dev>"
 RUN apt-get update && apt-get install -y software-properties-common
 RUN add-apt-repository ppa:fish-shell/release-3 && \
     apt-get update && \
-    apt-get install -y fish build-essential sudo libssl-dev wget
+    apt-get install -y fish build-essential sudo libssl-dev wget curl
 
 
 RUN useradd -ms /usr/bin/fish dev && passwd -d dev && usermod -aG sudo dev
