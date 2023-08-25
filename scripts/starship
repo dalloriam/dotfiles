@@ -1,5 +1,0 @@
-if not type -q starship
-    echo "starship is not installed"
-    curl --proto '=https' --tlsv1.2 -sSf https://starship.rs/install.sh | sudo sh -s -- -y
-    echo "starship installation complete"
-end

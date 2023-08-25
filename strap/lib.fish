@@ -46,3 +46,10 @@ function ensure_installed --argument program
         ./strap/installers/$program
     end
 end
+
+function symlink_overwrite --argument source --argument target
+    if test -e $target
+        rm $target
+    end
+    ln -s $source $target
+end

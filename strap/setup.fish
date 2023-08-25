@@ -16,6 +16,14 @@ function config
     setup_config "./private/config"
 end
 
+function dotfiles
+    echo
+    echo
+    echo "=== Dotfiles ==="
+    source "strap/dotfiles.fish"
+    setup_dotfiles "./dotfiles"
+end
+
 
 function tools
     echo
@@ -24,9 +32,18 @@ function tools
     setup_tools
 end
 
+function scripts
+    echo
+    echo "=== Userscripts Setup ==="
+    source "strap/scripts.fish"
+    setup_scripts "./scripts"
+end
+
 function all
     fonts
     config
+    dotfiles
+    scripts
     tools
 end
 
@@ -35,10 +52,14 @@ switch $argv[1]
         fonts
     case config
         config
+    case dotfiles
+        dotfiles
+    case scripts
+        scripts
     case tools
         tools
     case ""
         all
     case "*"
-        echo "Usage: ./strap.sh [fonts|config|tools|all]"
+        echo "Usage: ./strap.sh [fonts|config|tools|dotfiles|scripts|all]"
 end

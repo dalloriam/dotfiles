@@ -6,7 +6,17 @@ if command -v apt-get &> /dev/null
 then
     # We're on ubuntu/debian
     echo "Ensuring ubuntu prerequisites are installed..."
-    sudo apt-get update
+
+    if ! command -v fish &> /dev/null
+    then
+        echo "Installing fish..."
+        sudo add-apt-repository ppa:fish-shell/release-3
+        sudo apt-get update
+        sudo apt-get install -y fish build-essential wget
+    else
+        echo "Fish already installed!"
+    fi
+
     sudo apt-get install -y build-essential fish wget
     echo "Done!"
 fi
@@ -31,8 +41,13 @@ if [[ "$os" == 'Darwin' ]]; then
         echo "Brew already installed!"
     fi
 
+
     PATH=/opt/homebrew/bin:$PATH
     PATH=$(brew --prefix)/opt/llvm/bin:$PATH
+
+    brew update
+    brew install fish
+
     echo "Done!"
 fi
 

@@ -12,12 +12,7 @@ function setup_config --argument source_dir
         # Create the directory if it doesn't exist
         mkdir -p (dirname $tgt_path)
 
-        if test -e $tgt_path
-            rm $tgt_path
-        end
-
-        ln -s $src_path $tgt_path
-
+        symlink_overwrite $src_path $tgt_path
         echo $file_name
     end
 end
