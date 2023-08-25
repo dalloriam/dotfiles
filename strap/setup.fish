@@ -63,3 +63,5 @@ switch $argv[1]
     case "*"
         echo "Usage: ./strap.sh [fonts|config|tools|dotfiles|scripts|all]"
 end
+
+echo "Setup complete!"

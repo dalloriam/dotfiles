@@ -16,5 +16,4 @@ function setup_tools
         echo $program
         ensure_installed $program
     end
-    echo done
 end

@@ -45,8 +45,15 @@ if [[ "$os" == 'Darwin' ]]; then
     PATH=/opt/homebrew/bin:$PATH
     PATH=$(brew --prefix)/opt/llvm/bin:$PATH
 
-    brew update
-    brew install fish
+    if ! command -v fish &> /dev/null
+    then
+        echo "Installing fish..."
+        brew update
+        brew install fish
+    else
+        echo "Fish already installed!"
+    fi
+
 
     echo "Done!"
 fi
