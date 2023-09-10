@@ -1,0 +1,4 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+curl -fsSL https://bun.sh/install | bash
