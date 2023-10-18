@@ -2,7 +2,7 @@
 source "strap/lib.fish"
 
 if is_ubuntu
-    set goversion "1.20.2"
+    set goversion "1.21.3"
 
     set osarch (uname -m)
     if test $osarch = aarch64
