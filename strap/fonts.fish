@@ -18,4 +18,9 @@ function setup_fonts --argument source_dir
         echo $font_name
         cp -r $font_dir $dest_dir
     end
+
+    if is_ubuntu
+        echo "Updating font cache..."
+        sudo fc-cache -fv
+    end
 end
