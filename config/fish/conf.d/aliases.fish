@@ -27,5 +27,4 @@ end
 
 # Tools
 alias bazel bazelisk
-
-# opbind
+alias buck2 buckle
