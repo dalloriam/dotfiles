@@ -20,7 +20,6 @@ if [ -f /etc/lsb-release ]; then
         echo "Fish already installed!"
     fi
 
-    sudo apt-get install -y build-essential fish wget
     echo "Done!"
 fi
 
@@ -55,6 +54,16 @@ if [[ "$os" == 'Darwin' ]]; then
         brew install fish
     else
         echo "Fish already installed!"
+    fi
+
+    if ! command -v envsubst &> /dev/null
+    then
+        echo "Installing envsubst..."
+        brew update
+        brew install gettext
+        brew link --force gettext
+    else
+        echo "gettext already installed!"
     fi
 
 

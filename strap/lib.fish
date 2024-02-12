@@ -51,5 +51,7 @@ function symlink_overwrite --argument source --argument target
     if test -e $target
         rm $target
     end
-    ln -s $source $target
+
+    # We only want to substitute the known variables, not things like `PATH`.
+    envsubst "$(cat VARIABLES)" <$source >$target
 end
