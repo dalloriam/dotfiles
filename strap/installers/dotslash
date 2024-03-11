@@ -1,0 +1,15 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+if is_ubuntu
+    ensure_installed cargo
+    cargo install dotslash
+else if is_mac
+    # On mac, we don't use `cargo install`, because we want a universal binary
+    # (so dotslash will work correctly whether called by a x64 or aarch64 executable)
+    wget https://github.com/facebook/dotslash/releases/download/v0.2.0/dotslash-macos.v0.2.0.tar.gz
+    tar -xvf dotslash-macos.v0.2.0.tar.gz
+    chmod +x dotslash
+    mkdir -p ~/bin
+    mv dotslash ~/bin/dotslash
+end

@@ -1,6 +1,0 @@
-#! /usr/bin/env fish
-source "strap/lib.fish"
-
-ensure_installed cargo
-
-cargo install buckle
