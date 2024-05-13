@@ -19,6 +19,10 @@ exec --no-startup-id nitrogen --restore; sleep 1; picom -b &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
+# Fix for GTK apps
+# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
 # kill focused window
 bindsym $mod+q kill
 
@@ -186,15 +190,19 @@ client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
 client.background       #FFFFFF
 
-bar {
-    font pango:Berkeley Mono 12
-    colors {
-        background $i3_background
-        statusline $i3_text
-        focused_workspace $i3_color2 $i3_color2 $i3_text
-    }
-    status_command    python3 ~/.config/i3/bar.py
-    position top
+#bar {
+#    font pango:Berkeley Mono 12
+#    colors {
+#        background $i3_background
+#        statusline $i3_text
+#        focused_workspace $i3_color2 $i3_color2 $i3_text
+#    }
+#    status_command    python3 ~/.config/i3/bar.py
+#    position top
+#}
+
+bar { 
+     swaybar_command waybar
 }
 
 # Set inner/outer gaps
