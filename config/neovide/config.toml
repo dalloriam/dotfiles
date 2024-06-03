@@ -1,0 +1,6 @@
+[font]
+normal = ["Fixedsys Core"] 
+size = 10.0
+
+fork = true
+frame = "none"
