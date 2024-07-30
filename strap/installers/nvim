@@ -2,7 +2,8 @@
 source "strap/lib.fish"
 
 if is_ubuntu
-    # TODO: Ensure this installs > 0.9
+    sudo add-apt-repository ppa:neovim-ppa/stable
+    sudo apt-get update
     sudo apt-get install neovim -y
 else if is_mac
     brew install neovim
