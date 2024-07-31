@@ -1,0 +1,4 @@
+#! /usr/bin/env fish
+
+ensure_installed fisher
+fisher install jorgebucaran/nvm.fish
