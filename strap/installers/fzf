@@ -1,0 +1,11 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+if is_ubuntu
+    sudo apt install -y fzf
+else if is_mac
+    brew install fzf
+end
+
+ensure_installed fisher
+fisher install jethrokuan/fzf
