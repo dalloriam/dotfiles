@@ -13,3 +13,6 @@ if test (uname) = Darwin
         . '/Users/wduss/.gcloud/path.fish.inc'
     end
 end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/wduss/.gcloud/sdk/google-cloud-sdk/path.fish.inc' ]; . '/Users/wduss/.gcloud/sdk/google-cloud-sdk/path.fish.inc'; end
