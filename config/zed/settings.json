@@ -1,0 +1,20 @@
+{
+  "theme": "Rosé Pine Dawn",
+  "buffer_font_size": 14,
+  "buffer_font_family": "Berkeley Mono",
+  "ui_font_family": "Univers LT Std",
+  "vim_mode": true,
+  "inlay_hints": {
+    "enabled": true
+  },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 2000
+    }
+  },
+  "buffer_line_height": "standard",
+  "terminal": {
+    "line_height": "standard"
+  },
+  "relative_line_numbers": true
+}

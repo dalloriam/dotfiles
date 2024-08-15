@@ -1,0 +1,14 @@
+[
+  {
+    "bindings": {
+      "ctrl-l": "workspace::ActivateNextPane",
+      "ctrl-h": "workspace::ActivatePreviousPane",
+      "ctrl-j": "terminal_panel::ToggleFocus",
+      "ctrl-k": "terminal_panel::ToggleFocus",
+      "cmd-b": "editor::GoToDefinition",
+      "ctrl-b": "editor::GoToDefinition",
+      "cmd-r": "editor::Rename",
+      "ctrl-r": "editor::Rename"
+    }
+  }
+]
