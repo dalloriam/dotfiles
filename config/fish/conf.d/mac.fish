@@ -12,7 +12,13 @@ if test (uname) = Darwin
     if [ -f '/Users/wduss/.gcloud/path.fish.inc' ]
         . '/Users/wduss/.gcloud/path.fish.inc'
     end
+
+    # Set 1password SSH agent for non-OpenSSH implementations
+    # (e.g. libgit2 used by jujutsu)
+    set -x SSH_AUTH_SOCK ~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock
 end
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/wduss/.gcloud/sdk/google-cloud-sdk/path.fish.inc' ]; . '/Users/wduss/.gcloud/sdk/google-cloud-sdk/path.fish.inc'; end
+if [ -f '/Users/wduss/.gcloud/sdk/google-cloud-sdk/path.fish.inc' ]
+    . '/Users/wduss/.gcloud/sdk/google-cloud-sdk/path.fish.inc'
+end

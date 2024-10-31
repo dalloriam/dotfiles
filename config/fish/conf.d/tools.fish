@@ -1,13 +1,21 @@
+# prompt
 if type -q starship
     starship init fish | source
 end
 
+# zoxide (quick jump)
 if type -q zoxide
     zoxide init --cmd j fish | source
 end
 
+# direnv
 if type -q direnv
     direnv hook fish | source
+end
+
+# Jujutsu VCS
+if type -q jj
+    jj util completion fish | source
 end
 
 # Purposed config
