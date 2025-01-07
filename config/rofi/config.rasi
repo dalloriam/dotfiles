@@ -5,7 +5,7 @@
  ***********************************************/
 
 * {
-    font: "Berkeley Mono 14";
+    font: "TX-02 14";
     selected-normal-foreground:  #0e1418;
     foreground:                  #d2d1d4;
     normal-foreground:           @foreground;

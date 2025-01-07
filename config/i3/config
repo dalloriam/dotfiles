@@ -1,7 +1,7 @@
 set $mod Mod1
 
 # Window setup
-font pango:Berkeley Mono 10
+font pango:TX-02 10
 for_window [class="^.*"] border pixel 5
 
 # Initializations
@@ -191,7 +191,7 @@ client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 client.background       #FFFFFF
 
 #bar {
-#    font pango:Berkeley Mono 12
+#    font pango:TX-02 12
 #    colors {
 #        background $i3_background
 #        statusline $i3_text

@@ -1,12 +1,14 @@
-set export
+set export := true
 
 # Default Variables
+
 KITTY_FONT_SIZE := env_var_or_default("KITTY_FONT_SIZE", "14")
-KITTY_FONT_FAMILY := env_var_or_default("KITTY_FONT_FAMILY", "Berkeley Mono Regular")
+KITTY_FONT_FAMILY := env_var_or_default("KITTY_FONT_FAMILY", "TX-02")
 
 # User can override these variables by setting them in their environment or by
 # writing them to a `.env` file in the root of this project.
-set dotenv-load
+
+set dotenv-load := true
 
 docker:
     docker build -t dalloriam/dotfiles .
@@ -16,4 +18,4 @@ test:
 
 strap +args="":
     echo $KITTY_FONT_SIZE
-    ./bootstrap.sh {{args}}
+    ./bootstrap.sh {{ args }}
