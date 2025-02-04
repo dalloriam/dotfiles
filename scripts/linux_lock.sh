@@ -9,26 +9,28 @@ T='#F9FAF9ee'  # text
 W='#E5201Dbb'  # wrong
 V='#16A085bb'  # verifying
 
-i3lock \
-#--insidevercolor=$C   \
---ringvercolor=$V     \
-\
---insidewrongcolor=$C \
---ringwrongcolor=$W   \
-\
---insidecolor=$B      \
---ringcolor=$D        \
---linecolor=$B        \
---separatorcolor=$D   \
-\
---verifcolor=$T        \
---wrongcolor=$T        \
---timecolor=$T        \
---datecolor=$T \
---layoutcolor=$T      \
---keyhlcolor=$W       \
---bshlcolor=$W        \
---screen 1            \
---indicator           \
---keylayout 2         \
---datestr "Enter Password" \
+swaylock
+
+#i3lock \
+##--insidevercolor=$C   \
+#--ringvercolor=$V     \
+#\
+#--insidewrongcolor=$C \
+#--ringwrongcolor=$W   \
+#\
+#--insidecolor=$B      \
+#--ringcolor=$D        \
+#--linecolor=$B        \
+#--separatorcolor=$D   \
+#\
+#--verifcolor=$T        \
+#--wrongcolor=$T        \
+#--timecolor=$T        \
+#--datecolor=$T \
+#--layoutcolor=$T      \
+#--keyhlcolor=$W       \
+#--bshlcolor=$W        \
+#--screen 1            \
+#--indicator           \
+#--keylayout 2         \
+#--datestr "Enter Password" \
