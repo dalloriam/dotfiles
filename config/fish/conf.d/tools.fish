@@ -31,4 +31,4 @@ alias rmvirtualenv "vf rm"
 set -gx FZF_DEFAULT_OPTS '--height=50% --min-height=15 --reverse'
 set -gx EDITOR nvim
 
-set --universal nvm_default_version v18.20.4
+set --universal nvm_default_version v20.19.0
