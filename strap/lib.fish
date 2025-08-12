@@ -32,7 +32,7 @@ function is_ubuntu
     end
 end
 
-function installed --argument program "Checks if a program is installed"
+function installed --argument program
     if type -q $program
         return 0
     else
