@@ -13,7 +13,7 @@ if [ -f /etc/lsb-release ]; then
     if ! command -v fish &> /dev/null
     then
         echo "Installing fish..."
-        sudo add-apt-repository ppa:fish-shell/release-3
+        sudo add-apt-repository ppa:fish-shell/release-4
         sudo apt-get update
         sudo apt-get install -y fish build-essential wget
     else
