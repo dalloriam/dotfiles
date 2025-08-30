@@ -4,6 +4,9 @@ source "strap/lib.fish"
 if is_ubuntu
     ensure_installed cargo
     cargo install dotslash
+else if is_arch
+    ensure_installed cargo
+    cargo install dotslash
 else if is_mac
     # On mac, we don't use `cargo install`, because we want a universal binary
     # (so dotslash will work correctly whether called by a x64 or aarch64 executable)

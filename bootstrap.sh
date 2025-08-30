@@ -27,7 +27,12 @@ if command -v pacman &> /dev/null
 then
     # We're on arch
     echo "Ensuring Arch prerequisites are installed..."
-    sudo pacman --noconfirm -S base-devel fish wget
+    if ! command -v fish &> /dev/null
+    then
+        sudo pacman --noconfirm -S base-devel fish wget
+    else
+        echo "Fish already installed!"
+    fi
     echo "Done!"
 fi
 

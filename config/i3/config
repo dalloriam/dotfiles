@@ -12,16 +12,8 @@ input "type:keyboard" {
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
-exec --no-startup-id nitrogen --restore; sleep 1; picom -b &
-
-# start the policykit daemon so auth prompts work
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-
-# Fix for GTK apps
-# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+bindsym $mod+Return exec ghostty
+exec --no-startup-id hyprpaper
 
 # kill focused window
 bindsym $mod+q kill
@@ -72,10 +64,6 @@ bindsym $mod+Shift+space floating toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# Manage the lid
-bindswitch lid:on output eDP-1 disable
-bindswitch lid:off output eDP-1 enable
-
 set $ws1 "1/ "
 set $ws2 "2/ "
 set $ws3 "3/ "
@@ -111,7 +99,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -162,25 +150,6 @@ set $i3_color15         #000000
 set $i3_color16         #ffffff
 set $i3_color17         #0c0c0c
 
-#set_from_resource $term_background background
-#set_from_resource $term_foreground foreground
-#set_from_resource $term_color0     color0
-#set_from_resource $term_color1     color1
-#set_from_resource $term_color2     color2
-#set_from_resource $term_color3     color3
-#set_from_resource $term_color4     color4
-#set_from_resource $term_color5     color5
-#set_from_resource $term_color6     color6
-#set_from_resource $term_color7     color7
-#set_from_resource $term_color8     color8
-#set_from_resource $term_color9     color9
-#set_from_resource $term_color10    color10
-#set_from_resource $term_color11    color11
-#set_from_resource $term_color12    color12
-#set_from_resource $term_color13    color13
-#set_from_resource $term_color14    color14
-#set_from_resource $term_color15    color15
-
 # class                 border  bground text    indicator child_border
 client.focused          #5BC68B #5BC68B #0E1418 #367552   #367552
 client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
@@ -190,17 +159,6 @@ client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
 client.background       #FFFFFF
 
-#bar {
-#    font pango:TX-02 12
-#    colors {
-#        background $i3_background
-#        statusline $i3_text
-#        focused_workspace $i3_color2 $i3_color2 $i3_text
-#    }
-#    status_command    python3 ~/.config/i3/bar.py
-#    position top
-#}
-
 bar { 
      swaybar_command waybar
 }
@@ -209,54 +167,17 @@ bar {
 gaps inner 15
 gaps outer 0
 
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
+corner_radius 10
+default_dim_inactive 0.2
+blur_radius 3
+shadows enable
 
-# Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps on
+for_window [app_id="ghostty"] blur enable
+
 
 # Smart borders (draw borders around container only if it is not the only container on this workspace)
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
-
-# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
-set $mode_gaps gaps: (o) outer, (i) inner
-set $mode_gaps_outer outer gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner inner gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
-
-mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_inner" {
-        bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 0
-
-        bindsym Shift+plus  gaps inner all plus 5
-        bindsym Shift+minus gaps inner all minus 5
-        bindsym Shift+0     gaps inner all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
-        bindsym minus gaps outer current minus 5
-        bindsym 0     gaps outer current set 0
-
-        bindsym Shift+plus  gaps outer all plus 5
-        bindsym Shift+minus gaps outer all minus 5
-        bindsym Shift+0     gaps outer all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
 
 input "Naga V2 Pro Mouse" {
     accel_profile "flat"

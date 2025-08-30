@@ -45,6 +45,7 @@ function setup_scripts --argument source_dir
         set --local tgt_path $HOME/bin/$stripped
 
         symlink_overwrite $src_path $tgt_path
+        chmod +x $tgt_path
         echo $stripped
     end
 end

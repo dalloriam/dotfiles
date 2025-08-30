@@ -21,6 +21,7 @@ end
 # Purposed config
 set -x PURPOSED_OWNER dalloriam
 set -x PROJECT_HOME $HOME/src
+set -x JD_ROOT $JD_FOLDER
 
 alias workon "vf activate"
 alias deactivate "vf deactivate"

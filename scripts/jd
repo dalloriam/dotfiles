@@ -1,0 +1,6 @@
+#! /usr/bin/env fish
+
+set match (fd . $JD_ROOT --type d --max-depth 3 | fzf)
+if test -n "$match"
+    echo $match
+end
