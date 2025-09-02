@@ -3,6 +3,8 @@ source "strap/lib.fish"
 
 if is_ubuntu
     sudo apt install direnv -y
+else if is_arch
+    sudo pacman -S direnv --noconfirm
 else if is_mac
     brew install direnv
 end

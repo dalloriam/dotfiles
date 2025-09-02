@@ -22,6 +22,7 @@ end
 set -x PURPOSED_OWNER dalloriam
 set -x PROJECT_HOME $HOME/src
 set -x JD_ROOT $JD_FOLDER
+set -x CLOUD_CREDS $PERSONAL_CLOUD
 
 alias workon "vf activate"
 alias deactivate "vf deactivate"

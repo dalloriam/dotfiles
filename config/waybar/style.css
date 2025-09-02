@@ -54,6 +54,7 @@
 #battery,
 #pulseaudio,
 #backlight,
+#mpd,
 #custom-temperature,
 #memory,
 #cpu{
@@ -84,6 +85,7 @@
 #custom-lock:hover,
 #custom-reboot:hover,
 #custom-power:hover,
+#mpd:hover,
 /*#workspaces:hover,*/
 #window:hover {
   background-color: rgba(70, 75, 90, 0.9);

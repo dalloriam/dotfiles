@@ -24,7 +24,6 @@ function dotfiles
     setup_dotfiles "./dotfiles"
 end
 
-
 function tools
     echo
     echo "=== Tools Setup ==="
@@ -37,6 +36,7 @@ function scripts
     echo "=== Userscripts Setup ==="
     source "strap/scripts.fish"
     setup_scripts "./scripts"
+    setup_scripts "./private/scripts"
 end
 
 function neovim
