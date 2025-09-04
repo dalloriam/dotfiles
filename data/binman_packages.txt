@@ -1,9 +1,0 @@
-binman
-tidy
-landlord
-denoland/deno
-BurntSushi/ripgrep
-ducaale/xh
-XAMPPRocky/tokei
-casey/just
-Nukesor/pueue

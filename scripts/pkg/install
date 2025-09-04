@@ -1,0 +1,130 @@
+#! /usr/bin/env fish
+
+function print --argument msg
+    gum style --width 200 --padding "0 2" (gum format -t emoji "$msg")
+end
+
+set install_dir "$HOME/bin"
+
+set pkg_name $argv[1]
+
+for arg in $argv
+    if string match -q -- "--tag=*" $arg
+        set tag (string replace -- "--tag=" "" $arg)
+    end
+end
+
+if test -z "$pkg_name"
+    gum format -t emoji ":no_entry_sign: No package name provided."
+    exit 1
+end
+
+gum style --border double --padding "1 2" "$pkg_name"
+
+if test -z "$tag"
+    set tag (gh release list --repo $pkg_name --limit 5 \
+        | awk '{print $1}' \
+        | gum filter --placeholder "Version?")
+end
+
+if test -z "$tag"
+    gum format -t emoji ":warning: No version selected, aborted."
+    exit 0
+end
+
+print "version: $tag"
+
+# detect os/arch
+set os (uname | tr '[:upper:]' '[:lower:]')
+set raw_arch (uname -m | tr '[:upper:]' '[:lower:]')
+
+# normalize arch + aliases
+switch $raw_arch
+    case x86_64 amd64
+        set arch amd64
+        set arch_aliases "amd64 x86_64"
+    case aarch64 arm64
+        set arch arm64
+        set arch_aliases "arm64 aarch64"
+    case i386 i686
+        set arch 386
+        set arch_aliases "386 i386 i686"
+    case '*'
+        set arch $raw_arch
+        set arch_aliases $raw_arch
+end
+
+print "🖥️  detected: $os-$arch"
+
+# get assets for release
+set assets (gh release view $tag --repo $pkg_name --json assets \
+    | jq -r '.assets[] | "\(.name) \(.url)"')
+
+# lowercase filter
+set url ""
+
+for line in $assets
+    set name (string split " " $line)[1]
+    set dl (string split " " $line)[2]
+    set lname (string lower $name)
+
+    # match os + any arch alias
+    if string match -q "*$os*" $lname
+        for alias in (string split " " $arch_aliases)
+            if string match -q "*$alias*" $lname
+                set url $dl
+                break
+            end
+        end
+    end
+    if test -n "$url"
+        break
+    end
+end
+
+if test -z "$url"
+    echo "❌ no matching asset for $os-$arch"
+    exit 1
+end
+
+print "🔗 found asset: $name"
+set tmp (mktemp -d)
+gh release download $tag --repo $pkg_name --pattern "$name" --dir "$tmp"
+
+# figure out what file we got
+set dl (ls -1 "$tmp")
+set file "$tmp/$dl"
+
+# --- extract if needed
+switch $file
+    case '*.tar.gz' '*.tgz' '*.tar.xz' '*.tar.bz2' '*.txz'
+        print "📦 extracting tarball"
+        tar -xf "$file" -C "$tmp"
+    case '*.zip'
+        print "📦 extracting zip"
+        unzip -o -d "$tmp" "$file" >/dev/null
+    case '*.gz'
+        print "📦 extracting gzip"
+        gunzip -f "$file"
+        set file (string replace -r '\.gz$' '' "$file")
+    case '*.xz'
+        print "📦 extracting xz"
+        unxz -f "$file"
+        set file (string replace -r '\.xz$' '' "$file")
+end
+
+set bin (string split / $pkg_name)[2]
+
+set found (fd -H -t f "$bin" "$tmp")
+test -n "$found"; or begin
+    print "❌ couldn’t find $bin in archive"
+    exit 1
+end
+
+set found $found[1]
+
+print "✅ found binary `$bin`"
+mkdir -p $install_dir
+mv -f "$found" "$install_dir/$bin"
+chmod +x "$install_dir/$bin"
+print "🚀 installed to $install_dir/$bin"

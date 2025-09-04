@@ -1,0 +1,3 @@
+directory: $MUSIC_DIR
+import:
+  move: yes

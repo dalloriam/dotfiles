@@ -1,0 +1,3 @@
+#! /usr/bin/env fish
+# Interactive git commit
+git commit -m (gum input --width 50 --placeholder "Commit message")

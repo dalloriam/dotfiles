@@ -1,0 +1,4 @@
+#! /usr/bin/env fish
+set tmppath (mktemp)
+cat $argv[1] | jq . >>$tmppath
+mv $tmppath $argv[1]

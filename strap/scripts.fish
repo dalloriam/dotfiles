@@ -29,23 +29,18 @@ function strip_path --argument filepath
 end
 
 function setup_scripts --argument source_dir
-    mkdir -p $HOME/bin
-
+    mkdir -p $HOME/scripts
     for file_path in (find $source_dir/* -type f)
-        if not is_my_platform $file_path
-            continue
-        end
-
         set --local src_path (realpath $file_path)
 
-        # Remove $source_dir from the file path
         set --local file_name (echo $file_path | sed "s|$source_dir/||")
-        set --local stripped (strip_path $file_name)
+        set --local tgt_path $HOME/scripts/$file_name
 
-        set --local tgt_path $HOME/bin/$stripped
+        # Create the directory if it doesn't exist
+        mkdir -p (dirname $tgt_path)
 
         symlink_overwrite $src_path $tgt_path
         chmod +x $tgt_path
-        echo $stripped
+        echo $file_name
     end
 end

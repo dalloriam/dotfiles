@@ -1,0 +1,7 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+mkdir -p $HOME/bin
+wget https://raw.githubusercontent.com/ianthehenry/sd/dd12019d69b5009d8b9869da1d94160e9d68ca63/sd -O $HOME/bin/sd
+chmod +x $HOME/bin/sd
+echo sd

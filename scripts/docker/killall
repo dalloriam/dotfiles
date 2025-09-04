@@ -1,0 +1,5 @@
+#! /usr/bin/env fish
+# Kill & remove all running and stopped docker containers
+set output (docker ps -aq)
+gum spin --title "Stopping running containers" docker stop $output >/dev/null
+gum spin --title "Destroying stopped containers" docker rm $output >/dev/null

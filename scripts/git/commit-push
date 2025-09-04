@@ -1,0 +1,4 @@
+#! /usr/bin/env fish
+# Commit and push changes to the current branch
+sd git commit
+git push origin (git rev-parse --abbrev-ref HEAD)

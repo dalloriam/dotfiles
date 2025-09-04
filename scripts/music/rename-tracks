@@ -1,0 +1,46 @@
+#!/usr/bin/env fish
+# Usage: rename-tracks.fish [--apply] "<artist>"
+# Example: rename-tracks.fish --apply "System Of A Down"
+
+set -l apply 0
+if test (count $argv) -gt 0; and test "$argv[1]" = --apply
+    set apply 1
+    set -e argv[1]
+end
+
+if test (count $argv) -lt 1
+    echo "Usage: "(status filename)" [--apply] <artist>"
+    exit 1
+end
+
+set -l artist $argv[1]
+set -l artist_norm (string lower -- $artist)
+
+for f in *.flac
+    # Expect: "NN - Artist - Title.flac"
+    set -l m (string match -r -g -- '^([0-9]{2}) - (.+?) - (.+)\.flac$' -- "$f")
+    if test (count $m) -ne 3
+        echo "skip (pattern mismatch): $f" >&2
+        continue
+    end
+
+    set -l num $m[1]
+    set -l artist_in $m[2]
+    set -l title $m[3]
+
+    if test (string lower -- $artist_in) != $artist_norm
+        echo "skip (artist mismatch: '$artist_in' != '$artist'): $f" >&2
+        continue
+    end
+
+    set -l new "$num - $title.flac"
+    if test "$f" = "$new"
+        continue
+    end
+
+    if test $apply -eq 1
+        mv -- "$f" "$new"
+    else
+        echo mv -- "$f" "$new"
+    end
+end

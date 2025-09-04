@@ -1,7 +1,8 @@
 # Git
 alias gst "git status"
 alias ga "git add"
-alias gc "git commit -m"
+alias gc "sd git commit"
+alias gcp "sd git commit-push"
 
 # Navigation
 alias sl ls
@@ -14,6 +15,9 @@ if type -q exa
     alias ls "exa --git -F"
 end
 
+if type -q bat
+    alias cat bat
+end
 
 # Editor stuff
 alias vim nvim
