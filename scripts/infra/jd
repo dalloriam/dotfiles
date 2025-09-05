@@ -1,5 +1,5 @@
 #! /usr/bin/env fish
-set match (gum spin -- sprig cached -- fd . $JD_ROOT --type d --max-depth 3 | gum filter)
+set match (gum spin --title "Fetching list..." -- sprig cached -- fd . $JD_ROOT --type d --max-depth 3 | gum filter)
 if test -n "$match"
     echo $match
 end

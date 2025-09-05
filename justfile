@@ -6,8 +6,8 @@ set export := true
 
 set dotenv-load := true
 
-KITTY_FONT_SIZE := env_var_or_default("KITTY_FONT_SIZE", "14")
-KITTY_FONT_FAMILY := env_var_or_default("KITTY_FONT_FAMILY", "TX-02")
+TERMINAL_FONT_SIZE := env_var_or_default("TERMINAL_FONT_SIZE", "14")
+TERMINAL_FONT_FAMILY := env_var_or_default("TERMINAL_FONT_FAMILY", "TX-02")
 JD_FOLDER := env_var_or_default("JD_FOLDER", "~/.jd")
 MUSIC_DIR := env_var_or_default("MUSIC_DIR", "/mnt/media/music")
 

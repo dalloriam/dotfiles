@@ -18,6 +18,7 @@
     "pulseaudio",
     "mpd",
     "custom/temperature",
+    "custom/razer",
     "memory",
     "cpu",
     "clock"
@@ -39,6 +40,12 @@
     "on-click": "systemctl poweroff",
     "tooltip": true,
     "tooltip-format": "关机"
+  },
+  "custom/razer": {
+    "exec": "sd arch razer-battery 632403H24600780",
+    "format": "󰍽 {percentage}%",
+    "return-type": "json",
+    "interval": 2
   },
   "network": {
     "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{essid} ",
@@ -107,13 +114,10 @@
     "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
   },
   "mpd": {
-    "format": "<span>{stateIcon} {consumeIcon}{artist} - {title}  </span>",
-    "format-disconnected": "Disconnected ",
-    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "format": "<span>{stateIcon} {artist} - {title}  </span>",
+    "format-disconnected": "",
+    "format-stopped": "",
     "interval": 10,
-    "consume-icons": {
-        "on": " " // Icon shows only when "consume" is on
-    },
     "state-icons": {
         "paused": "",
         "playing": ""

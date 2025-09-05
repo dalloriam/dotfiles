@@ -19,10 +19,10 @@
 #tray{
   /*background-color: rgba(29,31,46, 0.95);*/
   background-color: rgba(15,27,53,0.9);
-  padding: 4px 6px; /* 保持内部间距 */
-  margin-top: 6px; /* 外部间距增加 */
-  margin-left: 6px; /* 外部间距增加 */
-  margin-right: 6px; /* 外部间距增加 */
+  padding: 4px 6px; 
+  margin-top: 6px; 
+  margin-left: 6px; 
+  margin-right: 6px;
   border-radius: 10px;
   border-width: 0px;
 }
@@ -30,10 +30,9 @@
 #clock,
 #custom-power{
   background-color: rgba(15,27,53,0.9);
-  margin-top: 6px; /* 与屏幕顶部留出距离 */
+  margin-top: 6px; 
   margin-right: 6px;
-  /*margin-bottom: 4px;*/
-  padding: 4px 2px; /* 保持内部间距 */
+  padding: 4px 2px; 
   border-radius: 0 10px 10px 0;
   border-width: 0px;
 }
@@ -41,10 +40,9 @@
 #network,
 #custom-lock{
   background-color: rgba(15,27,53,0.9);
-  margin-top: 6px; /* 与屏幕顶部留出距离 */
+  margin-top: 6px; 
   margin-left: 6px;
-  /*margin-bottom: 4px;*/
-  padding: 4px 2px; /* 保持内部间距 */
+  padding: 4px 2px; 
   border-radius: 10px 0 0 10px;
   border-width: 0px;
 }
@@ -56,29 +54,29 @@
 #backlight,
 #mpd,
 #custom-temperature,
+#custom-razer,
 #memory,
 #cpu{
   background-color: rgba(15,27,53,0.9);
-  margin-top: 6px; /* 与屏幕顶部留出距离 */
-  /*margin-bottom: 4px;*/
-  padding: 4px 2px; /* 保持内部间距 */
+  margin-top: 6px; 
+  padding: 4px 2px; 
   border-width: 0px;
 }
 
-#custpm-temperature.critical,
+#custom-temperature.critical,
+#custom-razer.critical,
 #pulseaudio.muted {
   color: #FF0000;
   padding-top: 0;
 }
 
-/* 鼠标悬停变亮一点 */
 #bluetooth:hover,
 #network:hover,
-/*#tray:hover,*/
 #backlight:hover,
 #battery:hover,
 #pulseaudio:hover,
 #custom-temperature:hover,
+#custom-razer:hover,
 #memory:hover,
 #cpu:hover,
 #clock:hover,
@@ -86,12 +84,10 @@
 #custom-reboot:hover,
 #custom-power:hover,
 #mpd:hover,
-/*#workspaces:hover,*/
 #window:hover {
   background-color: rgba(70, 75, 90, 0.9);
 }
 
-/* 工作区激活状态高亮 */
 #workspaces button:hover{
   background-color: rgba(97, 175, 239, 0.2);
   padding: 2px 8px;
@@ -100,14 +96,13 @@
 }
 
 #workspaces button.active {
-  background-color: #61afef; /* 蓝色高亮 */
+  background-color: #61afef; 
   color: #ffffff;
   padding: 2px 8px;
   margin: 0 2px;
   border-radius: 10px;
 }
 
-/* 未激活工作区按钮 */
 #workspaces button {
   background: transparent;
   border: none;

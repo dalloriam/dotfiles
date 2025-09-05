@@ -1,5 +1,5 @@
-font-family = "TX-02"
-font-size = 14
+font-family = "$TERMINAL_FONT_FAMILY"
+font-size = $TERMINAL_FONT_SIZE
 font-thicken = true
 font-thicken-strength = 128
 background-opacity=0.6
