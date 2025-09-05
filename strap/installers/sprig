@@ -3,4 +3,4 @@ source "strap/lib.fish"
 
 ensure_installed gum
 
-./scripts/pkg/install dalloriam/sprig --tag=v0.1.1
+./scripts/pkg/install dalloriam/sprig

@@ -1,5 +1,7 @@
 #! /usr/bin/env fish
 
+# Install a binary from a GitHub release
+
 function print --argument msg
     gum style --width 200 --padding "0 2" (gum format -t emoji "$msg")
 end
@@ -22,14 +24,8 @@ end
 gum style --border double --padding "1 2" "$pkg_name"
 
 if test -z "$tag"
-    set tag (gh release list --repo $pkg_name --limit 5 \
-        | awk '{print $1}' \
-        | gum filter --placeholder "Version?")
-end
-
-if test -z "$tag"
-    gum format -t emoji ":warning: No version selected, aborted."
-    exit 0
+    gum format -t emoji ":information_source: No version specified, fetching latest release..."
+    set tag (gh release list --repo $pkg_name --json name,isLatest --jq '.[] | select(.isLatest)|.name')
 end
 
 print "version: $tag"
