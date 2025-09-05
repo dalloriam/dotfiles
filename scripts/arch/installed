@@ -1,0 +1,2 @@
+#! /usr/bin/env fish
+pacman -Qe | awk '{print $1}'

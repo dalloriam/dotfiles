@@ -1,0 +1,3 @@
+#!/usr/bin/env fish
+pkill waybar && waybar &
+disown

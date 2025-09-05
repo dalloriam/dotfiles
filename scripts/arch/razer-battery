@@ -1,0 +1,61 @@
+#! /usr/bin/env python3
+"""Waybar module that monitors the battery level of a Razer device."""
+
+from openrazer.client import DeviceManager
+from typing import Any, Dict
+
+import json
+import sys
+import time
+
+
+def get_status_obj(manager: DeviceManager, serial: str) -> Dict[str, Any]:
+    resp = {}
+
+    for dev in manager.devices:
+        if dev.serial != serial:
+            continue
+
+        if not dev.has("battery"):
+            break
+
+        resp["text"] = dev.name
+
+        low_threshold = dev.get_low_battery_threshold()
+        current = dev.battery_level
+
+        resp["percentage"] = current
+
+        if current <= low_threshold:
+            resp["class"] = "critical"
+        else:
+            resp["class"] = "healthy"
+
+        break
+
+    return resp
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: razer-battery <device-serial>")
+        sys.exit(3)
+
+    device_serial = sys.argv[1]
+
+    try:
+        manager = DeviceManager()
+    except Exception as _:
+        print("Error: Is the daemon running?")
+        return
+
+    try:
+        status = get_status_obj(manager, device_serial)
+        print(json.dumps(status))
+        # time.sleep(30)
+    except KeyboardInterrupt:
+        pass
+
+
+if __name__ == "__main__":
+    main()

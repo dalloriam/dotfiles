@@ -1,0 +1,18 @@
+#! /usr/bin/env fish
+
+set packages (pacman --query --deps --unrequired | awk '{print $1}')
+
+if test -z "$packages"
+    gum style --foreground 112 "✓ System is clean, no orphan packages."
+    exit 0
+end
+
+gum join --vertical $packages
+gum confirm "Remove these packages?"
+
+if test $status -ne 0
+    gum style --foreground 214 "✗ Aborted, no packages were removed."
+    exit 0
+end
+
+gum spin --title "Removing..." sudo -- pacman --remove --nosave --recursive $packages
