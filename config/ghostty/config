@@ -4,3 +4,4 @@ font-thicken = true
 font-thicken-strength = 128
 background-opacity=0.6
 background-blur=true
+window-decoration=none

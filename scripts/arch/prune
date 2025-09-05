@@ -15,4 +15,4 @@ if test $status -ne 0
     exit 0
 end
 
-gum spin --title "Removing..." sudo -- pacman --remove --nosave --recursive $packages
+gum spin --title "Removing..." -- sudo pacman --noconfirm --remove --nosave --recursive $packages

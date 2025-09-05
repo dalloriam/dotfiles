@@ -45,7 +45,7 @@
     "exec": "sd arch razer-battery 632403H24600780",
     "format": "󰍽 {percentage}%",
     "return-type": "json",
-    "interval": 2
+    "interval": 30
   },
   "network": {
     "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{essid} ",
