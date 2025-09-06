@@ -9,6 +9,10 @@ end
 
 mpc listall | $pick_cmd | xargs -I {} rmpc add "{}"
 
+if test $status -ne 0
+    exit 1
+end
+
 # play rmpc if not already playing
 set state (rmpc status | jq -r '.state')
 if test "$state" != play
