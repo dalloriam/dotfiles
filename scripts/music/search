@@ -1,0 +1,16 @@
+#! /usr/bin/env fish
+
+set pick_cmd fzf
+
+if test (count $argv) -gt 0
+    set pick_cmd $argv # whole argv becomes the picker command
+    set -e argv # clear argv if you don’t want to forward it
+end
+
+mpc listall | $pick_cmd | xargs -I {} rmpc add "{}"
+
+# play rmpc if not already playing
+set state (rmpc status | jq -r '.state')
+if test "$state" != play
+    rmpc play
+end
