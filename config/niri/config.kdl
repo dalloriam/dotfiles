@@ -478,6 +478,8 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Ctrl+P { power-off-monitors; }
+
+    Mod+M { spawn "~/scripts/music/search" "fuzzel" "-d"; }
 }
 
 environment {
