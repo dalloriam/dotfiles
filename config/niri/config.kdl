@@ -480,6 +480,8 @@ binds {
     Mod+Ctrl+P { power-off-monitors; }
 
     Mod+M { spawn "~/scripts/music/search" "fuzzel" "-d"; }
+
+    Mod+Shift+D { spawn "darkman" "toggle"; }
 }
 
 environment {

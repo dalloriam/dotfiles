@@ -94,7 +94,7 @@
     "tooltip-format": "RAM: {used:0.2f}G/{total:0.2f}G"
   },
   "cpu": {
-    "format": "  {usage}% ",
+    "format": "  {usage}% ",
     "tooltip": true
   },
   "clock": {
