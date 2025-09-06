@@ -16,6 +16,14 @@ function config
     setup_config "./private/config"
 end
 
+function data
+    echo
+    echo
+    echo "=== Data ==="
+    source "strap/data.fish"
+    setup_data "./data"
+end
+
 function dotfiles
     echo
     echo
@@ -49,6 +57,7 @@ end
 function all
     fonts
     config
+    data
     dotfiles
     tools
     scripts
@@ -60,6 +69,8 @@ switch $argv[1]
         fonts
     case config
         config
+    case data
+        data
     case dotfiles
         dotfiles
     case scripts

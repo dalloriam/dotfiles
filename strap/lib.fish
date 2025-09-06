@@ -54,4 +54,9 @@ function symlink_overwrite --argument source --argument target
 
     # We only want to substitute the known variables, not things like `PATH`.
     envsubst "$(cat VARIABLES)" <$source >$target
+
+    # Set the dest executable if the source is executable.
+    if test -x $source
+        chmod +x $target
+    end
 end

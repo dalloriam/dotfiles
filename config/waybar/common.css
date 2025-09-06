@@ -3,22 +3,19 @@
   font-family: "TX-02", "Font Awesome 6 Free", "Font Awesome 6 Free Solid";
   font-weight: bold;
   font-size: 16px;
-  color: #dcdfe1;
+  color: @text;
 }
 
-/* 透明 Waybar 背景 */
 #waybar {
-  background-color: rgba(0, 0, 0, 0);
+  background: transparent;
   border: none;
   box-shadow: none;
 }
 
-/* 所有模块统一风格 */
 #workspaces,
 #window,
 #tray{
-  /*background-color: rgba(29,31,46, 0.95);*/
-  background-color: rgba(15,27,53,0.9);
+  background-color: @surface0;
   padding: 4px 6px; 
   margin-top: 6px; 
   margin-left: 6px; 
@@ -27,9 +24,10 @@
   border-width: 0px;
 }
 
+
 #clock,
 #custom-power{
-  background-color: rgba(15,27,53,0.9);
+  background-color: @surface0;
   margin-top: 6px; 
   margin-right: 6px;
   padding: 4px 2px; 
@@ -37,9 +35,21 @@
   border-width: 0px;
 }
 
+window#waybar.top label.module {
+    box-shadow: inset 0 -3px;
+}
+window#waybar.bottom label.module {
+    box-shadow: inset 0 3px;
+}
+
+label.module {
+    padding: 0 10px;
+    box-shadow: inset 0 -3px;
+}
+
 #network,
 #custom-lock{
-  background-color: rgba(15,27,53,0.9);
+  background-color: @surface0;
   margin-top: 6px; 
   margin-left: 6px;
   padding: 4px 2px; 
@@ -57,17 +67,10 @@
 #custom-razer,
 #memory,
 #cpu{
-  background-color: rgba(15,27,53,0.9);
+  background-color: @surface0;
   margin-top: 6px; 
   padding: 4px 2px; 
   border-width: 0px;
-}
-
-#custom-temperature.critical,
-#custom-razer.critical,
-#pulseaudio.muted {
-  color: #FF0000;
-  padding-top: 0;
 }
 
 #bluetooth:hover,
@@ -85,19 +88,58 @@
 #custom-power:hover,
 #mpd:hover,
 #window:hover {
-  background-color: rgba(70, 75, 90, 0.9);
+  background-color: @overlay0;
+}
+
+#custom-lock {
+    color: @sapphire;
+}
+
+#custom-reboot {
+    color: @peach;
+}
+
+#custom-power {
+    color: @red;
+}
+
+#pulseaudio {
+    color: @maroon;
+}
+
+#custom-temperature {
+    color: @yellow;
+}
+
+#custom-temperature.critical,
+#custom-razer.critical,
+#pulseaudio.muted {
+  color: @red;
+  padding-top: 0;
+}
+
+#memory {
+    color: @mauve;
+}
+
+#cpu {
+    color: @peach;
+}
+
+#clock {
+    color: @teal;
 }
 
 #workspaces button:hover{
-  background-color: rgba(97, 175, 239, 0.2);
+  background-color: @overlay0;
   padding: 2px 8px;
   margin: 0 2px;
   border-radius: 10px;
 }
 
 #workspaces button.active {
-  background-color: #61afef; 
-  color: #ffffff;
+  background-color: @overlay1; 
+  color: @text;
   padding: 2px 8px;
   margin: 0 2px;
   border-radius: 10px;
@@ -106,7 +148,6 @@
 #workspaces button {
   background: transparent;
   border: none;
-  color: #888888;
   padding: 2px 8px;
   margin: 0 2px;
   font-weight: bold;

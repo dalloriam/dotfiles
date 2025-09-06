@@ -2,6 +2,11 @@ font-family = "$TERMINAL_FONT_FAMILY"
 font-size = $TERMINAL_FONT_SIZE
 font-thicken = true
 font-thicken-strength = 128
-background-opacity=0.6
+
+background-opacity=0.7
 background-blur=true
+
 window-decoration=none
+window-theme=system
+
+theme = dark:catppuccin-macchiato,light:catppuccin-latte
