@@ -42,7 +42,7 @@
     "tooltip-format": "Shutdown"
   },
   "custom/razer": {
-    "exec": "sd arch razer-battery 632403H24600780",
+    "exec": "sd arch razer-battery 'Razer Naga V2 Pro (Wireless)'",
     "format": "󰍽 {percentage}%",
     "return-type": "json",
     "interval": 30

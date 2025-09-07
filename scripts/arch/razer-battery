@@ -9,11 +9,11 @@ import sys
 import time
 
 
-def get_status_obj(manager: DeviceManager, serial: str) -> Dict[str, Any]:
+def get_status_obj(manager: DeviceManager, name: str) -> Dict[str, Any]:
     resp = {}
 
     for dev in manager.devices:
-        if dev.serial != serial:
+        if dev.name != name:
             continue
 
         if not dev.has("battery"):
