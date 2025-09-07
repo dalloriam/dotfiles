@@ -482,6 +482,7 @@ binds {
     Mod+M { spawn "~/scripts/music/search" "fuzzel" "-d"; }
 
     Mod+Shift+D { spawn "darkman" "toggle"; }
+    ISO_Level3_Shift+Period { spawn "bemoji" "-t"; }
 }
 
 environment {
