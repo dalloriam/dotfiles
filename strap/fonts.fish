@@ -19,7 +19,7 @@ function setup_fonts --argument source_dir
         cp -r $font_dir $dest_dir
     end
 
-    if is_ubuntu
+    if is_linux
         echo "Updating font cache..."
         sudo fc-cache -fv
     end
