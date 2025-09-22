@@ -1,6 +1,7 @@
 #! /usr/bin/env fish
 source "strap/lib.fish"
 
+ensure_installed fd
 ensure_installed gum
 
 ./scripts/pkg/install dalloriam/sprig
