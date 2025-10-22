@@ -1,0 +1,11 @@
+#! /usr/bin/env fish
+
+# Loop through all files in the current directory
+# Rename files with .vid extension to .mp4 extension
+for file in *.vid
+    if test -f "$file"
+        set newfile (string replace -r '\.vid$' '.mp4' "$file")
+        mv "$file" "$newfile"
+        echo "$file -> $newfile"
+    end
+end

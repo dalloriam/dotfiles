@@ -1,0 +1,4 @@
+# Search hidden files & dirs
+--hidden
+
+--glob=!vcpkg/*
