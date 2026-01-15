@@ -10,7 +10,7 @@ set PATH ~/.local/bin $PATH # Fix for pip on ubuntu
 
 # === GO ===
 if type -q go
-    set -x GOROOT /usr/local/go
+    #set -x GOROOT /usr/local/go
     set -x GO111MODULE on
     set -x GOPATH ~
     set PATH $GOPATH/bin $PATH

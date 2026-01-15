@@ -32,3 +32,4 @@ end
 # Tools
 alias bazel bazelisk
 alias buck2 buckle
+alias vl vidlib

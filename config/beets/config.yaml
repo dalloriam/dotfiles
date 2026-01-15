@@ -1,3 +1,21 @@
+plugins: musicbrainz inline edit
 directory: $MUSIC_DIR
 import:
   move: yes
+
+musicbrainz:
+  data_source_mismatch_penalty: 0.5
+  search_limit: 5
+  host: musicbrainz.org
+  https: no
+  ratelimit: 1
+  ratelimit_interval: 1.0
+  extra_tags: []
+  genres: no
+  external_ids:
+    discogs: no
+    bandcamp: no
+    spotify: no
+    deezer: no
+    beatport: no
+    tidal: no
