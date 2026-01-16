@@ -3,4 +3,6 @@ source "strap/lib.fish"
 
 if is_arch
     sudo pacman --noconfirm -S yazi
+else if is_mac
+    brew install yazi
 end

@@ -44,6 +44,11 @@ function ensure_installed --argument program
     if not installed $program
         echo "$program installing"
         ./strap/installers/$program
+
+        # Re-source everything in fish/conf.d
+        for file in $__fish_config_dir/conf.d/*.fish
+            source $file
+        end
     end
 end
 

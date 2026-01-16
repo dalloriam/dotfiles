@@ -3,4 +3,6 @@ source "strap/lib.fish"
 
 if is_arch
     sudo pacman -S --noconfirm bat
+else if is_mac
+    brew install bat
 end
