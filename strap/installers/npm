@@ -1,0 +1,7 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+ensure_installed nvm
+
+nvm install 22.22
+nvm use 22.22

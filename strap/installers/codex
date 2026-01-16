@@ -1,0 +1,4 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+npm i -g @openai/codex
