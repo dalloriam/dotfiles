@@ -1,7 +1,10 @@
 #! /usr/bin/env fish
 source "strap/lib.fish"
 
-ensure_installed nvm
+ensure_installed fnm
 
-nvm install 22.22
-nvm use 22.22
+# Ensure fnm is sourced, in case we just installed it.
+fnm env --use-on-cd --shell fish | source
+
+fnm install 22.22
+fnm use 22.22

@@ -34,4 +34,6 @@ alias rmvirtualenv "vf rm"
 set -gx FZF_DEFAULT_OPTS '--height=50% --min-height=15 --reverse'
 set -gx EDITOR nvim
 
-set --universal nvm_default_version v22.22
+if type -q fnm
+    fnm env --use-on-cd --shell fish | source
+end
