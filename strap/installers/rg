@@ -1,0 +1,11 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+if is_ubuntu
+    sudo apt-get update
+    sudo apt-get install -y ripgrep
+else if is_arch
+    sudo pacman --noconfirm -S ripgrep
+else if is_mac
+    brew install ripgrep
+end
