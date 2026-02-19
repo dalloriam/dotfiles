@@ -13,6 +13,10 @@ set pkg_name $argv[1]
 for arg in $argv
     if string match -q -- "--tag=*" $arg
         set tag (string replace -- "--tag=" "" $arg)
+    else if string match -q -- "--package=*" $arg
+        set pkg (string replace -- "--package=" "" $arg)
+    else if string match -q -- "-p=*" $arg
+        set pkg (string replace -- "-p=" "" $arg)
     end
 end
 
@@ -56,6 +60,14 @@ print "🖥️  detected: $os-$arch"
 set assets (gh release view $tag --repo $pkg_name --json assets \
     | jq -r '.assets[] | "\(.name) \(.url)"')
 
+# determine binary name to match
+if test -n "$pkg"
+    set bin $pkg
+else
+    set bin (string split / $pkg_name)[2]
+end
+set lbin (string lower $bin)
+
 # lowercase filter
 set url ""
 
@@ -64,12 +76,14 @@ for line in $assets
     set dl (string split " " $line)[2]
     set lname (string lower $name)
 
-    # match os + any arch alias
-    if string match -q "*$os*" $lname
-        for alias in (string split " " $arch_aliases)
-            if string match -q "*$alias*" $lname
-                set url $dl
-                break
+    # match pkg name + os + any arch alias
+    if string match -q "*$lbin*" $lname
+        if string match -q "*$os*" $lname
+            for alias in (string split " " $arch_aliases)
+                if string match -q "*$alias*" $lname
+                    set url $dl
+                    break
+                end
             end
         end
     end
@@ -96,9 +110,11 @@ switch $file
     case '*.tar.gz' '*.tgz' '*.tar.xz' '*.tar.bz2' '*.txz'
         print "📦 extracting tarball"
         tar -xf "$file" -C "$tmp"
+        rm -f "$file"
     case '*.zip'
         print "📦 extracting zip"
         unzip -o -d "$tmp" "$file" >/dev/null
+        rm -f "$file"
     case '*.gz'
         print "📦 extracting gzip"
         gunzip -f "$file"
@@ -109,18 +125,27 @@ switch $file
         set file (string replace -r '\.xz$' '' "$file")
 end
 
-set bin (string split / $pkg_name)[2]
+# Find all executables in the extracted contents
+set executables (find "$tmp" -type f -executable 2>/dev/null)
 
-set found (fd -H -t f "$bin" "$tmp")
-test -n "$found"; or begin
-    print "❌ couldn’t find $bin in archive"
+# Fallback: if no files have executable bit set, detect ELF binaries
+if test (count $executables) -eq 0
+    for f in (find "$tmp" -type f 2>/dev/null)
+        if file -b "$f" | string match -q "*ELF*"
+            set -a executables "$f"
+        end
+    end
+end
+
+if test (count $executables) -eq 0
+    print "❌ couldn't find any executables in archive"
     exit 1
 end
 
-set found $found[1]
-
-print "✅ found binary `$bin`"
 mkdir -p $install_dir
-mv -f "$found" "$install_dir/$bin"
-chmod +x "$install_dir/$bin"
-print "🚀 installed to $install_dir/$bin"
+for exe in $executables
+    set exe_name (basename "$exe")
+    mv -f "$exe" "$install_dir/$exe_name"
+    chmod +x "$install_dir/$exe_name"
+    print "🚀 installed $exe_name to $install_dir/$exe_name"
+end

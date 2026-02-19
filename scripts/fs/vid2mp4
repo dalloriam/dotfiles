@@ -1,5 +1,7 @@
 #! /usr/bin/env fish
 
+# Converts all .vid files in the current directory to .mp4 files by renaming them.
+
 # Loop through all files in the current directory
 # Rename files with .vid extension to .mp4 extension
 for file in *.vid
