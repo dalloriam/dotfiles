@@ -4,28 +4,30 @@ keybinds clear-defaults=true {
     locked {
         bind "Super g" { SwitchToMode "normal"; }
     }
+
+    shared_except "pane" {
+        bind "Super p" { SwitchToMode "pane"; }
+    }
+
     pane {
-        bind "left" { MoveFocus "left"; }
-        bind "down" { MoveFocus "down"; }
-        bind "up" { MoveFocus "up"; }
-        bind "right" { MoveFocus "right"; }
         bind "c" { SwitchToMode "renamepane"; PaneNameInput 0; }
         bind "d" { NewPane "down"; SwitchToMode "normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
         bind "f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
-        bind "h" { MoveFocus "left"; }
         bind "i" { TogglePanePinned; SwitchToMode "normal"; }
-        bind "j" { MoveFocus "down"; }
-        bind "k" { MoveFocus "up"; }
-        bind "l" { MoveFocus "right"; }
         bind "n" { NewPane; SwitchToMode "normal"; }
         bind "p" { SwitchFocus; }
-        bind "Super p" { SwitchToMode "normal"; }
         bind "r" { NewPane "right"; SwitchToMode "normal"; }
         bind "s" { NewPane "stacked"; SwitchToMode "normal"; }
         bind "w" { ToggleFloatingPanes; SwitchToMode "normal"; }
         bind "z" { TogglePaneFrames; SwitchToMode "normal"; }
+        bind "Super p" { SwitchToMode "normal"; }
     }
+
+    shared_except "tab" {
+        bind "Super y" { SwitchToMode "tab"; }
+    }
+
     tab {
         bind "left" { GoToPreviousTab; }
         bind "down" { GoToNextTab; }
@@ -50,10 +52,15 @@ keybinds clear-defaults=true {
         bind "n" { NewTab; SwitchToMode "normal"; }
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
-        bind "Super t" { SwitchToMode "normal"; }
+        bind "Super y" { SwitchToMode "normal"; }
         bind "x" { CloseTab; SwitchToMode "normal"; }
         bind "tab" { ToggleTab; }
     }
+
+    shared_except "resize" {
+        bind "Super r" { SwitchToMode "resize"; }
+    }
+
     resize {
         bind "left" { Resize "Increase left"; }
         bind "down" { Resize "Increase down"; }
@@ -70,7 +77,7 @@ keybinds clear-defaults=true {
         bind "j" { Resize "Increase down"; }
         bind "k" { Resize "Increase up"; }
         bind "l" { Resize "Increase right"; }
-        bind "Super n" { SwitchToMode "normal"; }
+        bind "Super r" { SwitchToMode "normal"; }
     }
     move {
         bind "left" { MovePane "left"; }
@@ -148,7 +155,7 @@ keybinds clear-defaults=true {
         bind "Ctrl ]" { NextSwapLayout; }
         //bind "Ctrl f" { ToggleFloatingPanes; }
         bind "Ctrl w" { CloseFocus; SwitchToMode "normal"; }
-        bind "Ctrl f" { ToggleFocusFullscreen; }
+        bind "Super f" { ToggleFocusFullscreen; }
         bind "Super g" { SwitchToMode "locked"; }
         bind "Ctrl h" { MoveFocusOrTab "left"; }
         bind "Ctrl i" { MoveTab "left"; }
@@ -160,7 +167,10 @@ keybinds clear-defaults=true {
         bind "Ctrl Shift p" { ToggleGroupMarking; }
         bind "Super q" { Quit; }
 
-        bind "Ctrl p" { 
+    }
+
+    shared {
+        bind "Super Shift o" { 
             LaunchOrFocusPlugin "file:~/.config/zellij/plugins/zsm.wasm" {
                 floating true
                 move_to_focused_tab true
@@ -168,26 +178,17 @@ keybinds clear-defaults=true {
     }
 
     }
-    shared_except "locked" "move" {
+    shared_except "move" {
         bind "Super h" { SwitchToMode "move"; }
     }
-    shared_except "locked" "session" {
+    shared_except "session" {
         bind "Super o" { SwitchToMode "session"; }
     }
     shared_except "locked" "scroll" "search" "tmux" {
         bind "Super b" { SwitchToMode "tmux"; }
     }
-    shared_except "locked" "scroll" "search" {
+    shared_except "scroll" "search" {
         bind "Super s" { SwitchToMode "scroll"; }
-    }
-    shared_except "locked" "tab" {
-        bind "Super t" { SwitchToMode "tab"; }
-    }
-    shared_except "locked" "pane" {
-        bind "Super p" { SwitchToMode "pane"; }
-    }
-    shared_except "locked" "resize" {
-        bind "Super n" { SwitchToMode "resize"; }
     }
     shared_except "normal" "locked" "entersearch" {
         bind "enter" { SwitchToMode "normal"; }
