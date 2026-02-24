@@ -33,7 +33,7 @@ function is_ubuntu
 end
 
 function installed --argument program
-    if type -q $program
+    if type -P -- $program >/dev/null 2>/dev/null
         return 0
     else
         return 1

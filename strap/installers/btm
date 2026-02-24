@@ -1,0 +1,12 @@
+#!/usr/bin/env fish
+
+source "strap/lib.fish"
+
+if is_arch
+    sudo pacman --noconfirm -S bottom
+else if is_ubuntu
+    sudo apt-get update
+    sudo apt-get install -y bottom
+else if is_mac
+    brew install bottom
+end
