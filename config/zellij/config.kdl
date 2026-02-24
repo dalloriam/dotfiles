@@ -1,3 +1,5 @@
+theme "catppuccin-latte"
+
 keybinds clear-defaults=true {
     locked {
         bind "Super g" { SwitchToMode "normal"; }
@@ -155,9 +157,16 @@ keybinds clear-defaults=true {
         bind "Ctrl l" { MoveFocusOrTab "right"; }
         bind "Ctrl n" { NewPane; }
         bind "Ctrl o" { MoveTab "right"; }
-        bind "Ctrl p" { TogglePaneInGroup; }
         bind "Ctrl Shift p" { ToggleGroupMarking; }
         bind "Super q" { Quit; }
+
+        bind "Ctrl p" { 
+            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/zsm.wasm" {
+                floating true
+                move_to_focused_tab true
+            }
+    }
+
     }
     shared_except "locked" "move" {
         bind "Super h" { SwitchToMode "move"; }

@@ -3,6 +3,7 @@ swww img $HOME/pictures/wallpaper/light.png
 sleep 2
 
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita
+sed -i 's/^theme ".*"/theme "catppuccin-latte"/' "$HOME"/.config/zellij/config.kdl
 niri msg action do-screen-transition && gsettings set org.gnome.desktop.interface color-scheme prefer-light
 
 makoctl mode -r dark
