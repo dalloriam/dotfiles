@@ -1,0 +1,43 @@
+(deflisten activities :initial "[]"
+  "live-notifyd watch")
+
+(defpoll theme_mode :interval "5s"
+  "darkman get 2>/dev/null || echo dark")
+
+(defwindow live-activities
+  :monitor 0
+  :geometry (geometry :x "10px" :y "10px" :width "350px" :anchor "top right")
+  :stacking "overlay"
+  :focusable false
+  :exclusive false
+  (activity-list :theme_mode theme_mode))
+
+(defwidget activity-list [theme_mode]
+  (box :class "activity-list theme-${theme_mode}" :orientation "v" :space-evenly false :spacing 8
+    (for entry in activities
+      (activity-card
+        :id {entry.id}
+        :title {entry.title}
+        :subtitle {entry.subtitle}
+        :icon {entry.icon}
+        :progress {entry.progress}
+        :actions {entry.actions}))))
+
+(defwidget activity-card [id title subtitle icon progress actions]
+  (box :class "activity-card" :orientation "v" :space-evenly false :spacing 4
+    (box :orientation "h" :space-evenly false :spacing 8
+      (label :visible {icon != ""} :text icon :class "activity-icon")
+      (box :orientation "v" :space-evenly false :hexpand true
+        (label :text title :class "activity-title" :halign "start")
+        (label :visible {subtitle != ""} :text subtitle :class "activity-subtitle" :halign "start")))
+    (box :visible {progress >= 0} :class "activity-progress-wrap" :orientation "h" :space-evenly false
+      (box :class "activity-progress-fill" :hexpand false
+           :style "min-width: ${round(progress * 318, 0)}px; min-height: 6px;")
+      (box :class "activity-progress-empty" :hexpand false
+           :style "min-width: ${round((1 - progress) * 318, 0)}px; min-height: 6px;"))
+    (box :visible {arraylength(actions) > 0}
+         :orientation "h" :space-evenly true :spacing 4
+      (for act in actions
+        (button :class "activity-action"
+                :onclick "live-notifyd action '${id}' '${act.id}'"
+          {act.label})))))

@@ -1,0 +1,15 @@
+[Unit]
+Description=Eww daemon
+Documentation=https://elkowar.github.io/eww/
+Requires=live-notifyd.service
+After=graphical-session.target live-notifyd.service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/eww daemon --no-daemonize
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

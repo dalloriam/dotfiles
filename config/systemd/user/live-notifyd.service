@@ -1,0 +1,13 @@
+[Unit]
+Description=Live Notify daemon
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/bin/live-notifyd serve
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

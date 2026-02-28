@@ -1,0 +1,7 @@
+#! /usr/bin/env fish
+
+source "strap/lib.fish"
+
+if is_arch
+    ./scripts/pkg/install dalloriam/tools -p=live-notifyd
+end
