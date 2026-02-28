@@ -1,4 +1,10 @@
 #! /usr/bin/env fish
+
+for _ in (seq 1 30)
+    swww query >/dev/null 2>&1; and break
+    sleep 0.2
+end
+
 swww img $HOME/pictures/wallpaper/light.png
 sleep 2
 

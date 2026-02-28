@@ -495,5 +495,6 @@ environment {
 }
 
 spawn-at-startup "swww-daemon" // wallpaper daemon
+spawn-at-startup "darkman" "run" // keep darkman bound to this Wayland session
 spawn-at-startup "xwayland-satellite" // allows running X11 apps thru xwayland without root
 spawn-at-startup "waybar" // status bar
