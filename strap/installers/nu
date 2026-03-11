@@ -1,0 +1,8 @@
+#!/usr/bin/env fish
+source "strap/lib.fish"
+
+if is_arch
+    sudo pacman -S nushell
+else
+    brew install nushell
+end
