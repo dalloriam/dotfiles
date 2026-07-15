@@ -1,11 +1,11 @@
 #! /usr/bin/env fish
 
 for _ in (seq 1 30)
-    swww query >/dev/null 2>&1; and break
+    awww query >/dev/null 2>&1; and break
     sleep 0.2
 end
 
-swww img $HOME/pictures/wallpaper/dark.png
+awww img $HOME/pictures/wallpaper/dark.png
 sleep 2
 gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
 

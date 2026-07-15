@@ -9,6 +9,8 @@ function setup_dotfiles --argument source_path
 
         set --local tgt_path $HOME/.$file_name
 
+        mkdir -p (dirname $tgt_path)
+
         symlink_overwrite $src_path $tgt_path
         echo $file_name
     end

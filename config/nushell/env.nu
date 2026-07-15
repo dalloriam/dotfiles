@@ -54,3 +54,6 @@ if (which jj | is-not-empty) {
 } else {
     "# jj not installed" | save -f ~/.cache/jj/completions.nu
 }
+
+$env.NU_LIB_DIRS = ($env.NU_LIB_DIRS | append ($nu.default-config-dir | path join "modules"))
+use ($nu.default-config-dir | path join "modules" | path join "stdx")

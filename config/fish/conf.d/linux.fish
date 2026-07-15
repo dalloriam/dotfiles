@@ -1,2 +1,2 @@
-if test (uname) = "Linux"
+if test (uname) = Linux
 end

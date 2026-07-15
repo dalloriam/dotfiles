@@ -20,12 +20,6 @@ def did [] {
     }
 }
 
-# SCP via SDM (AWS Systems Manager)
-# Usage: sdm-scp i-123456789:/path/to/file /path/to/file
-def sdm-scp [src: string, dst: string] {
-    ^scp -S /usr/local/bin/sdm -osdmSCP $src $dst
-}
-
 # Stop, remove all containers and prune all images
 def docker-killall [] {
     let ids = (^docker ps -aq | lines | str trim | where { |it| $it != "" })

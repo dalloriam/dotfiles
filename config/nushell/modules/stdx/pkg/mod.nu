@@ -1,0 +1,37 @@
+# Bootstrap ar-install from the personal AR generic repository.
+
+const AR_LOCATION = "northamerica-northeast1"
+const AR_PROJECT  = "personal-workspace"
+const AR_REPO     = "bin"
+const AR_PACKAGE  = "ar-install"
+
+export def bootstrap [] {
+    let install_dir = ($env.HOME | path join "bin")
+
+    let ver = (^gcloud artifacts versions list --format json
+        --project $AR_PROJECT --location $AR_LOCATION
+        --repository $AR_REPO --package $AR_PACKAGE
+    | from json | sort-by createTime --reverse | first | get name | split row "/" | last)
+
+    let tmp = (^mktemp -d | str trim)
+    print $"Downloading ($AR_PACKAGE) ($ver)..."
+    (^gcloud artifacts generic download
+        --project $AR_PROJECT --location $AR_LOCATION
+        --repository $AR_REPO --package $AR_PACKAGE --version $ver
+        --destination $tmp)
+
+    let dl = (^find $tmp -type f | lines | first)
+    let file_type = (^file -b $dl | str lowercase)
+    if ($file_type | str contains "tar") or ($file_type | str contains "gzip") or ($file_type | str contains "xz") or ($file_type | str contains "bzip2") {
+        ^tar -xf $dl -C $tmp; rm $dl
+    } else if ($file_type | str contains "zip") {
+        ^unzip -o -d $tmp $dl out+err> /dev/null; rm $dl
+    }
+
+    mkdir $install_dir
+    for exe in (^find $tmp -type f -executable | lines | where {|f| $f != ""}) {
+        let name = ($exe | path basename)
+        ^mv -f $exe ($install_dir | path join $name)
+        print $"Installed ($name) -> ($install_dir)/($name)"
+    }
+}

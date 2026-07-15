@@ -2,7 +2,7 @@
 * {
   font-family: "TX-02", "Font Awesome 6 Free", "Font Awesome 6 Free Solid";
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   color: @text;
 }
 
@@ -14,45 +14,44 @@
 
 #workspaces,
 #window,
-#tray{
+#tray {
   background-color: @surface0;
-  padding: 4px 6px; 
-  margin-top: 6px; 
-  margin-left: 6px; 
+  padding: 4px 6px;
+  margin-top: 6px;
+  margin-left: 6px;
   margin-right: 6px;
   border-radius: 10px;
   border-width: 0px;
 }
 
-
 #clock,
-#custom-power{
+#custom-power {
   background-color: @surface0;
-  margin-top: 6px; 
+  margin-top: 6px;
   margin-right: 6px;
-  padding: 4px 2px; 
+  padding: 4px 2px;
   border-radius: 0 10px 10px 0;
   border-width: 0px;
 }
 
 window#waybar.top label.module {
-    box-shadow: inset 0 -3px;
+  box-shadow: inset 0 -3px;
 }
 window#waybar.bottom label.module {
-    box-shadow: inset 0 3px;
+  box-shadow: inset 0 3px;
 }
 
 label.module {
-    padding: 0 10px;
-    box-shadow: inset 0 -3px;
+  padding: 0 10px;
+  box-shadow: inset 0 -3px;
 }
 
 #network,
-#custom-lock{
+#custom-lock {
   background-color: @surface0;
-  margin-top: 6px; 
+  margin-top: 6px;
   margin-left: 6px;
-  padding: 4px 2px; 
+  padding: 4px 2px;
   border-radius: 10px 0 0 10px;
   border-width: 0px;
 }
@@ -66,10 +65,10 @@ label.module {
 #custom-temperature,
 #custom-razer,
 #memory,
-#cpu{
+#cpu {
   background-color: @surface0;
-  margin-top: 6px; 
-  padding: 4px 2px; 
+  margin-top: 6px;
+  padding: 4px 2px;
   border-width: 0px;
 }
 
@@ -92,23 +91,23 @@ label.module {
 }
 
 #custom-lock {
-    color: @sapphire;
+  color: @sapphire;
 }
 
 #custom-reboot {
-    color: @peach;
+  color: @peach;
 }
 
 #custom-power {
-    color: @red;
+  color: @red;
 }
 
 #pulseaudio {
-    color: @maroon;
+  color: @maroon;
 }
 
 #custom-temperature {
-    color: @yellow;
+  color: @yellow;
 }
 
 #custom-temperature.critical,
@@ -119,18 +118,18 @@ label.module {
 }
 
 #memory {
-    color: @mauve;
+  color: @mauve;
 }
 
 #cpu {
-    color: @peach;
+  color: @peach;
 }
 
 #clock {
-    color: @teal;
+  color: @teal;
 }
 
-#workspaces button:hover{
+#workspaces button:hover {
   background-color: @overlay0;
   padding: 2px 8px;
   margin: 0 2px;
@@ -138,7 +137,7 @@ label.module {
 }
 
 #workspaces button.active {
-  background-color: @overlay1; 
+  background-color: @overlay1;
   color: @text;
   padding: 2px 8px;
   margin: 0 2px;

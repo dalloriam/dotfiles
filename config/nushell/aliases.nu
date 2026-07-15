@@ -39,3 +39,5 @@ def xopen [...args: string] {
 # === Tools ===
 alias buck2 = buckle
 alias vl = vidlib
+
+alias pick = input list --fuzzy

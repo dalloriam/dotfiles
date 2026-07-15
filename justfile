@@ -1,15 +1,15 @@
-set export := true
+set export
 
 # Default Variables
 # User can override these variables by setting them in their environment or by
 # writing them to a `.env` file in the root of this project.
 
-set dotenv-load := true
+set dotenv-load
 
 TERMINAL_FONT_SIZE := env_var_or_default("TERMINAL_FONT_SIZE", "14")
 TERMINAL_FONT_FAMILY := env_var_or_default("TERMINAL_FONT_FAMILY", "TX-02")
 JD_FOLDER := env_var_or_default("JD_FOLDER", "~/.jd")
-MUSIC_DIR := env_var_or_default("MUSIC_DIR", "/mnt/media/music")
+MUSIC_DIR := env_var_or_default("MUSIC_DIR", "/mnt/music")
 
 docker:
     docker build -t dalloriam/dotfiles .
