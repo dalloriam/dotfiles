@@ -2,11 +2,6 @@
 $env.PATH = ($env.PATH | prepend ($env.HOME | path join "bin"))
 $env.PATH = ($env.PATH | prepend "/usr/local/go/bin")
 
-# === C++ ===
-if (which clang++ | is-not-empty) {
-    $env.CXX = (which clang++ | get path | first)
-}
-
 # === Python ===
 $env.WORKON_HOME = ($env.HOME | path join ".virtualenvs")
 $env.PATH = ($env.PATH | prepend ($env.HOME | path join ".local/bin"))

@@ -1,0 +1,5 @@
+[wallpaper]
+enabled = true
+directory = "/home/wduss/Pictures/Wallpaper/"
+directory_light  = "/home/wduss/Pictures/Wallpaper/Light"
+directory_dark  = "/home/wduss/Pictures/Wallpaper/Dark"

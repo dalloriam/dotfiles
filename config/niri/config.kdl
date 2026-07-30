@@ -3,6 +3,15 @@
 // Check the wiki for a full description of the configuration:
 // https://yalter.github.io/niri/Configuration:-Introduction
 
+/* Apps: blur them all without xray so it looks more realistic. */
+window-rule {
+  background-effect {
+    blur true
+    xray false
+  }
+}
+
+
 // Input device configuration.
 // Find the full list of options on the wiki:
 // https://yalter.github.io/niri/Configuration:-Input
@@ -267,9 +276,11 @@ binds {
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
+    Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
+    Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
+
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Ctrl+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
@@ -486,7 +497,6 @@ binds {
 
     Mod+M { spawn "~/scripts/music/search" "fuzzel" "-d"; }
 
-    Mod+Shift+D { spawn "darkman" "toggle"; }
     ISO_Level3_Shift+Period { spawn "bemoji" "-t"; }
 }
 
@@ -495,9 +505,7 @@ environment {
     GTK_IM_MODULE "simple"
 }
 
-spawn-at-startup "awww-daemon" // wallpaper daemon
-spawn-at-startup "darkman" "run" // keep darkman bound to this Wayland session
 spawn-at-startup "xwayland-satellite" // allows running X11 apps thru xwayland without root
-spawn-at-startup "waybar" // status bar
+spawn-at-startup "noctalia" // status bar
 spawn-at-startup "sh" "-c" "sleep 1; eww open live-activities >/dev/null 2>&1" // eww widget
 spawn-at-startup "sh" "-c" "/usr/lib/hyprpolkitagent/hyprpolkitagent"

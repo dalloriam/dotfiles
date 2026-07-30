@@ -2,8 +2,6 @@
 fish_add_path ~/bin
 fish_add_path /usr/local/go/bin
 
-set CXX (which clang++)
-
 # === PYTHON ===
 set -x WORKON_HOME $HOME/.virtualenvs
 fish_add_path ~/.local/bin
