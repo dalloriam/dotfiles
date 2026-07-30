@@ -63,3 +63,7 @@ source ~/.cache/starship/init.nu
 source ~/.cache/zoxide/init.nu
 source ~/.cache/jj/completions.nu
 source $"($nu.cache-dir)/carapace.nu"
+
+# Append modules dir to NU_LIB_DIRS
+$env.NU_LIB_DIRS = ($env.NU_LIB_DIRS | prepend $"($nu.default-config-dir)/modules")
+use $"($nu.default-config-dir)/modules/stdx" *
