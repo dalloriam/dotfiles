@@ -1,14 +1,27 @@
 [
-  {
-    "bindings": {
-      "ctrl-l": "workspace::ActivateNextPane",
-      "ctrl-h": "workspace::ActivatePreviousPane",
-      "ctrl-j": "terminal_panel::ToggleFocus",
-      "ctrl-k": "terminal_panel::ToggleFocus",
-      "cmd-b": "editor::GoToDefinition",
-      "ctrl-b": "editor::GoToDefinition",
-      "cmd-r": "editor::Rename",
-      "ctrl-r": "editor::Rename"
+    {
+        "bindings": {
+            "ctrl-l": "workspace::ActivateNextPane",
+            "ctrl-h": "workspace::ActivatePreviousPane",
+            "ctrl-j": "terminal_panel::ToggleFocus",
+            "ctrl-k": "terminal_panel::ToggleFocus",
+            "cmd-b": "editor::GoToDefinition",
+            "ctrl-b": "editor::GoToDefinition",
+            "cmd-r": "editor::Rename",
+            "ctrl-r": "editor::Rename",
+            "ctrl-w": "pane::CloseActiveItem",
+            "cmd-w": "pane::CloseActiveItem",
+            "ctrl-n": "project_panel::Toggle"
+        }
+    },
+    {
+        "context": "vim_mode == normal",
+        "bindings": {
+            "space n": "task::Rerun",
+            "space m": "task::Spawn",
+            "space t": "workspace::NewCenterTerminal",
+            "space w": "pane::CloseActiveItem",
+            "space r": "editor::Rename"
+        }
     }
-  }
 ]

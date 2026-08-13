@@ -1,27 +1,36 @@
 {
-  "edit_predictions": {
-    "provider": "copilot",
-  },
-  "theme": "Rosé Pine Dawn",
-  "buffer_font_size": 12,
-  "ui_font_size": 12,
-  "agent_buffer_font_size": 12,
-  "agent_ui_font_size": 12,
-  "buffer_font_family": "TX-02",
-  "ui_font_family": "Univers LT Std",
-  "vim_mode": true,
-  "inlay_hints": {
-    "enabled": true,
-  },
-  "autosave": {
-    "after_delay": {
-      "milliseconds": 2000,
+    "format_on_save": "on",
+    "agent": {
+        "dock": "right",
+        "favorite_models": [],
+        "model_parameters": []
     },
-  },
-  "buffer_line_height": "standard",
-  "terminal": {
-    "line_height": "standard",
-  },
-  "relative_line_numbers": "enabled",
+    "git_panel": {
+        "dock": "left"
+    },
+    "project_panel": {
+        "dock": "left"
+    },
+    "edit_predictions": {
+        "provider": "copilot"
+    },
+    "theme": "Rosé Pine Dawn",
+    "buffer_font_size": 12,
+    "ui_font_size": 12,
+    "agent_buffer_font_size": 12,
+    "agent_ui_font_size": 12,
+    "buffer_font_family": "TX-02",
+    "ui_font_family": "Univers LT Std",
+    "vim_mode": true,
+    "inlay_hints": {
+        "enabled": true
+    },
+    "autosave": {
+        "after_delay": {
+            "milliseconds": 2000
+        }
+    },
+    "buffer_line_height": "standard",
+    "terminal": {},
+    "relative_line_numbers": "enabled"
 }
-
