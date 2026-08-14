@@ -1,32 +1,39 @@
 
-def find_project [project_name: string] {
-    let SRC_DIR = ($env.HOME | path join "src")
-    let base = $SRC_DIR
-    let matches = (
-        glob ($base | path join "**" $project_name) --no-file --no-symlink
-    )
+const SRC_DIR = "~/src"
 
-    if ($matches | is-empty) {
-        error make { msg: $"No project named '($project_name)' found under ($base)" }
-    } else {
-        $matches | first
+# All git projects under $path, as {name, path} records. Recursion stops at a
+# project boundary, so vendored/build dirs inside a project are never walked.
+def discover [path: string] {
+    let path = ($path | path expand)
+
+    if ($path | path join ".git" | path exists) {
+        return [{name: ($path | path basename), path: $path}]
     }
+
+    ls -a $path
+    | where type == dir
+    | where {|e| ($e.name | path basename) != ".git"}
+    | each {|e| discover $e.name}
+    | flatten
 }
 
-def list [path = "~/src"] {
-    let path = $path | path expand
-    let entries = (ls -a $path | where type == dir)
-    let has_git = ($entries | any {|e| $e.name | path basename | $in == ".git"})
+def find_project [project_name: string] {
+    let matches = (discover $SRC_DIR | where name == $project_name)
 
-    if $has_git {
-        let project_name = ($path | path basename)
-        [$project_name]
-    } else {
-        $entries
-        | where {|e| ($e.name | path basename) != ".git"}
-        | each {|e| list $e.name}
-        | flatten
+    if ($matches | is-empty) {
+        error make { msg: $"No project named '($project_name)' found under ($SRC_DIR)" }
     }
+
+    if (($matches | length) > 1) {
+        let paths = ($matches | get path | str join "\n  ")
+        error make { msg: $"Ambiguous project name '($project_name)':\n  ($paths)" }
+    }
+
+    $matches | first | get path
+}
+
+def list [path = $SRC_DIR] {
+    discover $path | get name
 }
 
 export def cli [project_name: string] {

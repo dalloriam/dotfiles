@@ -2,9 +2,10 @@
 //
 // Example:
 [
-    {
-        "label": "Strap Config",
-        "command": "just strap config",
-        "hide": "on_success"
-    }
+  {
+    "label": "Strap Config",
+    "command": "just strap config",
+    "hide": "on_success",
+    "shell": "system",
+  },
 ]
