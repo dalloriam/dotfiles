@@ -6,7 +6,6 @@ font-thicken-strength = 128
 background-opacity=0.6
 background-blur=true
 
-window-decoration=none
 window-theme=system
 
-theme = dark:Catppuccin Macchiato,light:Catppuccin Latte
+theme = noctalia
