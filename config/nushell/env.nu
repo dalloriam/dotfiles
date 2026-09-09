@@ -52,3 +52,8 @@ if (which jj | is-not-empty) {
 
 $env.NU_LIB_DIRS = ($env.NU_LIB_DIRS | append ($nu.default-config-dir | path join "modules"))
 use ($nu.default-config-dir | path join "modules" | path join "stdx")
+
+if (which mise | is-not-empty) {
+  let mise_path = $nu.default-config-dir | path join mise.nu
+  ^mise activate nu | save $mise_path --force
+}

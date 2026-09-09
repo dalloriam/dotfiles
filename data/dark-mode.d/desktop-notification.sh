@@ -7,7 +7,6 @@ end
 
 awww img $HOME/pictures/wallpaper/dark.png
 sleep 2
-gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
 
 sed -i 's/^theme ".*"/theme "catppuccin-macchiato"/' "$HOME"/.config/zellij/config.kdl
 niri msg action do-screen-transition && gsettings set org.gnome.desktop.interface color-scheme prefer-dark

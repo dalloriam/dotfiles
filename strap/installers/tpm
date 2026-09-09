@@ -1,0 +1,8 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+set --local tpm_dir "$HOME/.tmux/plugins/tpm"
+
+if not test -d $tpm_dir
+    git clone https://github.com/tmux-plugins/tpm $tpm_dir
+end

@@ -67,3 +67,5 @@ source $"($nu.cache-dir)/carapace.nu"
 # Append modules dir to NU_LIB_DIRS
 $env.NU_LIB_DIRS = ($env.NU_LIB_DIRS | prepend $"($nu.default-config-dir)/modules")
 use $"($nu.default-config-dir)/modules/stdx" *
+
+use ($nu.default-config-dir | path join mise.nu)

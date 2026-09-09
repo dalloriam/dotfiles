@@ -1,0 +1,10 @@
+#! /usr/bin/env fish
+source "strap/lib.fish"
+
+if is_arch
+    sudo pacman -S --noconfirm tmux
+else if is_ubuntu
+    sudo apt install -y tmux
+else if is_mac
+    brew install tmux
+end

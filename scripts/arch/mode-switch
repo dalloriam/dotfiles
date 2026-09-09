@@ -1,0 +1,6 @@
+#! /usr/bin/env nu
+if $env.NOCTALIA_THEME_MODE == "dark" {
+    noctalia msg wallpaper-set Pictures/Wallpaper/Dark/fuji.png
+} else {
+    noctalia msg wallpaper-set Pictures/Wallpaper/Light/fuji.png
+}

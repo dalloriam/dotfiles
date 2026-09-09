@@ -278,6 +278,9 @@ binds {
 
     Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
     Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
+    Mod+P hotkey-overlay-title="Open project in terminal" { spawn-sh "noctalia msg panel-open launcher /proj-tui"; }
+    Mod+O hotkey-overlay-title="Open project in Zed" { spawn-sh "noctalia msg panel-open launcher /proj-gui"; }
+    Mod+G hotkey-overlay-title="Launch a game" { spawn-sh "noctalia msg panel-open launcher /games"; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
@@ -296,11 +299,6 @@ binds {
     // but you need to manually put each argument in separate "" quotes.
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
-
-    // Open/close the Overview: a zoomed-out view of workspaces and windows.
-    // You can also move the mouse into the top-left hot corner,
-    // or do a four-finger swipe up on a touchpad.
-    Mod+O repeat=false { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
 
@@ -494,10 +492,6 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Ctrl+P { power-off-monitors; }
-
-    Mod+M { spawn "~/scripts/music/search" "fuzzel" "-d"; }
-
-    ISO_Level3_Shift+Period { spawn "bemoji" "-t"; }
 }
 
 environment {

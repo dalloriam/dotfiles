@@ -1,7 +1,7 @@
 # bottom: use light theme when darkman reports light mode
 def btm [] {
-    if (which darkman | is-not-empty) and ((^darkman get | str trim) == "light") {
-        ^btm --theme default-light
+    if (which noctalia | is-not-empty) and ((^noctalia msg theme-mode-get | str trim) == "light") {
+        ^btm --theme default
     } else {
         ^btm
     }
