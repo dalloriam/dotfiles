@@ -1,3 +1,11 @@
+# === Locale ===
+# SSH logins don't get the systemd user environment and nu never reads
+# /etc/locale.conf, so LANG ends up unset. tmux then treats the client as
+# non-UTF-8 and renders every glyph as '_'.
+if ($env.LANG? | is-empty) and ($env.LC_ALL? | is-empty) {
+    $env.LANG = "C.UTF-8"
+}
+
 # === PATH ===
 $env.PATH = ($env.PATH | prepend ($env.HOME | path join "bin"))
 $env.PATH = ($env.PATH | prepend "/usr/local/go/bin")
