@@ -6,6 +6,47 @@ const AR_REPO     = "bin"
 const AR_PACKAGE  = "ar-install"
 const AR_PROXY     = "https://ar.execd.xyz"
 
+def canonical_arch [arch: string] {
+    match $arch {
+        "amd64" | "x86_64" | "k8" | "darwin" | "darwin_x86_64" => "x86_64"
+        "arm64" | "aarch64" | "darwin_arm64" => "aarch64"
+        _ => $arch
+    }
+}
+
+def canonical_os [os: string] {
+    if $os == "macos" { "darwin" } else { $os }
+}
+
+# Match the package-OS-CPU-mode convention used by ar-install itself.
+def select_file [files: list, os: string, arch: string] {
+    let os = (canonical_os $os)
+    let arch = (canonical_arch $arch)
+    let archives = ($files | each {|file|
+        let filename = ($file.name | split row "/" | last | url decode | split row ":" | last)
+        {resource: $file.name, filename: $filename}
+    } | where {|file| $file.filename =~ '\.(tar\.gz|tgz)$'})
+    let matches = ($archives | where {|file|
+        let platform = ($file.filename | parse --regex ('^' + $AR_PACKAGE + '-(?<os>[^-]+)-(?<arch>[^-]+)-[^-]+\.(tar\.gz|tgz)$'))
+        if ($platform | is-empty) {
+            false
+        } else {
+            (canonical_os $platform.0.os) == $os and (canonical_arch $platform.0.arch) == $arch
+        }
+    })
+    if ($matches | length) == 1 {
+        return $matches.0.resource
+    }
+    # Only accept an untagged legacy archive when it is the sole tarball.
+    if ($matches | is-empty) and ($archives | length) == 1 {
+        if $archives.0.filename in [$"($AR_PACKAGE).tar.gz" $"($AR_PACKAGE).tgz"] {
+            return $archives.0.resource
+        }
+    }
+    let reason = (if ($matches | is-empty) { "No" } else { "Multiple" })
+    error make {msg: $"($reason) tarball matches ($os)/($arch) for ($AR_PACKAGE). Available: ($archives.filename | str join ', ')"}
+}
+
 def proxy_available [] {
     let result = (^curl --fail --silent --show-error --output /dev/null
         --connect-timeout 1 --max-time 3 $"($AR_PROXY)/healthz" | complete)
@@ -19,12 +60,18 @@ def proxy_download [destination: path] {
         --data-urlencode "orderBy=createTime desc" --data-urlencode "pageSize=1"
         $"($AR_PROXY)/v1/($package)/versions"
     | from json | get versions | first | get name)
-    let file = (^curl --fail --silent --show-error --get
-        --data-urlencode $"filter=owner=\"($version)\""
-        $"($AR_PROXY)/v1/($repository)/files"
-    | from json | get files
-    | where {|f| $f.name | str ends-with ".tar.gz"}
-    | first | get name)
+    mut files = []
+    mut page_token = ""
+    loop {
+        let page = (^curl --fail --silent --show-error --get
+            --data-urlencode $"filter=owner=\"($version)\""
+            --data-urlencode $"pageToken=($page_token)"
+            $"($AR_PROXY)/v1/($repository)/files" | from json)
+        $files = ($files | append ($page.files? | default []))
+        $page_token = ($page.nextPageToken? | default "")
+        if $page_token == "" { break }
+    }
+    let file = (select_file $files $nu.os-info.name $nu.os-info.arch)
 
     print $"Downloading ($AR_PACKAGE) (($version | split row "/" | last)) via Artifact Registry proxy..."
     ^curl --fail --location --silent --show-error --output $destination $"($AR_PROXY)/v1/($file):download?alt=media"
@@ -44,10 +91,15 @@ export def bootstrap [] {
         | from json | sort-by createTime --reverse | first | get name | split row "/" | last)
 
         print $"Artifact Registry proxy unavailable; downloading ($AR_PACKAGE) ($ver) with gcloud..."
-        (^gcloud artifacts generic download
+        let files = (^gcloud artifacts files list --format json
             --project $AR_PROJECT --location $AR_LOCATION
             --repository $AR_REPO --package $AR_PACKAGE --version $ver
-            --destination $tmp)
+        | from json)
+        let file = (select_file $files $nu.os-info.name $nu.os-info.arch)
+        (^gcloud artifacts files download $file
+            --project $AR_PROJECT --location $AR_LOCATION
+            --repository $AR_REPO --destination $tmp
+            --local-filename ($dl | path basename))
     }
 
     let file_type = (^file -b $dl | str lowercase)
@@ -58,7 +110,7 @@ export def bootstrap [] {
     }
 
     mkdir $install_dir
-    for exe in (^find $tmp -type f -executable | lines | where {|f| $f != ""}) {
+    for exe in (^find $tmp -type f -perm -111 | lines | where {|f| $f != ""}) {
         let name = ($exe | path basename)
         ^mv -f $exe ($install_dir | path join $name)
         print $"Installed ($name) -> ($install_dir)/($name)"

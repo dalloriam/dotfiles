@@ -1,5 +1,113 @@
-[wallpaper]
+[bar.default]
+center = [ "clock", "weather" ]
+end = [ "sysmon", "media", "tray", "notifications", "volume", "control-center", "session" ]
+font_family = "TX\\-02"
+font_weight = 600
+margin_ends = 50
+
+[calendar]
 enabled = true
+
+[control_center]
+hidden_tabs = [ "monitor", "power", "network", "bluetooth" ]
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "caffeine"
+
+    [[control_center.shortcuts]]
+    type = "nightlight"
+
+    [[control_center.shortcuts]]
+    type = "notification"
+
+    [[control_center.shortcuts]]
+    type = "dark_mode"
+
+[dock]
+smart_auto_hide = true
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@DP-2" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1720.0
+    cy = 1321.0
+    output = "DP-2"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+
+[nightlight]
+enabled = true
+
+[shell]
+font_family = "TX\\-02"
+password_style = "random"
+
+    [shell.animation]
+    speed = 1.5000000223517418
+
+[theme]
+builtin = "Noctalia"
+community_palette = "Ayu Red"
+mode = "light"
+source = "wallpaper"
+wallpaper_scheme = "soft"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "ghostty", "kcolorscheme", "qt", "starship" ]
+    community_ids = [ "discord", "telegram", "neovim", "vscode", "steam", "fuzzel", "rofi", "bat", "lazygit", "yazi" ]
+
+# FIXME: use templating for pictures path here.
+[wallpaper]
 directory = "/home/wduss/Pictures/Wallpaper/"
-directory_light  = "/home/wduss/Pictures/Wallpaper/Light"
-directory_dark  = "/home/wduss/Pictures/Wallpaper/Dark"
+directory_dark = "/home/wduss/Pictures/Wallpaper/Dark"
+directory_light = "/home/wduss/Pictures/Wallpaper/Light"
+enabled = true
+transition = [ "fade" ]
+
+    [wallpaper.default]
+    path = "/home/wduss/Pictures/Wallpaper/Light/fuji.png"
+
+    [wallpaper.last]
+    path = "/home/wduss/Pictures/Wallpaper/Light/fuji.png"
+
+    [wallpaper.monitors.DP-2]
+    path = "/home/wduss/Pictures/Wallpaper/Light/fuji.png"
+
+    [[wallpaper.favorite]]
+    palette_source = "wallpaper"
+    path = "/home/wduss/Pictures/Wallpaper/Dark/fuji.png"
+    theme_mode = "dark"
+    wallpaper_scheme = "soft"
+
+    [[wallpaper.favorite]]
+    palette_source = "wallpaper"
+    path = "/home/wduss/Pictures/Wallpaper/Light/fuji.png"
+    theme_mode = "auto"
+    wallpaper_scheme = "soft"
