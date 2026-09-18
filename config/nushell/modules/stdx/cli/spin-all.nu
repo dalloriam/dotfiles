@@ -17,7 +17,13 @@ export def main [
 
     mut jobs = ($tasks | each {|t|
         let id = (job spawn {
-            let result = (do $t.cmd | complete)
+            # try/catch: a raised error (e.g. `error make`) kills the job thread
+            # before it can send, which would hang the poll loop below forever.
+            let result = (try {
+                do $t.cmd | complete
+            } catch {|e|
+                {stdout: "", stderr: ($e.rendered? | default $e.msg), exit_code: ($e.exit_code? | default 1)}
+            })
             $result | job send 0 --tag (job id)
         })
         {id: $id, msg: $t.msg, done: false, result: null}

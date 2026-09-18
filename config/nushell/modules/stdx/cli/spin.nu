@@ -9,6 +9,7 @@ export def main [
     cmd: closure                     # code to run while spinning
     --interval (-i): duration = 80ms # frame interval
     --return (-r)                     # return the {stdout, stderr, exit_code} record
+    --verbose(-v)                     # print stdout/stderr even for successful jobs
 ] {
 
     let frames = ["⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏"]
@@ -37,12 +38,15 @@ export def main [
         print $"\r(ansi erase_line)(ansi red_bold)✗(ansi reset) ($msg) (ansi red_dimmed)\(exit ($result.exit_code)\)(ansi reset)"
     }
 
-    if ($result.stdout | str trim | is-not-empty) {
-        print $result.stdout
+    if $verbose or $result.exit_code != 0 {
+      if ($result.stdout | str trim | is-not-empty) {
+          print $result.stdout
+      }
+      if ($result.stderr | str trim | is-not-empty) {
+          print -e $result.stderr
+      }
     }
-    if ($result.stderr | str trim | is-not-empty) {
-        print -e $result.stderr
-    }
+
 
     if $return {
         $result
