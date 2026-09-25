@@ -1,7 +1,7 @@
 [bar.default]
 center = [ "clock", "weather" ]
 end = [ "sysmon", "media", "tray", "notifications", "volume", "control-center", "session" ]
-font_family = "TX\\-02"
+font_family = "TX-02"
 font_weight = 600
 margin_ends = 50
 
@@ -66,7 +66,7 @@ widget_order = [ "lockscreen-login-box@DP-2" ]
 enabled = true
 
 [shell]
-font_family = "TX\\-02"
+font_family = "TX-02"
 password_style = "random"
 
     [shell.animation]
