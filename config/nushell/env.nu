@@ -53,7 +53,26 @@ if (which zoxide | is-not-empty) {
 }
 
 if (which jj | is-not-empty) {
-    jj util completion nushell | save -f ~/.cache/jj/completions.nu
+    let bookmark_completer = r#'
+  def "nu-complete jj bookmarks" [] {
+    ^jj --ignore-working-copy bookmark list --template 'name ++ "\n"' | lines
+  }
+
+'#
+    let bookmark_args = [
+        '...names: string          # Move bookmarks matching the given name patterns'
+        '...names: string          # The bookmarks to delete'
+        '...names: string          # The bookmarks to forget'
+        '...names: string          # Show bookmarks whose local name matches'
+        'old: string               # The old name of the bookmark'
+        '...names: string          # The bookmarks to update'
+        '--bookmark(-b): string    # Push only this bookmark, or bookmarks matching a pattern (can be repeated)'
+    ]
+    mut completions = (jj util completion nushell | str replace 'module completions {' ('module completions {' + $bookmark_completer))
+    for arg in $bookmark_args {
+        $completions = ($completions | str replace --all $arg ($arg | str replace ': string' ': string@"nu-complete jj bookmarks"'))
+    }
+    $completions | save -f ~/.cache/jj/completions.nu
 } else {
     "# jj not installed" | save -f ~/.cache/jj/completions.nu
 }
