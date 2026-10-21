@@ -106,37 +106,50 @@ if f then
   re_env.REX_BIN_DIR = mac_rex
 end
 
+local function run_re(ctx, args)
+  local argv = { home .. "/bin/re", "-C", cwd(ctx.block_id) }
+  for _, arg in ipairs(args) do
+    table.insert(argv, arg)
+  end
+  local env = { REX_SESSION = ctx.session_id, REX_BLOCK = ctx.block_id }
+  for k, v in pairs(re_env) do
+    env[k] = v
+  end
+  local _, err = rex.exec.start(argv, {
+    env = env,
+    detach = true,
+    stdout = false,
+    stderr = function(out)
+      rex.log("error", "re: " .. out)
+    end,
+  })
+  if err then
+    rex.log("error", "re: " .. err)
+  end
+end
+
 rex.action({
   name = "re",
   title = "re",
   description = "Run re in the focused pane's directory, with these arguments.",
   args = { args = "array?" },
   run = function(ctx, a)
-    local argv = { home .. "/bin/re", "-C", cwd(ctx.block_id) }
-    for _, arg in ipairs(a.args or {}) do
-      table.insert(argv, arg)
-    end
-    local env = { REX_SESSION = ctx.session_id, REX_BLOCK = ctx.block_id }
-    for k, v in pairs(re_env) do
-      env[k] = v
-    end
-    local _, err = rex.exec.start(argv, {
-      env = env,
-      detach = true,
-      stdout = false,
-      stderr = function(out)
-        rex.log("error", "re: " .. out)
-      end,
-    })
-    if err then
-      rex.log("error", "re: " .. err)
-    end
+    run_re(ctx, a.args or {})
   end,
 })
 
-for key, n in pairs({ n = "1", m = "2", [","] = "3", ["."] = "4" }) do
-  rex.bind("ctrl+space>" .. key, "re", { args = { n } })
+-- Bound as functions rather than by action name: a client connected to this
+-- server remotely doesn't resolve a named action that only init.lua defines.
+local function bind_re(key, args)
+  rex.bind(key, function(ctx)
+    run_re(ctx, args)
+    return true
+  end)
 end
-rex.bind("ctrl+space>space", "re") -- the picker
-rex.bind("ctrl+space>ctrl+space", "re")
-rex.bind("ctrl+d", "re", { args = { "edit" } })
+
+for key, n in pairs({ n = "1", m = "2", [","] = "3", ["."] = "4" }) do
+  bind_re("ctrl+space>" .. key, { n })
+end
+bind_re("ctrl+space>space", {}) -- the picker
+bind_re("ctrl+space>ctrl+space", {})
+bind_re("ctrl+d", { "edit" })
