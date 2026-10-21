@@ -25,7 +25,7 @@
   ],
   "custom/lock": {
       "format": "  ",
-      "on-click": "swaylock",
+      "on-click": "noctalia msg session lock || swaylock --no-unlock-indicator --fade-in 0 --color 0a0d10",
       "tooltip": true,
       "tooltip-format": "Lock"
   },
