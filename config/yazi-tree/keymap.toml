@@ -1,0 +1,7 @@
+# <Enter> opens in the mxvim window you were last in (yazi.toml);
+# <C-Enter> opens in a new pane split off it.
+
+[[mgr.prepend_keymap]]
+on = "<C-Enter>"
+run = "shell -- mxvim --open --split %s"
+desc = "Open in a new mxvim"
