@@ -1,0 +1,24 @@
+# yazi as a file tree pane: the multiplexer's toggle (~/.config/rex/init.lua,
+# ~/.tmux.conf) starts it with YAZI_CONFIG_HOME pointing here. Opening a file
+# sends it to the session's mxvim, to the window you were last in,
+# instead of starting an editor in this pane, or with <C-Enter> to a new
+# pane next to it (keymap.toml). Without one, pick $EDITOR with `O`.
+
+[mgr]
+# Current folder only: no parent column, no preview.
+ratio = [0, 1, 0]
+
+[opener]
+edit = [
+	{ run = "mxvim --open %s", desc = "Open in mxvim", for = "unix" },
+	{ run = "${EDITOR:-vi} %s", desc = "$EDITOR", for = "unix", block = true },
+]
+enter = [
+	{ run = "ya emit enter", desc = "Enter", for = "unix" },
+]
+
+[open]
+prepend_rules = [
+	# <Enter> on a folder goes into it, like a file tree.
+	{ url = "*/", use = "enter" },
+]

@@ -1,6 +1,14 @@
 # === Shell settings ===
 $env.config.show_banner = false
 
+
+# === Platform-specific ===
+if $nu.os-info.name == "linux" {
+    source linux.nu
+} else if $nu.os-info.name == "macos" {
+    source macos.nu
+}
+
 # === Direnv hook ===
 use std/config *
 
@@ -50,13 +58,6 @@ $env.config.menus ++= [{
 source aliases.nu
 source functions.nu
 source keybinds.nu
-
-# === Platform-specific ===
-if $nu.os-info.name == "linux" {
-    source linux.nu
-} else if $nu.os-info.name == "macos" {
-    source macos.nu
-}
 
 # === Tool integrations ===
 source ~/.cache/starship/init.nu
